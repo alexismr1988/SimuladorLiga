@@ -122,7 +122,7 @@ public class Liga {
                 Equipo visitante = equiposOriginal.get(numEquipos - 1 - i);
 
                 if (!local.getNombre().equals("DESCANSA") && !visitante.getNombre().equals("DESCANSA")) {
-                    partidosJornada.add(new Partido(local, visitante, 0, 0, null));
+                    partidosJornada.add(new Partido(local, visitante, 0, 0));
                 }
             }
             calendarioGenerado.add(partidosJornada);
@@ -145,8 +145,7 @@ public class Liga {
                     partidoIda.getEquipoVisitante(),
                     partidoIda.getEquipoLocal(),
                     0,
-                    0,
-                    null
+                    0
                 ));
             }
             calendarioGenerado.add(jornadaVuelta);
@@ -155,4 +154,25 @@ public class Liga {
         this.calendario = calendarioGenerado; // Guardamos jornadas completas
         this.partidos = calendarioGenerado.stream().flatMap(List::stream).toList(); // Todos los partidos juntos
     }
+    public void reiniciarEstadisticas(){
+        for (Equipo equipo : equipos) {
+            equipo.setPuntos(0);
+            equipo.setGolesContra(0);
+            equipo.setGolesFavor(0);
+        }
+    }
+    
+    public void actualizarClasificacionDesdeResultados() {
+        // Reiniciar estadísticas
+        this.reiniciarEstadisticas();
+
+        for (Partido partido : partidos) {
+            if (partido.isSimulado()) {
+                partido.actualizarPuntos(); // Ya suma goles y puntos internamente
+            }
+        }
+
+        this.calcularClasificacion(); // Ordenar la tabla
+    }
+
 }

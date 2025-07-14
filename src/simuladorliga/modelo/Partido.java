@@ -11,19 +11,17 @@ public class Partido {
     private Equipo equipoVisitante;
     private int golesLocal;
     private int golesVisitante;
-    private LocalDate fecha;
     private boolean simulado;
     
     private Partido(){
         
     }
 
-    public Partido(Equipo equipoLocal, Equipo equipoVisitante, int golesLocal, int golesVisitante, LocalDate fecha) {
+    public Partido(Equipo equipoLocal, Equipo equipoVisitante, int golesLocal, int golesVisitante) {
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.golesLocal = golesLocal;
         this.golesVisitante = golesVisitante;
-        this.fecha = fecha;
         simulado=false;
     }
     
@@ -72,14 +70,6 @@ public class Partido {
 
     public void setGolesVisitante(int golesVisitante) {
         this.golesVisitante = golesVisitante;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public boolean isSimulado() {

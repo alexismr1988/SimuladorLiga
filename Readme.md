@@ -1,4 +1,4 @@
-# Simulador de Liga (v0.1)
+# Simulador de Liga (v0.2)
 
 Este proyecto es una simulación básica de una liga de fútbol en consola. Permite:
 
@@ -8,6 +8,9 @@ Este proyecto es una simulación básica de una liga de fútbol en consola. Perm
 - Simular jornadas y partidos
 - Calcular estadísticas de la liga (goles, puntos, diferencia de goles)
 - Generar una clasificación final
+- Exportar los resultados a fichero
+- Cargar resultados desde fichero
+- Calcular y actualizar clasificación automáticamente desde los resultados
 
 ## Tecnologías utilizadas
 
@@ -19,19 +22,22 @@ Este proyecto es una simulación básica de una liga de fútbol en consola. Perm
 
 - `modelo/` — Clases principales: `Equipo`, `Jugador`, `Partido`, `Alineacion`, `Liga`, `Posicion`, etc.
 - `servicio/` — Lógica de simulación (clase `Simulador`)
+- `persistencia/` — Lectura y escritura de datos en ficheros
 - `Main.java` — Punto de entrada que ejecuta la aplicación
 
 ## Próximas funcionalidades
 
-- [ ] Interfaz gráfica (GUI)
 - [ ] Registro de goleadores por partido
-- [ ] Persistencia de datos (ficheros o base de datos)
+- [ ] Clase `Entrenador` y presupuesto por equipo
+- [ ] Persistencia extendida (guardar toda la liga)
+- [ ] Interfaz gráfica (GUI)
 - [ ] Exportación de estadísticas a formato CSV/JSON
 
 ## Estado del proyecto
 
-🟢 Versión **0.1** — Primera versión funcional en consola. Sin persistencia ni interfaz.
+🟢 Versión **0.2** — Añadida persistencia de resultados, cálculo automático de estadísticas, y estructura modular de clases.
 
 ## Autor
 
 Alexis M. — [GitHub](https://github.com/alexismr1988)
+
