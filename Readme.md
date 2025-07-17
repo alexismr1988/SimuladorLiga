@@ -1,43 +1,48 @@
-# Simulador de Liga (v0.2)
+# Simulador de Liga (v0.3.0)
 
-Este proyecto es una simulación básica de una liga de fútbol en consola. Permite:
+Este proyecto es una simulación realista de una liga de fútbol desde consola, orientado al aprendizaje de programación en Java mediante principios de programación orientada a objetos y modelado táctico.
 
-- Crear equipos con jugadores
-- Definir alineaciones válidas
-- Generar un calendario de partidos (ida y vuelta opcional)
-- Simular jornadas y partidos
-- Calcular estadísticas de la liga (goles, puntos, diferencia de goles)
-- Generar una clasificación final
-- Exportar los resultados a fichero
-- Cargar resultados desde fichero
-- Calcular y actualizar clasificación automáticamente desde los resultados
+## Funcionalidades principales
+
+- Creación de equipos con jugadores y entrenadores personalizados.
+- Implementación de la clase `Entrenador` con un atributo `EstiloEntrenador` (defensivo, ofensivo, posesión, contraataque).
+- Alineaciones válidas con restricciones realistas por línea (defensas, medios, delanteros).
+- Bonus o penalización en la simulación si el estilo del entrenador encaja o no con la táctica utilizada.
+- Asignación y gestión de presupuesto por equipo (`presupuesto` en la clase `Equipo`).
+- Generación de calendario (ida y vuelta opcional).
+- Simulación detallada de partidos con lógica avanzada:
+  - Cálculo de ocasiones y probabilidad de gol influido por:
+    - Calidad media por líneas (defensas, medios, delanteros).
+    - Formación táctica (ej. 433, 442, etc.).
+    - Estilo del entrenador y su compatibilidad con la táctica.
+    - Impacto del portero sobre la efectividad rival.
+- Clasificación automática y estadísticas acumuladas por equipo.
+- Exportación y carga de resultados desde fichero.
 
 ## Tecnologías utilizadas
 
-- Java 17 (nivel de fuente)
+- Java 17
 - NetBeans IDE
 - Programación orientada a objetos (POO)
 
 ## Estructura del proyecto
 
-- `modelo/` — Clases principales: `Equipo`, `Jugador`, `Partido`, `Alineacion`, `Liga`, `Posicion`, etc.
-- `servicio/` — Lógica de simulación (clase `Simulador`)
-- `persistencia/` — Lectura y escritura de datos en ficheros
-- `Main.java` — Punto de entrada que ejecuta la aplicación
+- `modelo/` — Clases principales: `Equipo`, `Jugador`, `Entrenador`, `EstiloEntrenador`, `Partido`, `Alineacion`, `Liga`, `Posicion`
+- `servicio/` — Lógica principal de simulación (`Simulador.java`)
+- `persistencia/` — Lectura/escritura de datos en fichero
+- `Main.java` — Entrada de ejecución para pruebas o demostración
 
 ## Próximas funcionalidades
 
-- [ ] Registro de goleadores por partido
-- [ ] Clase `Entrenador` y presupuesto por equipo
-- [ ] Persistencia extendida (guardar toda la liga)
-- [ ] Interfaz gráfica (GUI)
-- [ ] Exportación de estadísticas a formato CSV/JSON
+- Registro de goleadores y estadísticas individuales.
+- Persistencia completa del estado de la liga.
+- Interfaz gráfica (Swing o JavaFX).
+- Exportación a formatos CSV o JSON.
 
 ## Estado del proyecto
 
-🟢 Versión **0.2** — Añadida persistencia de resultados, cálculo automático de estadísticas, y estructura modular de clases.
+Versión 0.3.0 — Lógica de simulación avanzada, clases nuevas (`Entrenador`, `EstiloEntrenador`, presupuesto en `Equipo`), integración táctica y preparación para extensiones futuras.
 
 ## Autor
 
 Alexis M. — [GitHub](https://github.com/alexismr1988)
-

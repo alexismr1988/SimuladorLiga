@@ -174,5 +174,11 @@ public class Liga {
 
         this.calcularClasificacion(); // Ordenar la tabla
     }
+    
+    public void asignarPresupuestoinicial(double presupuesto){
+        for (Equipo equipo : equipos) {
+            equipo.setPresupuesto(presupuesto);
+        }
+    }
 
 }

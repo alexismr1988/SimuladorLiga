@@ -13,12 +13,24 @@ public class Equipo {
     private int golesFavor;
     private int golesContra;
     private Alineacion alineacion;
+    private Entrenador entrenador;
+    private double presupuesto;
 
     public Equipo(String nombre) {
         this.nombre = nombre;
         this.plantilla = new ArrayList<>();
         this.puntos = 0;
         this.alineacion=new Alineacion();
+        this.entrenador = null;
+        this.presupuesto=0;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
     }
     
     public void agregarJugador(Jugador jugador){
@@ -84,6 +96,14 @@ public class Equipo {
     public void setAlineacion(Alineacion alineacion) {
         this.alineacion = alineacion;
     }
+
+    public double getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(double presupuesto) {
+        this.presupuesto = presupuesto;
+    }
     
     @Override
     public String toString() {
@@ -94,4 +114,12 @@ public class Equipo {
         this.puntos += puntos;
     }
     
+    public void incrementarPresupuesto(double cantidad) {
+        this.presupuesto += cantidad;
+    }
+
+    public void reducirPresupuesto(double cantidad) {
+        this.presupuesto -= cantidad;
+    }
+  
 }

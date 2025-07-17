@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package simuladorliga.servicio;
 
 import java.util.ArrayList;
@@ -9,54 +5,121 @@ import java.util.List;
 import simuladorliga.modelo.*;
 
 /**
- *
+ * Lógica de simulación de partidos y jornadas.
+ * Utiliza medias de alineaciones, ventaja local y probabilidad de gol para generar resultados.
+ * 
  * @author PC
  */
 public class Simulador {
+
     private Liga liga;
-    
-    public Simulador(Liga liga){
-        this.liga=liga;
+
+
+    public Simulador(Liga liga) {
+        this.liga = liga;
     }
-    
+
     public void simularPartido(Partido partido) {
         Equipo local = partido.getEquipoLocal();
         Equipo visitante = partido.getEquipoVisitante();
+        double ventajaLocal = 1.10;      // 10% de ventaja para el equipo local
+        double ProbabilidadGolLocal = 0.18;   // Probabilidad de gol por ocasión
+        double ProbabilidadGolVisitante = 0.15;   // Probabilidad de gol por ocasión
+        int ocasionesLocal = 12; //Ocasiones totales del partido
+        int ocasionesVisitante = 12; //Ocasiones totales del partido
+        Entrenador entrenadorLocal = local.getEntrenador();
+        Entrenador entrenadorVisitante = visitante.getEntrenador();
+        String formacionLocal = local.getAlineacion().contarLineas();
+        String formacionVisitante = visitante.getAlineacion().contarLineas();
+        
+        //Calcular el número de posiciones de cada Alineación para aplicar probabilidades
+        if(local.getAlineacion().getDefensas()<4) ProbabilidadGolVisitante *= 1.15;
+        if(local.getAlineacion().getDefensas()>4) ProbabilidadGolVisitante *= 0.85;
+        if(local.getAlineacion().getMedios()==3) ocasionesLocal-=2;
+        if(local.getAlineacion().getMedios()==5) ocasionesLocal+=4;
+        if(local.getAlineacion().getMedios()==6) ocasionesLocal+=6;
+        if(local.getAlineacion().getDelanteros()==1) ProbabilidadGolLocal *= 0.85;
+        if(local.getAlineacion().getDelanteros()==3) ProbabilidadGolLocal *= 1.10;
+        
+        //Calcular el número de posiciones de cada Alineación para aplicar probabilidades
+        if(visitante.getAlineacion().getDefensas()<4) ProbabilidadGolLocal *= 1.15;
+        if(visitante.getAlineacion().getDefensas()>4) ProbabilidadGolLocal *= 0.85;
+        if(visitante.getAlineacion().getMedios()==3) ocasionesVisitante-=2;
+        if(visitante.getAlineacion().getMedios()==5) ocasionesVisitante+=4;
+        if(visitante.getAlineacion().getMedios()==6) ocasionesVisitante+=6;
+        if(visitante.getAlineacion().getDelanteros()==1) ProbabilidadGolLocal *= 0.85;
+        if(visitante.getAlineacion().getDelanteros()==3) ProbabilidadGolLocal *= 1.10;
 
-        double mediaLocal = local.getAlineacion().calcularMedia();
-        double mediaVisitante = visitante.getAlineacion().calcularMedia();
+        // Medias del equipo local
+        int mediaPorteroLocal = local.getAlineacion().mediaPorPosiciones(Posicion.PORTERO);
+        int mediaDefensasLocal = local.getAlineacion().mediaPorPosiciones(Posicion.DEFENSA, Posicion.LATERAL);
+        int mediaMediosLocal = local.getAlineacion().mediaPorPosiciones(Posicion.MCD, Posicion.MEDIOCENTRO, Posicion.MCO);
+        int mediaDelanterosLocal = local.getAlineacion().mediaPorPosiciones(Posicion.DC, Posicion.SD);
 
-        // Ventaja local
-        mediaLocal *= 1.10; // +10% por ser local
+        // Medias del equipo visitante
+        int mediaPorteroVisitante = visitante.getAlineacion().mediaPorPosiciones(Posicion.PORTERO);
+        int mediaDefensasVisitante = visitante.getAlineacion().mediaPorPosiciones(Posicion.DEFENSA, Posicion.LATERAL);
+        int mediaMediosVisitante = visitante.getAlineacion().mediaPorPosiciones(Posicion.MCD, Posicion.MEDIOCENTRO, Posicion.MCO);
+        int mediaDelanterosVisitante = visitante.getAlineacion().mediaPorPosiciones(Posicion.DC, Posicion.SD);
 
-        // Normalización
-        double totalMedias = mediaLocal + mediaVisitante;
-        double controlLocal = mediaLocal / totalMedias;
-        double controlVisitante = mediaVisitante / totalMedias;
 
-        // Generar número de ocasiones totales por partido
-        int totalOcasiones = 12; 
-        int ocasionesLocal = (int) Math.round(controlLocal * totalOcasiones);
-        int ocasionesVisitante = totalOcasiones - ocasionesLocal;
+        // Reducir/Aumentar parámetros en base a la media
+        double reduccionLocal = (mediaPorteroLocal / 100.0) * 0.05 + 0.03;
+        int penalizacionOcasionesVisitante = mediaDefensasLocal / 20;  // cada 15 puntos, -1 ocasión
+        int incrementoOcasionesLocal = mediaMediosLocal /20; // cada 15 puntos, -1 ocasión
+        double porcentajeExtraGolLocal = (mediaDelanterosLocal / 100.0) * 0.09 + 0.01;
+        
+        double reduccionVisitante = (mediaPorteroVisitante / 100.0) * 0.05 + 0.03;
+        int penalizacionOcasionesLocal = mediaDefensasVisitante/ 20;  // cada 15 puntos, -1 ocasión
+        int incrementoOcasionesVisitante = mediaMediosVisitante/20; // cada 15 puntos, -1 ocasión
+        double porcentajeExtraGolVisitante = (mediaDelanterosVisitante / 100.0) * 0.09 + 0.01;
+        
+        ProbabilidadGolVisitante *= 1 - reduccionLocal;
+        ocasionesVisitante -= penalizacionOcasionesVisitante;
+        ocasionesLocal += incrementoOcasionesLocal;
+        ProbabilidadGolLocal *= 1 + porcentajeExtraGolLocal;
+        
+        ProbabilidadGolLocal *= 1 - reduccionVisitante;
+        ocasionesLocal -= penalizacionOcasionesLocal;
+        ocasionesVisitante += incrementoOcasionesVisitante;
+        ProbabilidadGolVisitante *= 1 + porcentajeExtraGolVisitante;
+        
+        // Bonus por estilo y táctica del entrenador local
+        EstiloEntrenador estiloLocal = entrenadorLocal.getEstilo();
+        if (estiloLocal.esCompatible(formacionLocal)) {
+            switch (estiloLocal) {
+                case DEFENSIVO -> ProbabilidadGolVisitante *= 0.95;
+                case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolLocal *= 1.05;
+            }
+        }
 
-        // Probabilidad de que una ocasión acabe en gol
-        double probGol = 0.25;
-
+        // Bonus por estilo y táctica del entrenador visitante
+        EstiloEntrenador estiloVisitante = entrenadorVisitante.getEstilo();
+        if (estiloVisitante.esCompatible(formacionVisitante)) {
+            switch (estiloVisitante) {
+                case DEFENSIVO -> ProbabilidadGolLocal *= 0.95;
+                case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolVisitante *= 1.05;
+            }
+        }
+        
+        // Simular goles
         int golesLocal = 0;
         for (int i = 0; i < ocasionesLocal; i++) {
-            if (Math.random() < probGol) golesLocal++;
+            if (Math.random() < ProbabilidadGolLocal) golesLocal++;
         }
 
         int golesVisitante = 0;
         for (int i = 0; i < ocasionesVisitante; i++) {
-            if (Math.random() < probGol) golesVisitante++;
+            if (Math.random() < ProbabilidadGolVisitante) golesVisitante++;
         }
 
+        // Registrar resultado en el partido
         partido.setGolesLocal(golesLocal);
         partido.setGolesVisitante(golesVisitante);
         partido.setSimulado(true);
+
+        // Actualizar estadísticas de los equipos involucrados
         partido.actualizarPuntos();
-                
     }
 
     public String simularJornada(int numeroJornada) {
@@ -69,15 +132,14 @@ public class Simulador {
 
         List<Partido> partidos = new ArrayList<>(liga.getCalendario().get(jornada));
 
-        // Cabecera alineada
         resultadoJornada.append(String.format("%-15s %2s   %-15s %2s\n", "LOCAL", "", "VISITANTE", ""));
 
         for (Partido partido : partidos) {
             if (!partido.isSimulado()) {
                 simularPartido(partido);
                 resultadoJornada.append(String.format("%-15s %2d - %-15s %2d\n",
-                    partido.getEquipoLocal().getNombre(), partido.getGolesLocal(),
-                    partido.getEquipoVisitante().getNombre(), partido.getGolesVisitante()));
+                        partido.getEquipoLocal().getNombre(), partido.getGolesLocal(),
+                        partido.getEquipoVisitante().getNombre(), partido.getGolesVisitante()));
             } else {
                 System.out.println("El partido ya fue simulado.");
             }
@@ -85,5 +147,4 @@ public class Simulador {
 
         return resultadoJornada.toString();
     }
-
 }
