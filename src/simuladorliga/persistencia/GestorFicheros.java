@@ -3,8 +3,13 @@ package simuladorliga.persistencia;
 import java.io.*;
 import java.util.*;
 import simuladorliga.modelo.*;
+import com.opencsv.CSVReader;
+
 
 public class GestorFicheros {
+    
+    public static final String RUTA_PLANTILLAS_CSV = "plantillas/plantillas2025.csv";
+
 
     public static void guardarEquipos(List<Equipo> equipos, String nombreLiga) {
         File f = new File("ligas/" + nombreLiga + "/plantillas.txt");
@@ -185,4 +190,45 @@ public class GestorFicheros {
             System.out.println("Error al cargar resultados: " + e.getMessage());
         }
     }
+    
+    public List<Equipo> importarEquiposDesdeCSV() {
+        List<Equipo> equipos = new ArrayList<>();
+        Map<String, Equipo> mapaEquipos = new HashMap<>();
+        try (CSVReader reader = new CSVReader(new FileReader(RUTA_PLANTILLAS_CSV))) {
+            String[] linea;
+            reader.readNext(); // Saltar cabecera
+            while ((linea = reader.readNext()) != null) {
+                String nombreEquipo = linea[0];
+                double presupuesto = Double.parseDouble(linea[1]);
+                String nombreEntrenador = linea[2];
+                String estiloStr = linea[3];
+                String nombreJugador = linea[4];
+                int dorsal = Integer.parseInt(linea[5]);
+                String posicionStr = linea[6];
+                int media = Integer.parseInt(linea[7]);
+
+                // Convertir enums
+                EstiloEntrenador estilo = EstiloEntrenador.valueOf(estiloStr.toUpperCase());
+                Posicion posicion = Posicion.valueOf(posicionStr.toUpperCase());
+
+                // Si el equipo no existe, lo creas y lo metes en el mapa
+                Equipo equipo = mapaEquipos.get(nombreEquipo);
+                if (equipo == null) {
+                    equipo = new Equipo(nombreEquipo);
+                    equipo.setPresupuesto(presupuesto);
+                    equipo.setEntrenador(new Entrenador(nombreEntrenador, estilo));
+                    mapaEquipos.put(nombreEquipo, equipo);
+                }
+
+                // Crear el jugador y añadirlo a la plantilla del equipo
+                Jugador jugador = new Jugador(nombreJugador, dorsal, posicion, media);
+                equipo.agregarJugador(jugador); // Método correcto según tu clase
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        equipos.addAll(mapaEquipos.values());
+        return equipos;
+    }
+   
 }

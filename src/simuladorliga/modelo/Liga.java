@@ -20,7 +20,6 @@ public class Liga {
         this.equipos = new ArrayList<>();
         this.partidos = new ArrayList<>();
         this.calendario = new ArrayList<>();
-        crearRuta();
     }
 
     public String getNombre() {
