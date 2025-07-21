@@ -121,5 +121,69 @@ public class Equipo {
     public void reducirPresupuesto(double cantidad) {
         this.presupuesto -= cantidad;
     }
-  
+    
+    public Alineacion generarAlineacionAuto() {
+        int[] formacion = new int[3];
+        boolean esValida = false;
+
+        // Paso 1: Generar formación aleatoria válida
+        while (!esValida) {
+            int defensas = valorAleatorio(3, 5);
+            int medios = valorAleatorio(3, 6);
+            int delanteros = valorAleatorio(1, 3);
+
+            if (defensas + medios + delanteros <= 10) { // +1 portero = 11
+                formacion[0] = defensas;
+                formacion[1] = medios;
+                formacion[2] = delanteros;
+                esValida = true;
+            }
+        }
+
+        int numDefensas = formacion[0];
+        int numMedios = formacion[1];
+        int numDelanteros = formacion[2];
+
+        // Paso 2: Ordenar plantilla por media de mayor a menor
+        List<Jugador> plantilla = this.getPlantilla();
+        Collections.sort(plantilla, new Comparator<Jugador>() {
+            @Override
+            public int compare(Jugador j1, Jugador j2) {
+                return Integer.compare(j2.getMedia(), j1.getMedia());
+            }
+        });
+
+        // Paso 3: Seleccionar mejores jugadores por posición
+        List<Jugador> porteros = new ArrayList<>();
+        List<Jugador> defensas = new ArrayList<>();
+        List<Jugador> medios = new ArrayList<>();
+        List<Jugador> delanteros = new ArrayList<>();
+
+        for (Jugador j : plantilla) {
+            if (j.getPosicion() == Posicion.PORTERO && porteros.size() < 1) {
+                porteros.add(j);
+            } else if ((j.getPosicion() == Posicion.DEFENSA || j.getPosicion() == Posicion.LATERAL) && defensas.size() < numDefensas) {
+                defensas.add(j);
+            } else if ((j.getPosicion() == Posicion.MEDIOCENTRO || j.getPosicion() == Posicion.MCO || j.getPosicion() == Posicion.MCD) && medios.size() < numMedios) {
+                medios.add(j);
+            } else if ((j.getPosicion() == Posicion.DC || j.getPosicion() == Posicion.SD) && delanteros.size() < numDelanteros) {
+                delanteros.add(j);
+            }
+        }
+
+        // Añadir uno a uno con agregarJugador()
+        for (Jugador j : porteros) alineacion.agregarJugador(j);
+        for (Jugador j : defensas) alineacion.agregarJugador(j);
+        for (Jugador j : medios) alineacion.agregarJugador(j);
+        for (Jugador j : delanteros) alineacion.agregarJugador(j);
+
+        return alineacion;
+    }
+
+    
+    //Método auxiliar usado en generar alineaciones automáticas
+    public int valorAleatorio(int min, int max) {
+        return (int)(Math.random() * (max - min + 1)) + min;
+    }
+ 
 }

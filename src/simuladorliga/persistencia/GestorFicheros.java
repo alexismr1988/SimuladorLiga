@@ -5,14 +5,9 @@ import java.util.*;
 import simuladorliga.modelo.*;
 
 public class GestorFicheros {
-    public static final String ARCHIVO_PLANTILLAS = "plantillas.txt";
-    public static final String ARCHIVO_CLASIFICACION = "clasificacion.txt";
-    public static final String ARCHIVO_RESULTADOS = "resultados.txt";
-    
 
-
-    public static void guardarEquipos(List<Equipo> equipos) {
-        File f = new File(ARCHIVO_PLANTILLAS);
+    public static void guardarEquipos(List<Equipo> equipos, String nombreLiga) {
+        File f = new File("ligas/" + nombreLiga + "/plantillas.txt");
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
             for (Equipo equipo : equipos) {
@@ -31,9 +26,9 @@ public class GestorFicheros {
         }
     }
 
-    public static List<Equipo> cargarEquipos() {
+    public static List<Equipo> cargarEquipos(String nombreLiga) {
         List<Equipo> equipos = new ArrayList<>();
-        File f = new File(ARCHIVO_PLANTILLAS);
+        File f = new File("ligas/" + nombreLiga + "/plantillas.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String linea;
@@ -82,11 +77,11 @@ public class GestorFicheros {
 
         return equipos;
     }
-    
-    public static void guardarClasificacion(List<Equipo> equipos) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_CLASIFICACION))) {
 
-            // Calcula la clasificación antes de guardar
+    public static void guardarClasificacion(List<Equipo> equipos, String nombreLiga) {
+        File f = new File("ligas/" + nombreLiga + "/clasificacion.txt");
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
             equipos.sort(Comparator.comparingInt(Equipo::getPuntos).reversed());
 
             int posicion = 1;
@@ -108,9 +103,10 @@ public class GestorFicheros {
             System.out.println("Error al guardar la clasificación: " + e.getMessage());
         }
     }
-    
+
     public static void guardarResultados(Liga liga) {
-        File f = new File(ARCHIVO_RESULTADOS);
+        String nombreLiga = liga.getNombre();
+        File f = new File("ligas/" + nombreLiga + "/resultados.txt");
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
             bw.write("Jornada|EquipoLocal|GolesLocal|EquipoVisitante|GolesVisitante");
@@ -123,7 +119,6 @@ public class GestorFicheros {
 
                 for (Partido partido : jornada) {
                     if (partido.isSimulado()) {
-                        // Escribimos encabezado de la jornada una sola vez si hay partidos simulados
                         if (!jornadaTienePartidos) {
                             bw.write("Jornada " + numeroJornada);
                             bw.newLine();
@@ -139,7 +134,7 @@ public class GestorFicheros {
                 }
 
                 if (jornadaTienePartidos) {
-                    bw.newLine(); // Separador visual entre jornadas
+                    bw.newLine();
                 }
 
                 numeroJornada++;
@@ -148,22 +143,21 @@ public class GestorFicheros {
             System.out.println("Error intentando exportar los datos: " + ex.getMessage());
         }
     }
-    
+
     public static void cargarResultados(Liga liga) {
-        File f = new File(ARCHIVO_RESULTADOS);
+        String nombreLiga = liga.getNombre();
+        File f = new File("ligas/" + nombreLiga + "/resultados.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String linea;
             int jornadaActual = -1;
 
-            // Saltamos la cabecera
             linea = br.readLine();
 
             while ((linea = br.readLine()) != null) {
                 if (linea.startsWith("Jornada")) {
-                    // Nueva jornada
                     String[] partes = linea.split(" ");
-                    jornadaActual = Integer.parseInt(partes[1]) - 1; // índice base 0
+                    jornadaActual = Integer.parseInt(partes[1]) - 1;
                 } else if (!linea.trim().isEmpty() && jornadaActual >= 0) {
                     String[] datos = linea.split("\\|");
                     if (datos.length == 4) {
@@ -172,7 +166,6 @@ public class GestorFicheros {
                         String nombreVisitante = datos[2];
                         int golesVisitante = Integer.parseInt(datos[3]);
 
-                        // Buscar el partido en el calendario
                         List<Partido> jornada = liga.getCalendario().get(jornadaActual);
                         for (Partido p : jornada) {
                             if (p.getEquipoLocal().getNombre().equals(nombreLocal) &&
@@ -186,12 +179,10 @@ public class GestorFicheros {
                     }
                 }
             }
-            //Actualizo la clasificación tras importar resultados
             liga.actualizarClasificacionDesdeResultados();
-            
+
         } catch (IOException | NumberFormatException e) {
             System.out.println("Error al cargar resultados: " + e.getMessage());
         }
     }
-
 }

@@ -12,7 +12,7 @@ public class Jugador {
     private Posicion posicion;
     private int media;
 
-    public Jugador(String nombre, int dorsal, Posicion posicion, int media) {
+    public Jugador(String nombre,int dorsal, Posicion posicion, int media) {
         this.nombre = nombre;
         this.dorsal = dorsal;
         this.posicion = posicion;

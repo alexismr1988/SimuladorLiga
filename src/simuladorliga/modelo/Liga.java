@@ -1,5 +1,6 @@
 package simuladorliga.modelo;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -11,16 +12,15 @@ public class Liga {
     private List<Equipo> equipos;
     private List<Partido> partidos;
     private List<List<Partido>> calendario; // NUEVO
-    private int jornadas;
     private boolean ida_vuelta;
 
-    public Liga(String nombre, int jornadas, boolean ida_vuelta) {
+    public Liga(String nombre, boolean ida_vuelta) {
         this.nombre = nombre;
-        this.jornadas = jornadas;
         this.ida_vuelta = ida_vuelta;
         this.equipos = new ArrayList<>();
         this.partidos = new ArrayList<>();
         this.calendario = new ArrayList<>();
+        crearRuta();
     }
 
     public String getNombre() {
@@ -48,11 +48,9 @@ public class Liga {
     }
 
     public int getJornadas() {
-        return jornadas;
-    }
-
-    public void setJornadas(int jornadas) {
-        this.jornadas = jornadas;
+        int equipos = this.equipos.size(); 
+        if (equipos < 2) return 0; // no hay liga si solo hay 1 equipo
+        return ida_vuelta ? (equipos - 1) * 2 : (equipos - 1);
     }
 
     public boolean isIda_vuelta() {
@@ -122,7 +120,7 @@ public class Liga {
                 Equipo visitante = equiposOriginal.get(numEquipos - 1 - i);
 
                 if (!local.getNombre().equals("DESCANSA") && !visitante.getNombre().equals("DESCANSA")) {
-                    partidosJornada.add(new Partido(local, visitante, 0, 0));
+                    partidosJornada.add(new Partido(local, visitante, 0, 0, jornada +1));
                 }
             }
             calendarioGenerado.add(partidosJornada);
@@ -145,7 +143,8 @@ public class Liga {
                     partidoIda.getEquipoVisitante(),
                     partidoIda.getEquipoLocal(),
                     0,
-                    0
+                    0,
+                    numJornadas + j + 1
                 ));
             }
             calendarioGenerado.add(jornadaVuelta);
@@ -178,6 +177,25 @@ public class Liga {
     public void asignarPresupuestoinicial(double presupuesto){
         for (Equipo equipo : equipos) {
             equipo.setPresupuesto(presupuesto);
+        }
+    }
+    
+    public void crearRuta() {
+        // Crear carpeta base si no existe
+        File base = new File("ligas");
+        if (!base.exists()) {
+            base.mkdir();
+        }
+
+        // Ruta principal de la liga
+        String rutaCarpeta = "ligas/" + this.getNombre();
+        File carpetaLiga = new File(rutaCarpeta);
+
+        if (carpetaLiga.mkdirs()) {
+
+            System.out.println("Carpetas creadas correctamente en: " + carpetaLiga.getAbsolutePath());
+        } else {
+            System.out.println("No se pudo crear la carpeta o ya existe.");
         }
     }
 

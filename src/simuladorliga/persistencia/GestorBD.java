@@ -1,0 +1,571 @@
+package simuladorliga.persistencia;
+
+import java.sql.*;
+import java.util.*;
+import simuladorliga.modelo.*;
+
+
+public class GestorBD {
+    private static final String SERVIDOR = "localhost";
+    private static final String PUERTO = "3306";
+    private static final String NOMBRE_BD = "SimuladorLigas";
+    private static final String USUARIO = "root";
+    private static final String PASSWORD = "";
+    
+    public static final String URL_CONEXION="jdbc:mariadb://" + SERVIDOR + ":" + PUERTO + "/" + NOMBRE_BD + "?user=" + USUARIO + "&password=" + PASSWORD;
+    
+    //método estático establecer y devolver la conexión con la base de datos "SimuladorLigas"
+    public static Connection conectar() throws SQLException {
+        return DriverManager.getConnection(URL_CONEXION);
+    }
+    
+    public GestorBD() {
+        
+    }
+    
+    public void inicializaBD() {
+        String tablaLiga="CREATE TABLE IF NOT EXISTS LIGA (id_liga INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, ida_vuelta BOOLEAN NOT NULL);";
+        String tablaEntrenador = "CREATE TABLE IF NOT EXISTS ENTRENADOR (id_entrenador INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, estilo VARCHAR(50) NOT NULL);";
+        String tablaEquipo="CREATE TABLE IF NOT EXISTS EQUIPO (id_equipo INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, id_liga INT NOT NULL, presupuesto DECIMAL(12,2) DEFAULT 0,"+
+                "id_entrenador INT,  FOREIGN KEY (id_liga) REFERENCES LIGA(id_liga) ON DELETE CASCADE, FOREIGN KEY (id_entrenador) REFERENCES ENTRENADOR(id_entrenador) ON DELETE SET NULL);";
+        String tablaJugador="CREATE TABLE IF NOT EXISTS JUGADOR (id_jugador INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, dorsal INT NOT NULL, posicion VARCHAR(20) NOT NULL, "+
+            "media INT NOT NULL, id_equipo INT NOT NULL, FOREIGN KEY (id_equipo) REFERENCES EQUIPO(id_equipo) ON DELETE CASCADE);";
+        String tablaPartido="CREATE TABLE IF NOT EXISTS PARTIDO (id_partido INT AUTO_INCREMENT PRIMARY KEY, id_liga INT NOT NULL, jornada INT NOT NULL, id_equipo_local INT NOT NULL, id_equipo_visitante INT NOT NULL,"+
+                "goles_local INT DEFAULT 0, goles_visitante INT DEFAULT 0, simulado BOOLEAN DEFAULT FALSE, FOREIGN KEY (id_liga) REFERENCES LIGA(id_liga) ON DELETE CASCADE,"+
+                "FOREIGN KEY (id_equipo_local) REFERENCES EQUIPO(id_equipo) ON DELETE CASCADE, FOREIGN KEY (id_equipo_visitante) REFERENCES EQUIPO(id_equipo) ON DELETE CASCADE);";
+        
+        
+        try(Connection conn = GestorBD.conectar(); Statement miSt=conn.createStatement()){
+            
+            // Ejecuta SIEMPRE los CREATE TABLE IF NOT EXISTS (son inofensivos si ya existen)
+            miSt.executeUpdate(tablaLiga);
+            miSt.executeUpdate(tablaEntrenador);
+            miSt.executeUpdate(tablaEquipo);
+            miSt.executeUpdate(tablaJugador);
+            miSt.executeUpdate(tablaPartido);
+                   
+        } catch(SQLException e){
+            System.err.println("Error al inicializar la conexión con la base de datos");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarLiga(Liga liga) {
+        String nombre = liga.getNombre();
+        int jornadas = liga.getJornadas();
+        boolean ida_vuelta = liga.isIda_vuelta();
+        
+        String sql = "INSERT INTO LIGA (nombre, ida_vuelta ) VALUES (?, ?)";
+        
+        try(Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)){
+            
+            // Sustituye ? por el orden de los parámetros que pasamos en cada índice
+            ps.setString(1, nombre);
+            ps.setBoolean(2, ida_vuelta);
+            
+            // Ejecuta la sentencia. Devuelve el número de filas afectadas por el INSERT
+            int filas = ps.executeUpdate(); // Devuelve cuántas filas se añadieron
+            
+            if(filas > 0) {
+                System.out.println("La liga " + liga.getNombre() + " se añadió correctamente.");
+            } else {
+              System.out.println("No se pudo añadir la liga.");  
+            }
+            
+              
+        } catch(SQLException e){
+            System.err.println("Error al insertar la liga");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarEntrenador(Entrenador entrenador) {
+        String nombre = entrenador.getNombre();
+        String estilo = entrenador.getEstilo().name();
+        
+        String sql = "INSERT INTO ENTRENADOR (nombre, estilo ) VALUES (?, ?)";
+        
+        try(Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)){
+            
+            // Sustituye ? por el orden de los parámetros que pasamos en cada índice
+            ps.setString(1, nombre);
+            ps.setString(2, estilo);
+            
+            // Ejecuta la sentencia. Devuelve el número de filas afectadas por el INSERT
+            int filas = ps.executeUpdate(); // Devuelve cuántas filas se añadieron
+            
+            if(filas > 0) {
+                System.out.println("El entrenador " + entrenador.getNombre() + " se añadió correctamente.");
+            } else {
+              System.out.println("No se pudo añadir el entrenador.");  
+            }
+            
+              
+        } catch(SQLException e){
+            System.err.println("Error al insertar enternador");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador) {
+        String nombre = equipo.getNombre();
+        double presupuesto = equipo.getPresupuesto();
+
+        String sql = "INSERT INTO EQUIPO (nombre, id_liga, presupuesto, id_entrenador) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ps.setInt(2, idLiga);
+            ps.setDouble(3, presupuesto);
+            if (idEntrenador != null) {
+                ps.setInt(4, idEntrenador);
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("El equipo " + equipo.getNombre() + " se añadió correctamente.");
+            } else {
+                System.out.println("No se pudo añadir el equipo.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al insertar equipo");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarJugador(Jugador jugador, int idEquipo) {
+        String nombre = jugador.getNombre();
+        int dorsal = jugador.getDorsal();
+        String posicion = jugador.getPosicion().name();
+        int media = jugador.getMedia();
+
+        String sql = "INSERT INTO JUGADOR (nombre, dorsal, posicion, media, id_equipo) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ps.setInt(2, dorsal);
+            ps.setString(3, posicion);
+            ps.setInt(4, media);
+            ps.setInt(5, idEquipo);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("El jugador " + jugador.getNombre() + " se añadió correctamente.");
+            } else {
+                System.out.println("No se pudo añadir el jugador.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al insertar jugador");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarPartido(Partido partido, int idLiga, int idEquipoLocal, int idEquipoVisitante) {
+        int jornada = partido.getJornada();
+        int golesLocal = partido.getGolesLocal();
+        int golesVisitante = partido.getGolesVisitante();
+        boolean simulado = partido.isSimulado();
+
+        String sql = "INSERT INTO PARTIDO (id_liga, jornada, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, simulado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            ps.setInt(2, jornada);
+            ps.setInt(3, idEquipoLocal);
+            ps.setInt(4, idEquipoVisitante);
+            ps.setInt(5, golesLocal);
+            ps.setInt(6, golesVisitante);
+            ps.setBoolean(7, simulado);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("El partido se añadió correctamente.");
+            } else {
+                System.out.println("No se pudo añadir el partido.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al insertar partido");
+            e.printStackTrace();
+        }
+    }
+    
+    public Integer obtenerIdLigaPorNombre(String nombre) {
+        String sql = "SELECT id_liga FROM LIGA WHERE nombre = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_liga");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda de la liga.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Integer obtenerIdEquipoPorNombre(String nombre) {
+        String sql = "SELECT id_equipo FROM EQUIPO WHERE nombre = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_equipo");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda del equipo.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Integer obtenerIdEntrenadorPorNombre(String nombre) {
+        String sql = "SELECT id_entrenador FROM ENTRENADOR WHERE nombre = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_entrenador");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda del entrenador.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Entrenador recuperarEntrenadorPorId(int idEntrenador){
+        String sql = "SELECT * FROM ENTRENADOR WHERE id_entrenador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEntrenador);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Entrenador entrenador = new Entrenador(rs.getString("nombre"), EstiloEntrenador.valueOf(rs.getString("estilo")));
+                return entrenador;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda del entrenador.");
+            e.printStackTrace();
+        }
+        return null;
+    }   
+    
+    public Equipo recuperarEquipoPorId(int idEquipo){
+        Equipo equipo=null;
+        String consultaEquipo = "SELECT * FROM EQUIPO WHERE id_equipo = ?";
+               
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(consultaEquipo)) {
+            ps.setInt(1, idEquipo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                List<Jugador> plantilla = new ArrayList<>();
+                Entrenador entrenador = null;
+                entrenador=recuperarEntrenadorPorId(rs.getInt("id_entrenador"));
+                plantilla = recuperarJugadoresPorEquipo(idEquipo);
+                equipo = new Equipo(rs.getString("nombre"));
+                equipo.setPresupuesto(rs.getDouble("presupuesto"));
+                equipo.setPlantilla(plantilla);
+                equipo.setEntrenador(entrenador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda del equipo.");
+            e.printStackTrace();
+        }
+       
+        return equipo;
+    }
+    
+    public List<Liga> muestraTodasLigas() {
+        List<Liga> ligas = new ArrayList<>();
+        String sentencia = "SELECT * FROM LIGA";
+        
+        try(Connection conn = GestorBD.conectar(); Statement miSt=conn.createStatement()){
+            
+            //Creo Resulset y ejecuto la sentencia
+            ResultSet miRs=miSt.executeQuery(sentencia);
+            
+            // LEER EL RESULTSET
+            while(miRs.next()){
+                Liga liga = new Liga(miRs.getString("nombre"), miRs.getBoolean("ida_vuelta"));
+                ligas.add(liga);
+            }
+                 
+        } catch(SQLException e){
+            System.err.println("Error al mostrar la tabla de las ligas.");
+            e.printStackTrace();
+        }
+        
+        return ligas;
+    }
+    
+    public List<Equipo> muestraTodosEquipos() {
+        List<Equipo> equipos = new ArrayList<>();
+        String sentencia = "SELECT * FROM EQUIPO";
+        
+        try(Connection conn = GestorBD.conectar(); Statement miSt=conn.createStatement()){
+            
+            ResultSet miRs=miSt.executeQuery(sentencia);
+            
+            while(miRs.next()){
+                Equipo equipo= new Equipo(miRs.getString("nombre"));
+                equipos.add(equipo);
+            }
+                 
+        } catch(SQLException e){
+            System.err.println("Error al mostrar la tabla de equipos.");
+            e.printStackTrace();
+        }
+        
+        return equipos;
+    }
+    
+    public List<Jugador> recuperarJugadoresPorEquipo(int idEquipo){
+        List<Jugador> plantilla = new ArrayList<>();
+        String sql = "SELECT * FROM JUGADOR WHERE id_equipo = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEquipo);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Jugador jugador = new Jugador(rs.getString("nombre"), rs.getInt("dorsal"), Posicion.valueOf(rs.getString("posicion")), rs.getInt("media"));
+                plantilla.add(jugador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda de los jugadores.");
+            e.printStackTrace();
+        }
+        return plantilla;
+    }
+    
+    public List<Entrenador> recuperarTodosEntrenadores(){
+        List<Entrenador> entrenadores = new ArrayList<>();
+        String sql = "SELECT * FROM ENTRENADOR";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Entrenador entrenador = new Entrenador(rs.getString("nombre"), EstiloEntrenador.valueOf(rs.getString("estilo")));
+                entrenadores.add(entrenador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda de los entrenadores.");
+            e.printStackTrace();
+        }
+        return entrenadores; 
+    }
+    
+    public List<Partido> recuperarPartidosPorLiga(int idLiga){
+        List<Partido> partidos = new ArrayList<>();
+        String consultaLiga = "SELECT * FROM PARTIDO WHERE id_liga = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(consultaLiga)) {
+            ps.setInt(1, idLiga);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Equipo equipoLocal = recuperarEquipoPorId(rs.getInt("id_equipo_local"));
+                Equipo equipoVisitante = recuperarEquipoPorId(rs.getInt("id_equipo_visitante"));
+                Partido partido = new Partido(equipoLocal, equipoVisitante, rs.getInt("goles_local"), rs.getInt("goles_visitante"), rs.getInt("jornada"));
+                partido.setSimulado(rs.getBoolean("simulado"));
+                partidos.add(partido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda de los partidos.");
+            e.printStackTrace();
+        }
+        return partidos; 
+    }
+    
+    // Actualiza LIGA (nombre)
+    public void updateLiga(int idLiga, String nuevoNombre) {
+        String sql = "UPDATE LIGA SET nombre = ? WHERE id_liga = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nuevoNombre);
+            ps.setInt(2, idLiga);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("La liga con id " + idLiga + " fue modificada correctamente");
+            } else {
+                System.out.println("No existe la liga indicada con id: " + idLiga);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación de la liga");
+            e.printStackTrace();
+        }
+    }
+
+    // Actualiza EQUIPO (nombre, presupuesto, entrenador, liga)
+    public void updateEquipo(int idEquipo, String nuevoNombre, double nuevoPresupuesto, Integer idEntrenador, int idLiga) {
+        String sql = "UPDATE EQUIPO SET nombre = ?, presupuesto = ?, id_entrenador = ?, id_liga = ? WHERE id_equipo = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nuevoNombre);
+            ps.setDouble(2, nuevoPresupuesto);
+            // Si el entrenador es null, ponemos NULL en la base de datos
+            if (idEntrenador != null) {
+                ps.setInt(3, idEntrenador);
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            ps.setInt(4, idLiga);
+            ps.setInt(5, idEquipo);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El equipo con id " + idEquipo + " fue modificado correctamente");
+            } else {
+                System.out.println("No existe ningún equipo con id: " + idEquipo);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación del equipo");
+            e.printStackTrace();
+        }
+    }
+
+    // Actualiza ENTRENADOR (nombre y estilo)
+    public void updateEntrenador(int idEntrenador, String nuevoNombre, String nuevoEstilo) {
+        String sql = "UPDATE ENTRENADOR SET nombre = ?, estilo = ? WHERE id_entrenador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nuevoNombre);
+            ps.setString(2, nuevoEstilo);
+            ps.setInt(3, idEntrenador);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El entrenador con id " + idEntrenador + " fue modificado correctamente");
+            } else {
+                System.out.println("No existe ningún entrenador con id: " + idEntrenador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación del entrenador");
+            e.printStackTrace();
+        }
+    }
+
+    // Actualiza JUGADOR (nombre, dorsal, posicion, media, equipo)
+    public void updateJugador(int idJugador, String nuevoNombre, int nuevoDorsal, String nuevaPosicion, int nuevaMedia, int idEquipo) {
+        String sql = "UPDATE JUGADOR SET nombre = ?, dorsal = ?, posicion = ?, media = ?, id_equipo = ? WHERE id_jugador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nuevoNombre);
+            ps.setInt(2, nuevoDorsal);
+            ps.setString(3, nuevaPosicion);
+            ps.setInt(4, nuevaMedia);
+            ps.setInt(5, idEquipo);
+            ps.setInt(6, idJugador);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El jugador con id " + idJugador + " fue modificado correctamente");
+            } else {
+                System.out.println("No existe ningún jugador con id: " + idJugador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación del jugador");
+            e.printStackTrace();
+        }
+    }
+
+    // Actualiza PARTIDO (goles, simulado, jornada, equipos)
+    public void updatePartido(int idPartido, int golesLocal, int golesVisitante, boolean simulado, int jornada, int idEquipoLocal, int idEquipoVisitante) {
+        String sql = "UPDATE PARTIDO SET goles_local = ?, goles_visitante = ?, simulado = ?, jornada = ?, id_equipo_local = ?, id_equipo_visitante = ? WHERE id_partido = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, golesLocal);
+            ps.setInt(2, golesVisitante);
+            ps.setBoolean(3, simulado);
+            ps.setInt(4, jornada);
+            ps.setInt(5, idEquipoLocal);
+            ps.setInt(6, idEquipoVisitante);
+            ps.setInt(7, idPartido);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El partido con id " + idPartido + " fue modificado correctamente");
+            } else {
+                System.out.println("No existe ningún partido con id: " + idPartido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación del partido");
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteLiga(int idLiga) {
+        String sql = "DELETE FROM LIGA WHERE id_liga = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("La liga con id " + idLiga + " fue eliminada correctamente");
+            } else {
+                System.out.println("No existe ninguna liga con id: " + idLiga);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la eliminación de la liga");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEquipo(int idEquipo) {
+        String sql = "DELETE FROM EQUIPO WHERE id_equipo = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEquipo);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El equipo con id " + idEquipo + " fue eliminado correctamente");
+            } else {
+                System.out.println("No existe ningún equipo con id: " + idEquipo);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la eliminación del equipo");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteJugador(int idJugador) {
+        String sql = "DELETE FROM JUGADOR WHERE id_jugador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idJugador);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El jugador con id " + idJugador + " fue eliminado correctamente");
+            } else {
+                System.out.println("No existe ningún jugador con id: " + idJugador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la eliminación del jugador");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEntrenador(int idEntrenador) {
+        String sql = "DELETE FROM ENTRENADOR WHERE id_entrenador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEntrenador);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El entrenador con id " + idEntrenador + " fue eliminado correctamente");
+            } else {
+                System.out.println("No existe ningún entrenador con id: " + idEntrenador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la eliminación del entrenador");
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePartido(int idPartido) {
+        String sql = "DELETE FROM PARTIDO WHERE id_partido = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idPartido);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El partido con id " + idPartido + " fue eliminado correctamente");
+            } else {
+                System.out.println("No existe ningún partido con id: " + idPartido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la eliminación del partido");
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+     
+}

@@ -84,23 +84,26 @@ public class Simulador {
         ocasionesVisitante += incrementoOcasionesVisitante;
         ProbabilidadGolVisitante *= 1 + porcentajeExtraGolVisitante;
         
-        // Bonus por estilo y táctica del entrenador local
-        EstiloEntrenador estiloLocal = entrenadorLocal.getEstilo();
-        if (estiloLocal.esCompatible(formacionLocal)) {
-            switch (estiloLocal) {
-                case DEFENSIVO -> ProbabilidadGolVisitante *= 0.95;
-                case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolLocal *= 1.05;
+        if (entrenadorLocal != null) {
+            EstiloEntrenador estiloLocal = entrenadorLocal.getEstilo();
+            if (estiloLocal.esCompatible(formacionLocal)) {
+                switch (estiloLocal) {
+                    case DEFENSIVO -> ProbabilidadGolVisitante *= 0.95;
+                    case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolLocal *= 1.05;
+                }
             }
         }
 
-        // Bonus por estilo y táctica del entrenador visitante
-        EstiloEntrenador estiloVisitante = entrenadorVisitante.getEstilo();
-        if (estiloVisitante.esCompatible(formacionVisitante)) {
-            switch (estiloVisitante) {
-                case DEFENSIVO -> ProbabilidadGolLocal *= 0.95;
-                case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolVisitante *= 1.05;
+        if (entrenadorVisitante != null) {
+            EstiloEntrenador estiloVisitante = entrenadorVisitante.getEstilo();
+            if (estiloVisitante.esCompatible(formacionVisitante)) {
+                switch (estiloVisitante) {
+                    case DEFENSIVO -> ProbabilidadGolLocal *= 0.95;
+                    case OFENSIVO, POSESION, CONTRAATAQUE -> ProbabilidadGolVisitante *= 1.05;
+                }
             }
         }
+
         
         // Simular goles
         int golesLocal = 0;

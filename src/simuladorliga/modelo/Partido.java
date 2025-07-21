@@ -12,17 +12,19 @@ public class Partido {
     private int golesLocal;
     private int golesVisitante;
     private boolean simulado;
+    private int jornada;
     
     private Partido(){
         
     }
 
-    public Partido(Equipo equipoLocal, Equipo equipoVisitante, int golesLocal, int golesVisitante) {
+    public Partido(Equipo equipoLocal, Equipo equipoVisitante, int golesLocal, int golesVisitante, int jornada) {
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.golesLocal = golesLocal;
         this.golesVisitante = golesVisitante;
         simulado=false;
+        this.jornada = jornada;
     }
     
     
@@ -80,7 +82,13 @@ public class Partido {
         this.simulado = simulado;
     }
     
-    
+    public int getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(int jornada) {
+        this.jornada = jornada;
+    }
     
     public void actualizarGoles(){
         equipoLocal.sumarGolesFavor(golesLocal);

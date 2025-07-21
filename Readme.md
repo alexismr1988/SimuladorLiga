@@ -1,14 +1,18 @@
-# Simulador de Liga (v0.3.0)
+# Simulador de Liga (v0.4.0)
 
 Este proyecto es una simulación realista de una liga de fútbol desde consola, orientado al aprendizaje de programación en Java mediante principios de programación orientada a objetos y modelado táctico.
 
 ## Funcionalidades principales
 
+-Persistencia completa en base de datos MariaDB/MySQL:
+  Nueva clase GestorBD con todos los métodos CRUD (insert, update, delete, select) para las entidades principales. 
 - Creación de equipos con jugadores y entrenadores personalizados.
 - Implementación de la clase `Entrenador` con un atributo `EstiloEntrenador` (defensivo, ofensivo, posesión, contraataque).
 - Alineaciones válidas con restricciones realistas por línea (defensas, medios, delanteros).
 - Bonus o penalización en la simulación si el estilo del entrenador encaja o no con la táctica utilizada.
 - Asignación y gestión de presupuesto por equipo (`presupuesto` en la clase `Equipo`).
+-Cálculo automático del número de jornadas:
+  Eliminado el atributo jornadas en la clase Liga. Ahora el número de jornadas se calcula dinámicamente según el número de equipos y si hay ida y vuelta.
 - Generación de calendario (ida y vuelta opcional).
 - Simulación detallada de partidos con lógica avanzada:
   - Cálculo de ocasiones y probabilidad de gol influido por:
