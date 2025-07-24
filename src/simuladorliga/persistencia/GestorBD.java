@@ -238,6 +238,51 @@ public class GestorBD {
         return null;
     }
     
+    public Liga recuperarLigaPorId(int idLiga){
+            String sql = "SELECT * FROM LIGA WHERE id_liga = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Liga liga = new Liga(rs.getString("nombre"), rs.getBoolean("ida_vuelta"));
+                return liga;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al recuperar la liga.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Equipo> recuperarEquiposPorLiga(int idLiga){
+        List<Equipo> equipos=new ArrayList();
+        String consultaEquipo = "SELECT * FROM EQUIPO WHERE id_liga = ?";
+        int idEquipo=0;
+               
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(consultaEquipo)) {
+            ps.setInt(1, idLiga);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                idEquipo=rs.getInt("id_equipo");
+                Equipo equipo=null;
+                List<Jugador> plantilla = new ArrayList<>();
+                Entrenador entrenador = null;
+                entrenador=recuperarEntrenadorPorId(rs.getInt("id_entrenador"));
+                plantilla = recuperarJugadoresPorEquipo(idEquipo);
+                equipo = new Equipo(rs.getString("nombre"));
+                equipo.setPresupuesto(rs.getDouble("presupuesto"));
+                equipo.setPlantilla(plantilla);
+                equipo.setEntrenador(entrenador);
+                equipos.add(equipo);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda del equipo.");
+            e.printStackTrace();
+        }
+       
+        return equipos;
+    }
+    
     public Entrenador recuperarEntrenadorPorId(int idEntrenador){
         String sql = "SELECT * FROM ENTRENADOR WHERE id_entrenador = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -278,6 +323,15 @@ public class GestorBD {
        
         return equipo;
     }
+    
+    public Liga recuperarLigaCompleta(int idLiga) {
+        Liga ligaRecuperada = recuperarLigaPorId(idLiga);
+        if (ligaRecuperada == null) return null;
+        ligaRecuperada.setEquipos(recuperarEquiposPorLiga(idLiga));
+        ligaRecuperada.setPartidos(recuperarPartidosPorLiga(idLiga));
+        return ligaRecuperada;
+    }
+
     
     public List<Liga> muestraTodasLigas() {
         List<Liga> ligas = new ArrayList<>();
