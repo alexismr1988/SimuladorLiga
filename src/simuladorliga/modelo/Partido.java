@@ -7,6 +7,7 @@ import java.time.LocalDate;
  * @author PC
  */
 public class Partido {
+    private int idPartido; 
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
     private int golesLocal;
@@ -88,6 +89,14 @@ public class Partido {
 
     public void setJornada(int jornada) {
         this.jornada = jornada;
+    }
+    
+    public int getIdPartido() {
+        return idPartido;
+    }
+
+    public void setIdPartido(int idPartido) {
+        this.idPartido = idPartido;
     }
     
     public void actualizarGoles(){

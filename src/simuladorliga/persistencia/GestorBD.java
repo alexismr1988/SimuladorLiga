@@ -193,7 +193,7 @@ public class GestorBD {
         }
     }
     
-    public Integer obtenerIdLigaPorNombre(String nombre) {
+    public  Integer obtenerIdLigaPorNombre(String nombre) {
         String sql = "SELECT id_liga FROM LIGA WHERE nombre = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, nombre);
@@ -223,6 +223,49 @@ public class GestorBD {
         return null;
     }
     
+    public List<Integer> obtenerJornadasDeLiga(int idLiga) {
+        List<Integer> jornadas = new ArrayList<>();
+        String sql = "SELECT DISTINCT jornada FROM PARTIDO WHERE id_liga = ? ORDER BY jornada";
+        try (Connection conn = GestorBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                jornadas.add(rs.getInt("jornada"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener las jornadas de la liga.");
+            e.printStackTrace();
+        }
+        return jornadas;
+    }
+    
+    public List<Partido> obtenerPartidosDeJornada(int idLiga, int jornada) {
+        List<Partido> partidos = new ArrayList<>();
+        String sql = "SELECT * FROM PARTIDO WHERE id_liga = ? AND jornada = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            ps.setInt(2, jornada);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Equipo local = recuperarEquipoPorId(rs.getInt("id_equipo_local"));
+                Equipo visitante = recuperarEquipoPorId(rs.getInt("id_equipo_visitante"));
+                Partido partido = new Partido(
+                    local, visitante, rs.getInt("goles_local"), rs.getInt("goles_visitante"), rs.getInt("jornada")
+                );
+                partido.setIdPartido(rs.getInt("id_partido")); // <-- ASIGNA idPartido
+                partido.setSimulado(rs.getBoolean("simulado"));
+                partidos.add(partido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los partidos de la jornada.");
+            e.printStackTrace();
+        }
+        return partidos;
+    }
+
+
+
     public Integer obtenerIdEntrenadorPorNombre(String nombre) {
         String sql = "SELECT id_entrenador FROM ENTRENADOR WHERE nombre = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -270,6 +313,7 @@ public class GestorBD {
                 entrenador=recuperarEntrenadorPorId(rs.getInt("id_entrenador"));
                 plantilla = recuperarJugadoresPorEquipo(idEquipo);
                 equipo = new Equipo(rs.getString("nombre"));
+                equipo.setId(idEquipo);
                 equipo.setPresupuesto(rs.getDouble("presupuesto"));
                 equipo.setPlantilla(plantilla);
                 equipo.setEntrenador(entrenador);
@@ -312,6 +356,7 @@ public class GestorBD {
                 entrenador=recuperarEntrenadorPorId(rs.getInt("id_entrenador"));
                 plantilla = recuperarJugadoresPorEquipo(idEquipo);
                 equipo = new Equipo(rs.getString("nombre"));
+                equipo.setId(rs.getInt("id_equipo"));
                 equipo.setPresupuesto(rs.getDouble("presupuesto"));
                 equipo.setPlantilla(plantilla);
                 equipo.setEntrenador(entrenador);
@@ -356,6 +401,24 @@ public class GestorBD {
         return ligas;
     }
     
+    public List<String> obtenerNombresLigas() {
+        List<String> nombresLigas = new ArrayList<>();
+        String sentencia = "SELECT nombre FROM LIGA ORDER BY nombre";
+        try (Connection conn = GestorBD.conectar();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sentencia)) {
+            while (rs.next()) {
+                nombresLigas.add(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los nombres de las ligas.");
+            e.printStackTrace();
+        }
+        return nombresLigas;
+    }
+    
+    
+
     public List<Equipo> muestraTodosEquipos() {
         List<Equipo> equipos = new ArrayList<>();
         String sentencia = "SELECT * FROM EQUIPO";
@@ -420,6 +483,7 @@ public class GestorBD {
                 Equipo equipoLocal = recuperarEquipoPorId(rs.getInt("id_equipo_local"));
                 Equipo equipoVisitante = recuperarEquipoPorId(rs.getInt("id_equipo_visitante"));
                 Partido partido = new Partido(equipoLocal, equipoVisitante, rs.getInt("goles_local"), rs.getInt("goles_visitante"), rs.getInt("jornada"));
+                partido.setIdPartido(rs.getInt("id_partido"));
                 partido.setSimulado(rs.getBoolean("simulado"));
                 partidos.add(partido);
             }

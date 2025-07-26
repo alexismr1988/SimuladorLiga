@@ -22,6 +22,8 @@ public class Simulador {
     public void simularPartido(Partido partido) {
         Equipo local = partido.getEquipoLocal();
         Equipo visitante = partido.getEquipoVisitante();
+        local.setAlineacion(local.generarAlineacionAuto());
+        visitante.setAlineacion(visitante.generarAlineacionAuto());       
         double ventajaLocal = 1.10;      // 10% de ventaja para el equipo local
         double ProbabilidadGolLocal = 0.18;   // Probabilidad de gol por ocasión
         double ProbabilidadGolVisitante = 0.15;   // Probabilidad de gol por ocasión

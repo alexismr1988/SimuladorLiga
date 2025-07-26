@@ -3,10 +3,11 @@ package simuladorliga.servicio;
 import simuladorliga.modelo.*;
 import simuladorliga.persistencia.*;
 import java.util.List;
+import simuladorliga.vista.*;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Importar equipos desde CSV
+        /*1. Importar equipos desde CSV
         GestorFicheros gestor = new GestorFicheros();
         List<Equipo> equipos = gestor.importarEquiposDesdeCSV();
 
@@ -33,6 +34,8 @@ public class Main {
             for (Partido p : miLiga.getCalendario().get(i)) {
                 System.out.println("  " + p.getEquipoLocal().getNombre() + " vs " + p.getEquipoVisitante().getNombre());
             }
-        }
+        }*/
+        
+        MainFrame aplicacion = new MainFrame();
     }
 }

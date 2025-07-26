@@ -15,6 +15,7 @@ public class Equipo {
     private Alineacion alineacion;
     private Entrenador entrenador;
     private double presupuesto;
+    private int id;
 
     public Equipo(String nombre) {
         this.nombre = nombre;
@@ -94,6 +95,7 @@ public class Equipo {
     }
 
     public void setAlineacion(Alineacion alineacion) {
+        
         this.alineacion = alineacion;
     }
 
@@ -122,7 +124,17 @@ public class Equipo {
         this.presupuesto -= cantidad;
     }
     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Alineacion generarAlineacionAuto() {
+        Alineacion alineacion = new Alineacion();
+
         int[] formacion = new int[3];
         boolean esValida = false;
 
@@ -145,13 +157,8 @@ public class Equipo {
         int numDelanteros = formacion[2];
 
         // Paso 2: Ordenar plantilla por media de mayor a menor
-        List<Jugador> plantilla = this.getPlantilla();
-        Collections.sort(plantilla, new Comparator<Jugador>() {
-            @Override
-            public int compare(Jugador j1, Jugador j2) {
-                return Integer.compare(j2.getMedia(), j1.getMedia());
-            }
-        });
+        List<Jugador> plantilla = new ArrayList<>(this.getPlantilla());
+        plantilla.sort(Comparator.comparingInt(Jugador::getMedia).reversed());
 
         // Paso 3: Seleccionar mejores jugadores por posición
         List<Jugador> porteros = new ArrayList<>();
@@ -171,14 +178,31 @@ public class Equipo {
             }
         }
 
-        // Añadir uno a uno con agregarJugador()
+        // Paso 4: Agregar los seleccionados a la alineación
         for (Jugador j : porteros) alineacion.agregarJugador(j);
         for (Jugador j : defensas) alineacion.agregarJugador(j);
         for (Jugador j : medios) alineacion.agregarJugador(j);
         for (Jugador j : delanteros) alineacion.agregarJugador(j);
 
+        // Paso 5: Si faltan jugadores para llegar a 11, añade los mejores restantes
+        if (alineacion.getTitulares().size() < 11) {
+            for (Jugador j : plantilla) {
+                if (!alineacion.getTitulares().contains(j)) {
+                    alineacion.agregarJugador(j);
+                    if (alineacion.getTitulares().size() == 11) break;
+                }
+            }
+        }
+
+        // Puedes añadir prints para depurar:
+        System.out.println("Alineación generada (" + this.getNombre() + "): " + alineacion.getTitulares().size());
+        for (Jugador j : alineacion.getTitulares()) {
+            System.out.println(j.getNombre() + " - " + j.getPosicion());
+        }
+
         return alineacion;
     }
+
 
     
     //Método auxiliar usado en generar alineaciones automáticas

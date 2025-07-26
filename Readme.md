@@ -1,6 +1,6 @@
-# Simulador de Liga (v0.6.0)
+# Simulador de Liga (v0.7.0)
 
-Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas y persistencia completa en base de datos.
+Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas, persistencia completa en base de datos y el inicio de una interfaz gráfica en Swing.
 
 ---
 
@@ -10,6 +10,14 @@ Este proyecto es una simulación realista de una liga de fútbol, desarrollada c
   Clase `GestorBD` con todos los métodos CRUD (insert, update, delete, select) para cada entidad (`Liga`, `Equipo`, `Entrenador`, `Jugador`, `Partido`).
 - **Reconstrucción y continuidad:**  
   Permite crear una liga, simular jornadas, cerrar el programa y continuar desde el mismo punto recuperando todos los datos de la base de datos.
+- **Interfaz gráfica básica (Swing):**  
+  - Pantalla principal de bienvenida.  
+  - Gestión de equipos y selección de jornadas a simular desde interfaz gráfica.  
+  - Selección dinámica de jornadas disponibles (comboBox) y simulación directa desde la GUI.
+- **Simulación y actualización de resultados desde la interfaz:**  
+  Ahora la simulación de jornadas y la actualización de resultados se hace de forma visual y amigable para el usuario.
+- **Reconstrucción visual del estado de la liga:**  
+  Puedes cerrar el programa y reabrirlo; los partidos/jornadas se mantienen y pueden visualizarse y simularse por la interfaz.
 - **Importación masiva desde archivo CSV**  
   Método `importarEquiposDesdeCSV()` en `GestorFicheros`, para crear equipos completos desde `.csv` (incluyendo entrenador, presupuesto y plantilla).
     - Formato esperado:  
@@ -30,6 +38,7 @@ Este proyecto es una simulación realista de una liga de fútbol, desarrollada c
   Resultados, goles, diferencia de goles, puntos.
 - **Exportación y carga de resultados desde fichero**  
   Alternativa a la BD: persistencia usando archivos `.txt`.
+
 
 ---
 
@@ -87,25 +96,24 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 - `/modelo` — Clases del dominio: `Equipo`, `Jugador`, `Entrenador`, etc.
 - `/servicio` — Lógica principal: `Simulador.java`
 - `/persistencia` — Persistencia en ficheros y base de datos: `GestorFicheros`, `GestorBD`
-- `/vista` — (Pendiente) Interfaz gráfica
+- `/vista` — Interfaz gráfica Swing (pantallas principales, gestión de equipos, simulación de jornadas)
 - `Main.java` — Entrada principal para pruebas o demo
 
 ---
 
 ## Próximas funcionalidades
 
+- Mejora y ampliación de la interfaz gráfica: nuevas vistas para plantillas, resultados, clasificación en tiempo real, etc.
 - Registro de goleadores y estadísticas individuales
-- Persistencia completa del estado de la liga y partidos simulados
-- Interfaz gráfica (Swing o JavaFX)
-- Exportación a CSV o JSON
 
 ---
 
 ## Estado del proyecto
 
-Versión **0.6.0** —  
-**Novedad:** Implementada persistencia real y reconstrucción de objetos de dominio desde la base de datos.  
-Se detalla ahora la lógica avanzada de simulación, facilitando la comprensión y futura ampliación del motor de partidos.
+Versión **0.7.0** —  
+**Novedad:** Primeras pantallas funcionales en Swing.  
+Ya se puede gestionar equipos, seleccionar jornadas y simular partidos desde la interfaz gráfica.  
+La reconstrucción de partidos, equipos y clasificación desde la base de datos es completamente funcional.
 
 ---
 
