@@ -109,7 +109,7 @@ public class Equipo {
     
     @Override
     public String toString() {
-        return nombre + " (" + puntos + " pts)";
+        return nombre;
     }
     
     public void sumarPuntos(int puntos){

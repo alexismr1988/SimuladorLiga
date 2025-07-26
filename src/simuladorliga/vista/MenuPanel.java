@@ -10,7 +10,7 @@ import simuladorliga.modelo.*;
 
 public class MenuPanel extends javax.swing.JPanel {
 
-     private MainFrame frame;
+    private MainFrame frame;
 
     public MenuPanel(MainFrame frame) {
         this.frame = frame;
@@ -117,6 +117,7 @@ public class MenuPanel extends javax.swing.JPanel {
 
     private void botonNuevaLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaLigaActionPerformed
         // TODO add your handling code here:
+        frame.irACrearPanel();
     }//GEN-LAST:event_botonNuevaLigaActionPerformed
 
     private void botonCargarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarLigaActionPerformed

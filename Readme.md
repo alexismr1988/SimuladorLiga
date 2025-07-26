@@ -103,8 +103,9 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 
 ## Próximas funcionalidades
 
-- Mejora y ampliación de la interfaz gráfica: nuevas vistas para plantillas, resultados, clasificación en tiempo real, etc.
-- Registro de goleadores y estadísticas individuales
+- Mejorar la interfaz de gestión y consulta de ligas y jornadas simuladas.
+- Añadir edición/eliminación de ligas y equipos desde la GUI.
+- Documentar la arquitectura de persistencia y la lógica de simulación en un archivo aparte (`ARQUITECTURA.md`).
 
 ---
 
@@ -115,7 +116,27 @@ Versión **0.7.0** —
 Ya se puede gestionar equipos, seleccionar jornadas y simular partidos desde la interfaz gráfica.  
 La reconstrucción de partidos, equipos y clasificación desde la base de datos es completamente funcional.
 
+### Novedades / Logros recientes
+
+- **Persistencia total implementada**: 
+  - Ahora toda la información de la liga (equipos, jugadores, entrenadores y partidos) se almacena y recupera desde la base de datos MariaDB/MySQL.
+  - El calendario de partidos se guarda correctamente, asignando cada partido a sus equipos y jornadas reales mediante sus IDs en la base de datos.
+
+- **Creación atómica de Ligas**:
+  - El proceso de inserción de una nueva liga y todos sus elementos asociados (equipos, jugadores, entrenadores, partidos) se realiza en una única transacción. Si ocurre un error en cualquier paso, **no se añade nada** (rollback automático), garantizando la integridad de los datos.
+
+- **Simulación continua**:
+  - Al cerrar y volver a abrir el simulador, es posible continuar la simulación exactamente desde la jornada pendiente, gracias a la persistencia real y la recuperación completa de objetos desde la base de datos.
+
+- **Control de errores mejorado**:
+  - Ahora la interfaz informa correctamente si ocurre algún error durante la creación de una liga, permitiendo al usuario volver a intentarlo sin dejar datos inconsistentes.
+
+- **Flujo de trabajo probado y estable**:
+  - Probado el flujo: *crear liga* → *simular jornadas* → *persistir y reanudar* con múltiples equipos y jornadas.
+  - Todos los cambios quedan reflejados automáticamente en la base de datos y la interfaz Swing.
+
 ---
+
 
 ## Autor
 

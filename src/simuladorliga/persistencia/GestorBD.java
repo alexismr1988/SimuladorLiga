@@ -79,6 +79,79 @@ public class GestorBD {
         }
     }
     
+    public boolean insertarLigaCompleta(Liga liga) {
+        String nombre = liga.getNombre();
+        boolean ida_vuelta = liga.isIda_vuelta();
+
+        String sql = "INSERT INTO LIGA (nombre, ida_vuelta ) VALUES (?, ?)";
+
+        try (Connection conn = GestorBD.conectar()){
+            conn.setAutoCommit(false);
+            
+            try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+                ps.setString(1, nombre);
+                ps.setBoolean(2, ida_vuelta);
+
+                int filas = ps.executeUpdate();
+                int idLiga = -1;  //la iniciamos en negativo
+
+                if (filas > 0) {
+                    try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            idLiga = generatedKeys.getInt(1);
+                            System.out.println("ID de liga generado: " + idLiga);
+                        }
+                    }
+
+                    //Mapa para asociar cada objeto Equipo a su id real
+                    Map<Equipo, Integer> mapaIdsEquipos = new HashMap<>();
+
+
+                    for (Equipo equipo : liga.getEquipos()) {
+                        Integer idEntrenador = obtenerIdEntrenadorPorNombre(equipo.getEntrenador().getNombre());
+                        if (idEntrenador == null) {
+                            insertarEntrenador(equipo.getEntrenador(), conn);
+                            idEntrenador = obtenerIdEntrenadorPorNombre(equipo.getEntrenador().getNombre());
+                        }
+                        List<Jugador> jugadores = equipo.getPlantilla();
+
+                        int idEquipoInsertado = insertarEquipo(equipo, idLiga, idEntrenador, conn);
+                        mapaIdsEquipos.put(equipo, idEquipoInsertado);
+
+                        if (idEquipoInsertado > 0) {
+                            for (Jugador jugador : jugadores) {
+                                insertarJugador(jugador, idEquipoInsertado, conn);
+                            }
+                        }
+                    }
+
+                    // Insertar partidos usando el mapa
+                    for (Partido partido : liga.getPartidos()) {
+                        int idEquipoLocal = mapaIdsEquipos.get(partido.getEquipoLocal());
+                        int idEquipoVisitante = mapaIdsEquipos.get(partido.getEquipoVisitante());
+                        insertarPartido(partido, idLiga, idEquipoLocal, idEquipoVisitante, conn);
+                    }
+                    conn.commit();
+                    return true;
+                } else {
+                    System.out.println("No se pudo añadir la liga.");
+                    return false;
+                }
+
+            } catch (SQLException e) {
+                conn.rollback();
+                System.err.println("Error al insertar la liga");
+                e.printStackTrace();
+                return false;
+                
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public void insertarEntrenador(Entrenador entrenador) {
         String nombre = entrenador.getNombre();
         String estilo = entrenador.getEstilo().name();
@@ -107,13 +180,43 @@ public class GestorBD {
         }
     }
     
-    public void insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador) {
+        public void insertarEntrenador(Entrenador entrenador, Connection conn) throws SQLException {
+        String nombre = entrenador.getNombre();
+        String estilo = entrenador.getEstilo().name();
+        
+        String sql = "INSERT INTO ENTRENADOR (nombre, estilo ) VALUES (?, ?)";
+        
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
+            
+            // Sustituye ? por el orden de los parámetros que pasamos en cada índice
+            ps.setString(1, nombre);
+            ps.setString(2, estilo);
+            
+            // Ejecuta la sentencia. Devuelve el número de filas afectadas por el INSERT
+            int filas = ps.executeUpdate(); // Devuelve cuántas filas se añadieron
+            
+            if(filas > 0) {
+                System.out.println("El entrenador " + entrenador.getNombre() + " se añadió correctamente.");
+            } else {
+              System.out.println("No se pudo añadir el entrenador.");  
+            }
+            
+              
+        } catch(SQLException e){
+            System.err.println("Error al insertar enternador");
+            e.printStackTrace();
+        }
+    }
+    
+    public int insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador) {
         String nombre = equipo.getNombre();
         double presupuesto = equipo.getPresupuesto();
 
         String sql = "INSERT INTO EQUIPO (nombre, id_liga, presupuesto, id_entrenador) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = GestorBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setString(1, nombre);
             ps.setInt(2, idLiga);
             ps.setDouble(3, presupuesto);
@@ -122,17 +225,58 @@ public class GestorBD {
             } else {
                 ps.setNull(4, java.sql.Types.INTEGER);
             }
-            int filas = ps.executeUpdate();
 
+            int filas = ps.executeUpdate();
             if (filas > 0) {
-                System.out.println("El equipo " + equipo.getNombre() + " se añadió correctamente.");
-            } else {
-                System.out.println("No se pudo añadir el equipo.");
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int idEquipo = generatedKeys.getInt(1);
+                        System.out.println("Id del equipo insertado: " + idEquipo);
+                        return idEquipo;
+                    }
+                }
             }
+            System.out.println("No se pudo añadir el equipo.");
         } catch (SQLException e) {
             System.err.println("Error al insertar equipo");
             e.printStackTrace();
         }
+        return -1; // Si algo falla, devuelve -1
+    }
+    
+    public int insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador, Connection conn) throws SQLException{
+        String nombre = equipo.getNombre();
+        double presupuesto = equipo.getPresupuesto();
+
+        String sql = "INSERT INTO EQUIPO (nombre, id_liga, presupuesto, id_entrenador) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, nombre);
+            ps.setInt(2, idLiga);
+            ps.setDouble(3, presupuesto);
+            if (idEntrenador != null) {
+                ps.setInt(4, idEntrenador);
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int idEquipo = generatedKeys.getInt(1);
+                        System.out.println("Id del equipo insertado: " + idEquipo);
+                        return idEquipo;
+                    }
+                }
+            }
+            System.out.println("No se pudo añadir el equipo.");
+        } catch (SQLException e) {
+            System.err.println("Error al insertar equipo");
+            e.printStackTrace();
+        }
+        return -1; // Si algo falla, devuelve -1
     }
     
     public void insertarJugador(Jugador jugador, int idEquipo) {
@@ -163,6 +307,34 @@ public class GestorBD {
         }
     }
     
+    public void insertarJugador(Jugador jugador, int idEquipo, Connection conn) throws SQLException {
+        String nombre = jugador.getNombre();
+        int dorsal = jugador.getDorsal();
+        String posicion = jugador.getPosicion().name();
+        int media = jugador.getMedia();
+
+        String sql = "INSERT INTO JUGADOR (nombre, dorsal, posicion, media, id_equipo) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ps.setInt(2, dorsal);
+            ps.setString(3, posicion);
+            ps.setInt(4, media);
+            ps.setInt(5, idEquipo);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("El jugador " + jugador.getNombre() + " se añadió correctamente.");
+            } else {
+                System.out.println("No se pudo añadir el jugador.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al insertar jugador");
+            e.printStackTrace();
+        }
+    }
+    
     public void insertarPartido(Partido partido, int idLiga, int idEquipoLocal, int idEquipoVisitante) {
         int jornada = partido.getJornada();
         int golesLocal = partido.getGolesLocal();
@@ -172,6 +344,36 @@ public class GestorBD {
         String sql = "INSERT INTO PARTIDO (id_liga, jornada, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, simulado) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLiga);
+            ps.setInt(2, jornada);
+            ps.setInt(3, idEquipoLocal);
+            ps.setInt(4, idEquipoVisitante);
+            ps.setInt(5, golesLocal);
+            ps.setInt(6, golesVisitante);
+            ps.setBoolean(7, simulado);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("El partido se añadió correctamente.");
+            } else {
+                System.out.println("No se pudo añadir el partido.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al insertar partido");
+            e.printStackTrace();
+        }
+    }
+    
+    public void insertarPartido(Partido partido, int idLiga, int idEquipoLocal, int idEquipoVisitante, Connection conn) throws SQLException {
+        int jornada = partido.getJornada();
+        int golesLocal = partido.getGolesLocal();
+        int golesVisitante = partido.getGolesVisitante();
+        boolean simulado = partido.isSimulado();
+
+        String sql = "INSERT INTO PARTIDO (id_liga, jornada, id_equipo_local, id_equipo_visitante, goles_local, goles_visitante, simulado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idLiga);
             ps.setInt(2, jornada);
             ps.setInt(3, idEquipoLocal);
@@ -683,7 +885,4 @@ public class GestorBD {
     }
 
 
-
-
-     
 }

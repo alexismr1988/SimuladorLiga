@@ -191,7 +191,7 @@ public class GestorFicheros {
         }
     }
     
-    public List<Equipo> importarEquiposDesdeCSV() {
+    public static List<Equipo> importarEquiposDesdeCSV() {
         List<Equipo> equipos = new ArrayList<>();
         Map<String, Equipo> mapaEquipos = new HashMap<>();
         try (CSVReader reader = new CSVReader(new FileReader(RUTA_PLANTILLAS_CSV))) {

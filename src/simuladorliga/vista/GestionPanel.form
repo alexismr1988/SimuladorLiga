@@ -24,43 +24,35 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="botonVolver" min="-2" pref="118" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="931" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="botonVolver" min="-2" pref="118" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="partidosLabel" max="32767" attributes="0"/>
+                          <Component id="plantillaLabel" max="32767" attributes="0"/>
+                          <Component id="clasificacionLabel" pref="118" max="32767" attributes="0"/>
+                          <Component id="simularLabel" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="931" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="partidosLabel" max="32767" attributes="0"/>
-                                  <Component id="plantillaLabel" max="32767" attributes="0"/>
-                                  <Component id="clasificacionLabel" pref="118" max="32767" attributes="0"/>
-                                  <Component id="simularLabel" max="32767" attributes="0"/>
+                                  <Component id="comboNumJornada" pref="121" max="32767" attributes="0"/>
+                                  <Component id="comboEquipos" max="32767" attributes="0"/>
+                                  <Component id="comboJornadas" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="comboNumJornada" pref="121" max="32767" attributes="0"/>
-                                          <Component id="comboEquipos" max="32767" attributes="0"/>
-                                          <Component id="comboJornadas" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="botonPlantilla" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="botonPartidos" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="botonSimular" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="botonClasificacion" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="botonPlantilla" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="botonPartidos" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="botonSimular" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
+                          <Component id="botonClasificacion" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -154,6 +146,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="VOLVER"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonVolverActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonSimular">
       <Properties>
