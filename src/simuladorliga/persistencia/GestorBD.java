@@ -574,8 +574,14 @@ public class GestorBD {
     public Liga recuperarLigaCompleta(int idLiga) {
         Liga ligaRecuperada = recuperarLigaPorId(idLiga);
         if (ligaRecuperada == null) return null;
-        ligaRecuperada.setEquipos(recuperarEquiposPorLiga(idLiga));
-        ligaRecuperada.setPartidos(recuperarPartidosPorLiga(idLiga));
+        
+        List<Equipo> equipos = recuperarEquiposPorLiga(idLiga);
+        List<Partido> partidos = recuperarPartidosPorLiga(idLiga, equipos);
+        
+        
+        ligaRecuperada.setEquipos(equipos);
+        ligaRecuperada.setPartidos(partidos);
+        
         return ligaRecuperada;
     }
 
@@ -695,6 +701,43 @@ public class GestorBD {
         }
         return partidos; 
     }
+    
+    public List<Partido> recuperarPartidosPorLiga(int idLiga, List<Equipo> equipos) {
+        List<Partido> partidos = new ArrayList<>();
+        String consultaLiga = "SELECT * FROM PARTIDO WHERE id_liga = ?";
+
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(consultaLiga)) {
+            ps.setInt(1, idLiga);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idLocal = rs.getInt("id_equipo_local");
+                int idVisitante = rs.getInt("id_equipo_visitante");
+
+                // Buscar los equipos ya existentes por ID
+                Equipo equipoLocal = buscarEquipoPorId(equipos, idLocal);
+                Equipo equipoVisitante = buscarEquipoPorId(equipos, idVisitante);
+
+                Partido partido = new Partido(equipoLocal, equipoVisitante, rs.getInt("goles_local"), rs.getInt("goles_visitante"), rs.getInt("jornada"));
+                partido.setIdPartido(rs.getInt("id_partido"));
+                partido.setSimulado(rs.getBoolean("simulado"));
+                partidos.add(partido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la búsqueda de los partidos.");
+            e.printStackTrace();
+        }
+        return partidos;
+    }
+ 
+    private Equipo buscarEquipoPorId(List<Equipo> equipos, int id) {
+        for (Equipo equipo : equipos) {
+            if (equipo.getId() == id) return equipo;
+        }
+        return null;
+    }
+
+
     
     // Actualiza LIGA (nombre)
     public void updateLiga(int idLiga, String nuevoNombre) {

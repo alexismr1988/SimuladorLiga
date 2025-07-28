@@ -203,6 +203,20 @@ public class Equipo {
         return alineacion;
     }
 
+    public int getCantidadJugadores(){
+        return this.getPlantilla().size();
+    }
+    
+    public double getMediaPlantilla(){
+        List<Jugador> jugadores = this.plantilla;
+        double mediaTotal = 0;
+        int tamanoPlantilla = this.getCantidadJugadores();
+        
+        for (Jugador jugador : jugadores) {
+            mediaTotal+=jugador.getMedia();
+        }
+        return Math.round((mediaTotal / tamanoPlantilla) * 100.0) / 100.0;
+    }
 
     
     //Método auxiliar usado en generar alineaciones automáticas

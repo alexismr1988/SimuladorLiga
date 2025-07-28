@@ -4,8 +4,10 @@
  */
 package simuladorliga.vista;
 
+import java.awt.*;
 import java.util.List;
 import javax.swing.*;
+import simuladorliga.controlador.GestorTablaResultados;
 import simuladorliga.persistencia.GestorBD;
 import simuladorliga.servicio.Simulador;
 import simuladorliga.modelo.*;
@@ -23,9 +25,19 @@ public class GestionPanel extends javax.swing.JPanel {
         this.frame = frame;    
         GestorBD gestor = new GestorBD();
         int idLiga = gestor.obtenerIdLigaPorNombre(frame.getLiga().getNombre());
+        this.nombreLigaLabel.setText("Gestión de Liga: " + frame.getLiga().getNombre());
+        nombreLigaLabel.setFont(new Font("Arial", Font.BOLD, 20));
         List<Integer> numJornadas = gestor.obtenerJornadasDeLiga(idLiga);
+        tablaResultados.setModel(GestorTablaResultados.modeloClasificacion(frame.getLiga().getEquipos()));
         for (Integer jornada : numJornadas) {
             comboNumJornada.addItem(jornada.toString());
+        }
+        for (Integer jornada : numJornadas) {
+            comboJornadas.addItem(jornada.toString());
+        }
+        List<String> nombresEquipos = this.frame.getLiga().obtenerNombreEquipos();
+        for (String nombre : nombresEquipos) {
+        comboPlantillas.addItem(nombre);
         }
          
         
@@ -44,7 +56,7 @@ public class GestionPanel extends javax.swing.JPanel {
         comboNumJornada = new javax.swing.JComboBox<>();
         clasificacionLabel = new javax.swing.JLabel();
         plantillaLabel = new javax.swing.JLabel();
-        comboEquipos = new javax.swing.JComboBox<>();
+        comboPlantillas = new javax.swing.JComboBox<>();
         partidosLabel = new javax.swing.JLabel();
         comboJornadas = new javax.swing.JComboBox<>();
         botonVolver = new javax.swing.JButton();
@@ -53,7 +65,10 @@ public class GestionPanel extends javax.swing.JPanel {
         botonPlantilla = new javax.swing.JButton();
         botonPartidos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaResultados = new javax.swing.JTable();
+        nombreLigaLabel = new javax.swing.JLabel();
+        equiposLabel = new javax.swing.JLabel();
+        botonEquipos = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
@@ -63,7 +78,7 @@ public class GestionPanel extends javax.swing.JPanel {
 
         plantillaLabel.setText("Mostrar plantilla");
 
-        partidosLabel.setText("Ver partidos");
+        partidosLabel.setText("Partidos por Jornada");
 
         botonVolver.setText("VOLVER");
         botonVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -80,12 +95,27 @@ public class GestionPanel extends javax.swing.JPanel {
         });
 
         botonClasificacion.setText("OK");
+        botonClasificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonClasificacionActionPerformed(evt);
+            }
+        });
 
         botonPlantilla.setText("OK");
+        botonPlantilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPlantillaActionPerformed(evt);
+            }
+        });
 
         botonPartidos.setText("OK");
+        botonPartidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPartidosActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,42 +126,63 @@ public class GestionPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaResultados);
+
+        equiposLabel.setText("Mostrar equipos");
+
+        botonEquipos.setText("OK");
+        botonEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEquiposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 931, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(partidosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(plantillaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(clasificacionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                            .addComponent(simularLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboNumJornada, 0, 121, Short.MAX_VALUE)
-                                    .addComponent(comboEquipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboJornadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonPlantilla, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(botonClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nombreLigaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(34, 34, 34)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(equiposLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(partidosLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(plantillaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(clasificacionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                        .addComponent(simularLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(botonClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(comboNumJornada, javax.swing.GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)
+                                                    .addComponent(comboPlantillas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(comboJornadas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(botonEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(botonPlantilla, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(botonPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(botonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(293, 293, 293))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(234, 234, 234)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
+                .addGap(14, 14, 14)
+                .addComponent(nombreLigaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(simularLabel)
                     .addComponent(comboNumJornada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,17 +193,21 @@ public class GestionPanel extends javax.swing.JPanel {
                     .addComponent(botonClasificacion))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(plantillaLabel)
-                    .addComponent(comboEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonPlantilla))
+                    .addComponent(equiposLabel)
+                    .addComponent(botonEquipos))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(partidosLabel)
                     .addComponent(comboJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonPartidos))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboPlantillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonPlantilla)
+                    .addComponent(plantillaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -196,6 +251,8 @@ public class GestionPanel extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Jornada simulada:\n" + resultados.toString());
+        frame.getLiga().actualizarClasificacionDesdeResultados();
+
     }//GEN-LAST:event_botonSimularActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
@@ -203,21 +260,52 @@ public class GestionPanel extends javax.swing.JPanel {
         frame.irAMenuPanel();
     }//GEN-LAST:event_botonVolverActionPerformed
 
+    private void botonClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClasificacionActionPerformed
+        // TODO add your handling code here:
+        tablaResultados.setModel(GestorTablaResultados.modeloClasificacion(frame.getLiga().getEquipos()));
+    }//GEN-LAST:event_botonClasificacionActionPerformed
+
+    private void botonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEquiposActionPerformed
+        // TODO add your handling code here:
+        tablaResultados.setModel(GestorTablaResultados.modeloParaEquipos(frame.getLiga().getEquipos()));
+    }//GEN-LAST:event_botonEquiposActionPerformed
+
+    private void botonPlantillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlantillaActionPerformed
+        // TODO add your handling code here:
+        String nombreEquipo = comboPlantillas.getSelectedItem().toString();
+        Equipo equipoSeleccionado = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipo);
+        tablaResultados.setModel(GestorTablaResultados.modeloParaPlantillas(equipoSeleccionado));
+    }//GEN-LAST:event_botonPlantillaActionPerformed
+
+    private void botonPartidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPartidosActionPerformed
+        // TODO add your handling code here:
+        int numJornada = Integer.parseInt(comboJornadas.getSelectedItem().toString());
+        GestorBD gestor = new GestorBD();
+        int idLiga = gestor.obtenerIdLigaPorNombre(frame.getLiga().getNombre());
+        List<Partido> partidosJornada = gestor.obtenerPartidosDeJornada(idLiga, numJornada);
+        tablaResultados.setModel(GestorTablaResultados.modeloJornadas(partidosJornada));
+
+
+    }//GEN-LAST:event_botonPartidosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonClasificacion;
+    private javax.swing.JButton botonEquipos;
     private javax.swing.JButton botonPartidos;
     private javax.swing.JButton botonPlantilla;
     private javax.swing.JButton botonSimular;
     private javax.swing.JButton botonVolver;
     private javax.swing.JLabel clasificacionLabel;
-    private javax.swing.JComboBox<String> comboEquipos;
     private javax.swing.JComboBox<String> comboJornadas;
     private javax.swing.JComboBox<String> comboNumJornada;
+    private javax.swing.JComboBox<String> comboPlantillas;
+    private javax.swing.JLabel equiposLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel nombreLigaLabel;
     private javax.swing.JLabel partidosLabel;
     private javax.swing.JLabel plantillaLabel;
     private javax.swing.JLabel simularLabel;
+    private javax.swing.JTable tablaResultados;
     // End of variables declaration//GEN-END:variables
 }

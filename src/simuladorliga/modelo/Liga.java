@@ -197,5 +197,31 @@ public class Liga {
             System.out.println("No se pudo crear la carpeta o ya existe.");
         }
     }
+    
+    public List<String> obtenerNombreEquipos(){
+        List<String> nombresEquipos = new ArrayList<>();
+        for (Equipo equipo : equipos) {
+            nombresEquipos.add(equipo.getNombre());
+        }
+        return nombresEquipos;
+    }
+    
+    public Equipo buscarEquipoPorNombre(String nombre) {
+        for (Equipo eq : equipos) {
+            if (eq.getNombre().equalsIgnoreCase(nombre)) {
+                return eq;
+            }
+        }
+        return null; // o puedes lanzar una excepción si prefieres
+    }
+    
+    public List<Partido> getPartidosDeJornada(int numeroJornada) {
+        if (numeroJornada < 1 || numeroJornada > calendario.size()) {
+            return new ArrayList<>(); // o lanzar excepción
+        }
+        return calendario.get(numeroJornada - 1);
+    }
+
+
 
 }

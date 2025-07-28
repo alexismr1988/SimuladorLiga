@@ -126,7 +126,21 @@ public class MenuPanel extends javax.swing.JPanel {
         if (nombreLigaSeleccionada != null) {
             int idLiga = gestor.obtenerIdLigaPorNombre(nombreLigaSeleccionada);
             Liga ligaRecuperada = gestor.recuperarLigaCompleta(idLiga);
+            
+            System.out.println("Partidos cargados: " + ligaRecuperada.getPartidos().size());
+            for (Partido p : ligaRecuperada.getPartidos()) {
+                System.out.println("J" + p.getJornada() + ": " +
+                    p.getEquipoLocal().getNombre() + " " + p.getGolesLocal() + " - " +
+                    p.getGolesVisitante() + " " + p.getEquipoVisitante().getNombre() +
+                    " | Simulado: " + p.isSimulado());
+            }
+            
+            ligaRecuperada.actualizarClasificacionDesdeResultados();
             frame.setLiga(ligaRecuperada);
+            
+            for (Equipo eq : frame.getLiga().getEquipos()) {
+                System.out.println(eq.getNombre() + ": " + eq.getPuntos() + " pts");
+            }
             frame.irAGestionPanel();
             
         } else {

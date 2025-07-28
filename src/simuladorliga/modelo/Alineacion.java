@@ -117,7 +117,6 @@ public class Alineacion {
     public String contarLineas(){
         
         this.validarTamano();
-        this.validarPosiciones();
         
         int[] lineas = new int[3];
         lineas[0] = this.getDefensas();
