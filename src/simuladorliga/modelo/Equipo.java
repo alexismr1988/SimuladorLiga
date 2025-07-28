@@ -184,21 +184,45 @@ public class Equipo {
         for (Jugador j : medios) alineacion.agregarJugador(j);
         for (Jugador j : delanteros) alineacion.agregarJugador(j);
 
-        // Paso 5: Si faltan jugadores para llegar a 11, añade los mejores restantes
+        // Paso 5: Rellenar hasta 11 sin romper límites ni posiciones incoherentes
         if (alineacion.getTitulares().size() < 11) {
+            int actualesDelanteros = (int) alineacion.getTitulares().stream()
+                .filter(j -> j.getPosicion() == Posicion.DC || j.getPosicion() == Posicion.SD)
+                .count();
+
+            int actualesMedios = (int) alineacion.getTitulares().stream()
+                .filter(j -> j.getPosicion() == Posicion.MEDIOCENTRO || j.getPosicion() == Posicion.MCD || j.getPosicion() == Posicion.MCO)
+                .count();
+
+            int actualesDefensas = (int) alineacion.getTitulares().stream()
+                .filter(j -> j.getPosicion() == Posicion.DEFENSA || j.getPosicion() == Posicion.LATERAL)
+                .count();
+
             for (Jugador j : plantilla) {
                 if (!alineacion.getTitulares().contains(j)) {
-                    alineacion.agregarJugador(j);
+                    Posicion pos = j.getPosicion();
+
+                    // Nunca volver a añadir porteros
+                    if (pos == Posicion.PORTERO) continue;
+
+                    // Solo añadir si hay hueco en su línea natural
+                    if ((pos == Posicion.DC || pos == Posicion.SD) && actualesDelanteros < 3) {
+                        alineacion.agregarJugador(j);
+                        actualesDelanteros++;
+                    } else if ((pos == Posicion.MEDIOCENTRO || pos == Posicion.MCD || pos == Posicion.MCO) && actualesMedios < 6) {
+                        alineacion.agregarJugador(j);
+                        actualesMedios++;
+                    } else if ((pos == Posicion.DEFENSA || pos == Posicion.LATERAL) && actualesDefensas < 5) {
+                        alineacion.agregarJugador(j);
+                        actualesDefensas++;
+                    }
+
                     if (alineacion.getTitulares().size() == 11) break;
                 }
             }
         }
 
-        // Puedes añadir prints para depurar:
-        System.out.println("Alineación generada (" + this.getNombre() + "): " + alineacion.getTitulares().size());
-        for (Jugador j : alineacion.getTitulares()) {
-            System.out.println(j.getNombre() + " - " + j.getPosicion());
-        }
+
 
         return alineacion;
     }

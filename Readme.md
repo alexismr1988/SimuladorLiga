@@ -69,6 +69,89 @@ Este proyecto es una simulación realista de una liga de fútbol, desarrollada c
 
 ---
 
+## Capturas de pantalla
+Señaladas en rojo las principales acciones del panel de gestión.
+El JTable se actualiza de forma dinámica tras seleccionar las distintas opciones.
+
+### 1. Pantalla de inicio
+Menú principal donde se puede crear una liga nueva o cargar una ya existente.
+
+![Pantalla de inicio](imagenes/menu_inicial.png)
+
+---
+
+### 2. Creación de una liga
+Formulario inicial para introducir el nombre, elegir si es ida/vuelta y seleccionar equipos desde CSV.
+
+![Creación de liga](imagenes/crear_liga.png)
+
+---
+
+### 3. Panel de gestión
+Desde aquí se puede simular una jornada, consultar partidos, clasificaciones, plantillas y presupuestos.
+La interfaz incluye validaciones para evitar acciones incorrectas, como presupuestos negativos o traspasos inválidos.
+
+![Panel de gestión](imagenes/gestion_panel.png)
+
+---
+
+### 4. Simulación de jornada
+Permite simular la jornada seleccionada desde el combo. Si ya fue simulada previamente, se muestra un aviso y no se permite volver a simularla.
+
+La información queda guardada en base de datos. Si se cierra el programa y se vuelve a cargar la liga, los partidos ya simulados siguen disponibles para continuar con la liga.
+
+![Simular jornada 1](imagenes/simular1.png)
+
+![Simular jornada 2](imagenes/simular2.png)
+
+![Simular jornada 2](imagenes/simular3.png)
+
+---
+
+### 5. Consulta de plantilla
+Vista detallada de los jugadores disponibles por equipo. Seleccionas el equipo que deseas mostrar.
+
+
+![Plantilla](imagenes/plantilla_equipo.png)
+
+---
+
+### 6. Gestión de presupuestos
+Interfaz con validación para modificar el presupuesto de un equipo concreto.
+Lo actualiza de forma sincronizada en la base de datos y muestra los presupuestos tras actualizar.
+
+![Presupuesto](imagenes/presupuesto1.png)
+
+![Presupuesto](imagenes/presupuesto2.png)
+
+---
+
+### 7. Traspasos de jugadores
+Selecciona jugador, equipo de origen y equipo destino. Se actualiza dinámicamente.
+
+![Traspasos](imagenes/traspasos1.png)
+
+![Traspasos](imagenes/traspasos2.png)
+
+![Traspasos](imagenes/traspasos3.png)
+
+---
+
+### 8. Consulta de partidos por jornada
+Puedes visualizar los partidos de cualquier jornada seleccionando el número correspondiente en el combo desplegable. Se muestran local, visitante y resultado.
+
+![Partidos por jornada](imagenes/partidos_jornada.png)
+
+---
+
+### 9. Tabla de clasificación
+JTable con formato visual mejorado. Muestra puntos, goles y diferencia.
+
+![Clasificación](imagenes/clasificacion.png)
+
+
+---
+
 ## Lógica de simulación de partidos (`Simulador.java`)
 
 Cada partido simulado tiene en cuenta los siguientes factores:
@@ -134,7 +217,9 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 - **Botón para reiniciar la liga** completamente (reset de partidos, jornadas y puntos).
 - **Validaciones extra**: evitar plantillas inválidas, evitar presupuestos negativos, etc.
 - **Paneles separados para gestión de equipos, traspasos y partidos**.
-- **Reubicar la lógica del controlador para una estructura MVC total.
+- **Reubicar la lógica del controlador para una estructura MVC total.**
+- **Permitir alineaciones personalizadas desde la interfaz.**
+
 
 ---
 
