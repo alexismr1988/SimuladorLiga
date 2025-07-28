@@ -34,27 +34,23 @@
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="527" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="botonClasificacion" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="comboNumJornada" alignment="0" pref="121" max="32767" attributes="0"/>
                                           <Component id="comboPlantillas" alignment="0" max="32767" attributes="0"/>
                                           <Component id="comboJornadas" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="botonPlantilla" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="botonPartidos" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="botonSimular" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="botonSimular" pref="103" max="32767" attributes="0"/>
+                                          <Component id="botonPartidos" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="botonPlantilla" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="botonClasificacion" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               <Component id="jSeparator1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -79,7 +75,7 @@
                                                   <Component id="comboEquiposPresupuesto" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="campoCantidad" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace pref="28" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="botonRestar" min="-2" pref="92" max="-2" attributes="0"/>
                                                   <Component id="botonAnadir" min="-2" pref="92" max="-2" attributes="0"/>
@@ -92,7 +88,7 @@
                                                   <Component id="comboJugadores" max="32767" attributes="0"/>
                                                   <Component id="comboEquiposDestino" max="32767" attributes="0"/>
                                               </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="botonTraspasar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
@@ -101,9 +97,18 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="botonEquipos" min="-2" pref="53" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                              <Component id="nombreLigaLabel" min="-2" pref="464" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane1" min="-2" pref="527" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="botonEquipos" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                                      <Component id="nombreLigaLabel" min="-2" pref="464" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -116,9 +121,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Component id="nombreLigaLabel" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="presupuestoLabel" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -256,7 +261,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonSimular">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Simular"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSimularActionPerformed"/>
@@ -264,7 +269,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonClasificacion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Mostrar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonClasificacionActionPerformed"/>
@@ -272,7 +277,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonPlantilla">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Mostrar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonPlantillaActionPerformed"/>
@@ -280,7 +285,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonPartidos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Mostrar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonPartidosActionPerformed"/>
@@ -316,7 +321,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonEquipos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Mostrar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonEquiposActionPerformed"/>
@@ -425,7 +430,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonTraspasar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Traspasar"/>
+        <Property name="text" type="java.lang.String" value="Aceptar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonTraspasarActionPerformed"/>

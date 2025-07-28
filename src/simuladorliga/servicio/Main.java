@@ -2,40 +2,25 @@ package simuladorliga.servicio;
 
 import simuladorliga.modelo.*;
 import simuladorliga.persistencia.*;
-import java.util.List;
 import simuladorliga.vista.*;
+import com.formdev.flatlaf.FlatDarkLaf; 
+import java.awt.Font;
+import javax.swing.UIManager;
 
 public class Main {
     public static void main(String[] args) {
-        /*1. Importar equipos desde CSV
-        GestorFicheros gestor = new GestorFicheros();
-        List<Equipo> equipos = gestor.importarEquiposDesdeCSV();
-
-        // 2. Crear liga vacía (con nombre y si es ida/vuelta)
-        Liga miLiga = new Liga("Liga Personalizada", true); // true para ida y vuelta
-
-        // 3. Agregar equipos a la liga
-        for (Equipo equipo : equipos) {
-            miLiga.agregarEquipo(equipo);
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf()); 
+            UIManager.put("defaultFont", new Font("Segoe UI", Font.PLAIN, 14));
+            UIManager.put("Component.arc", 10);      
+            UIManager.put("Button.arc", 15);         
+            UIManager.put("TextComponent.arc", 10);  
+        } catch (Exception e) {
+            System.err.println("Error al aplicar FlatLaf");
         }
 
-        // 4. Generar calendario de partidos
-        miLiga.generarCalendarioIdaVuelta();
-
-        // 5. (Opcional) Mostrar los equipos y el calendario
-        System.out.println("Equipos cargados: " + miLiga.getEquipos().size());
-        for (Equipo eq : miLiga.getEquipos()) {
-            System.out.println(eq.getNombre() + " | Entrenador: " + eq.getEntrenador().getNombre() + " | Estilo: " + eq.getEntrenador().getEstilo());
-        }
-
-        System.out.println("\nCalendario generado:");
-        for (int i = 0; i < miLiga.getCalendario().size(); i++) {
-            System.out.println("Jornada " + (i+1));
-            for (Partido p : miLiga.getCalendario().get(i)) {
-                System.out.println("  " + p.getEquipoLocal().getNombre() + " vs " + p.getEquipoVisitante().getNombre());
-            }
-        }*/
-        
-        MainFrame aplicacion = new MainFrame();
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
     }
 }

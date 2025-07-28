@@ -1,4 +1,4 @@
-# Simulador de Liga (v0.8.0)
+# Simulador de Liga (v0.8.5)
 
 Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas, persistencia completa en base de datos y el inicio de una interfaz gráfica en Swing.
 
@@ -112,6 +112,7 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 
 ## Dependencias externas
 
+- FlatLaf (`flatlaf-3.4.jar`) — Estilo visual moderno para interfaces Swing
 - OpenCSV (`opencsv-5.7.1.jar`)
 - Apache Commons Lang (`commons-lang3-3.12.0.jar`)
 - MariaDB Java Client (`mariadb-java-client-3.5.3.jar`)
@@ -131,7 +132,6 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 ## Próximas funcionalidades
 
 - **Botón para reiniciar la liga** completamente (reset de partidos, jornadas y puntos).
-- **Aplicación del estilo visual `FlatLaf`** para modernizar la interfaz Swing.
 - **Validaciones extra**: evitar plantillas inválidas, evitar presupuestos negativos, etc.
 - **Paneles separados para gestión de equipos, traspasos y partidos**.
 - **Reubicar la lógica del controlador para una estructura MVC total.
@@ -140,28 +140,10 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 
 ## Estado del proyecto
 
-**Versión 0.8.0** —  
+**Versión 0.8.5** —  
 **Novedades:** Versión funcional. Gestión de presupuesto y traspasos desde la GUI, integración visual de plantillas con `JTable`.  
 Todo el ciclo de simulación, visualización y modificación de datos puede hacerse desde la GUI sin necesidad de reiniciar.
-
-### Novedades / Logros recientes
-
-- **Persistencia total implementada**: 
-  - Ahora toda la información de la liga (equipos, jugadores, entrenadores y partidos) se almacena y recupera desde la base de datos MariaDB/MySQL.
-  - El calendario de partidos se guarda correctamente, asignando cada partido a sus equipos y jornadas reales mediante sus IDs en la base de datos.
-
-- **Creación atómica de Ligas**:
-  - El proceso de inserción de una nueva liga y todos sus elementos asociados (equipos, jugadores, entrenadores, partidos) se realiza en una única transacción. Si ocurre un error en cualquier paso, **no se añade nada** (rollback automático), garantizando la integridad de los datos.
-
-- **Simulación continua**:
-  - Al cerrar y volver a abrir el simulador, es posible continuar la simulación exactamente desde la jornada pendiente, gracias a la persistencia real y la recuperación completa de objetos desde la base de datos.
-
-- **Control de errores mejorado**:
-  - Ahora la interfaz informa correctamente si ocurre algún error durante la creación de una liga, permitiendo al usuario volver a intentarlo sin dejar datos inconsistentes.
-
-- **Flujo de trabajo probado y estable**:
-  - Probado el flujo: *crear liga* → *simular jornadas* → *persistir y reanudar* con múltiples equipos y jornadas.
-  - Todos los cambios quedan reflejados automáticamente en la base de datos y la interfaz Swing.
+Implementación de estilo FlatLaf.
 
 ---
 
