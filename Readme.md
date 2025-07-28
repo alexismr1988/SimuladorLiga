@@ -1,4 +1,4 @@
-# Simulador de Liga (v0.7.0)
+# Simulador de Liga (v0.8.0)
 
 Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas, persistencia completa en base de datos y el inicio de una interfaz gráfica en Swing.
 
