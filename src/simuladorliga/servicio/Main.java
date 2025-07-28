@@ -7,7 +7,18 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Font;
 import javax.swing.UIManager;
 
+/**
+ * Clase principal del simulador de liga.
+ * Configura el aspecto visual (FlatLaf) e inicia la interfaz gráfica.
+ */
 public class Main {
+    
+    /**
+     * Punto de entrada del programa.
+     * Aplica el tema visual y lanza el frame principal.
+     * 
+     * @param args argumentos de la línea de comandos (no se utilizan)
+     */
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf()); 

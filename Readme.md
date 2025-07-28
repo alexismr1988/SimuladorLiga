@@ -202,6 +202,24 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 
 ---
 
+
+## Documentación JavaDoc
+
+Este proyecto incluye comentarios JavaDoc en las clases y métodos más relevantes.
+
+### ¿Cómo generar la documentación?
+
+Desde NetBeans:
+
+1. Ve al menú `Run > Generate Javadoc`.
+2. Se generará automáticamente en `dist/javadoc/index.html`.
+3. Abre ese archivo en tu navegador para consultar la documentación.
+
+> Puedes regenerarla en cualquier momento tras modificar los comentarios JavaDoc.
+
+---
+
+
 ## Estructura del proyecto
 
 - `/modelo` — Clases del dominio: `Equipo`, `Jugador`, `Entrenador`, etc.
