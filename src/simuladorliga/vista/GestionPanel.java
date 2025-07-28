@@ -5,8 +5,10 @@
 package simuladorliga.vista;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.*;
 import simuladorliga.controlador.GestorTablaResultados;
 import simuladorliga.persistencia.GestorBD;
 import simuladorliga.servicio.Simulador;
@@ -29,6 +31,37 @@ public class GestionPanel extends javax.swing.JPanel {
         nombreLigaLabel.setFont(new Font("Arial", Font.BOLD, 20));
         List<Integer> numJornadas = gestor.obtenerJornadasDeLiga(idLiga);
         tablaResultados.setModel(GestorTablaResultados.modeloClasificacion(frame.getLiga().getEquipos()));
+        
+        // Ajustes visuales de la tabla
+        tablaResultados.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResultados.setRowHeight(24);
+
+        // Cambiar fuente del encabezado
+        tablaResultados.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+
+        // Centrado del contenido
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tablaResultados.getColumnCount(); i++) {
+            tablaResultados.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Colores alternos
+        tablaResultados.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                           boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(240, 240, 255));
+                } else {
+                    c.setBackground(new Color(184, 207, 229)); // color por defecto seleccionado
+                }
+                return c;
+            }
+        });
+
+        
         for (Integer jornada : numJornadas) {
             comboNumJornada.addItem(jornada.toString());
         }
@@ -39,6 +72,40 @@ public class GestionPanel extends javax.swing.JPanel {
         for (String nombre : nombresEquipos) {
         comboPlantillas.addItem(nombre);
         }
+        for (String nombre : nombresEquipos) {
+        comboEquiposPresupuesto.addItem(nombre);
+        }
+        
+        for (String nombre : nombresEquipos) {
+        comboEquiposOrigen.addItem(nombre);
+        }
+        String nombreEquipoTraspaso = comboEquiposOrigen.getSelectedItem().toString();
+        Equipo equipoTraspaso = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipoTraspaso);
+        List<String> nombresJugadores = equipoTraspaso.obtenerNombreJugadores();
+        comboEquiposOrigen.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String nombreEquipoTraspaso = comboEquiposOrigen.getSelectedItem().toString();
+                    Equipo equipoTraspaso = frame.getLiga().buscarEquipoPorNombre(nombreEquipoTraspaso);
+
+                    comboJugadores.removeAllItems(); // limpia los anteriores
+
+                    for (String nombre : equipoTraspaso.obtenerNombreJugadores()) {
+                        comboJugadores.addItem(nombre);
+                    }
+                }
+            }
+        });
+        
+        for (String nombre : nombresJugadores) {
+        comboJugadores.addItem(nombre);
+        }
+        for (String nombre : nombresEquipos) {
+        comboEquiposDestino.addItem(nombre);
+        }
+
+        
          
         
     }
@@ -69,6 +136,22 @@ public class GestionPanel extends javax.swing.JPanel {
         nombreLigaLabel = new javax.swing.JLabel();
         equiposLabel = new javax.swing.JLabel();
         botonEquipos = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        presupuestoLabel = new javax.swing.JLabel();
+        comboEquiposPresupuesto = new javax.swing.JComboBox<>();
+        campoCantidad = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        botonAnadir = new javax.swing.JButton();
+        botonRestar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        origenLabel = new javax.swing.JLabel();
+        comboEquiposOrigen = new javax.swing.JComboBox<>();
+        jugadorTraspasoLabel = new javax.swing.JLabel();
+        comboJugadores = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        comboEquiposDestino = new javax.swing.JComboBox<>();
+        botonTraspasar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
@@ -137,75 +220,182 @@ public class GestionPanel extends javax.swing.JPanel {
             }
         });
 
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        presupuestoLabel.setText("Gestionar presupuesto");
+
+        jLabel1.setText("Selecciona el equipo");
+
+        jLabel2.setText("Cantidad:");
+
+        botonAnadir.setText("+ Añadir");
+        botonAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAnadirActionPerformed(evt);
+            }
+        });
+
+        botonRestar.setText("- Restar");
+        botonRestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRestarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Realizar traspaso");
+
+        origenLabel.setText("Equipo de origen");
+
+        comboEquiposOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEquiposOrigenActionPerformed(evt);
+            }
+        });
+
+        jugadorTraspasoLabel.setText("Jugador a traspasar");
+
+        jLabel4.setText("Equipo de destino");
+
+        botonTraspasar.setText("Traspasar");
+        botonTraspasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTraspasarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nombreLigaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(equiposLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(partidosLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(plantillaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(clasificacionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                        .addComponent(simularLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(botonClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(comboNumJornada, javax.swing.GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)
-                                                    .addComponent(comboPlantillas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(comboJornadas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addComponent(botonEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(botonPlantilla, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(botonPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(botonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGap(293, 293, 293))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(234, 234, 234)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(equiposLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(partidosLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(plantillaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clasificacionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .addComponent(simularLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botonClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(comboNumJornada, javax.swing.GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)
+                                            .addComponent(comboPlantillas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(comboJornadas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(botonPlantilla, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(botonPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(botonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(115, 115, 115)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(148, 148, 148)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jugadorTraspasoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(origenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(presupuestoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(comboEquiposPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(campoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(botonRestar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(139, 139, 139))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(comboEquiposOrigen, 0, 94, Short.MAX_VALUE)
+                                                    .addComponent(comboJugadores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(comboEquiposDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(botonTraspasar)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(botonEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(121, 121, 121)
+                                .addComponent(nombreLigaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(nombreLigaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(simularLabel)
-                    .addComponent(comboNumJornada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonSimular))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clasificacionLabel)
-                    .addComponent(botonClasificacion))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(equiposLabel)
-                    .addComponent(botonEquipos))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(partidosLabel)
-                    .addComponent(comboJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonPartidos))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboPlantillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonPlantilla)
-                    .addComponent(plantillaLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(presupuestoLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(simularLabel)
+                                .addComponent(comboNumJornada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonSimular))
+                            .addGap(35, 35, 35)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(clasificacionLabel)
+                                .addComponent(botonClasificacion))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(equiposLabel)
+                                .addComponent(botonEquipos))
+                            .addGap(37, 37, 37)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(partidosLabel)
+                                .addComponent(comboJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonPartidos))
+                            .addGap(44, 44, 44)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboPlantillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonPlantilla)
+                                .addComponent(plantillaLabel)))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(comboEquiposPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonAnadir))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(campoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonRestar))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3)
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(origenLabel)
+                            .addComponent(comboEquiposOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jugadorTraspasoLabel)
+                            .addComponent(comboJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonTraspasar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(comboEquiposDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,23 +478,154 @@ public class GestionPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonPartidosActionPerformed
 
+    private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
+        // TODO add your handling code here:
+        String texto = campoCantidad.getText().trim();
+        String nombreEquipo = comboEquiposPresupuesto.getSelectedItem().toString();
+        Equipo equipoSeleccionado = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipo);
+        GestorBD gestor = new GestorBD();
+        
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Introduce una cantidad");
+            return;
+        }
+        
+        try {
+            double cantidad = Double.parseDouble(texto);
+            if (cantidad < 0) {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser positiva");
+                return;
+            }         
+            equipoSeleccionado.incrementarPresupuesto(cantidad);
+            gestor.updatePresupuestoEquipo(equipoSeleccionado.getId(), equipoSeleccionado.getPresupuesto());
+            JOptionPane.showMessageDialog(this, "Presupuesto actualizado");
+            campoCantidad.setText("");
+            tablaResultados.setModel(GestorTablaResultados.modeloParaEquipos(frame.getLiga().getEquipos()));
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Introduce una cantidad numérica válida");
+        }
+        
+
+    }//GEN-LAST:event_botonAnadirActionPerformed
+
+    private void botonRestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestarActionPerformed
+        // TODO add your handling code here:
+        String texto = campoCantidad.getText().trim();
+        String nombreEquipo = comboEquiposPresupuesto.getSelectedItem().toString();
+        Equipo equipoSeleccionado = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipo);
+        GestorBD gestor = new GestorBD();
+        
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Introduce una cantidad");
+            return;
+        }
+        
+        try {
+            double cantidad = Double.parseDouble(texto);
+            if (cantidad < 0) {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser positiva");
+                return;
+            }
+            equipoSeleccionado.reducirPresupuesto(cantidad);
+            gestor.updatePresupuestoEquipo(equipoSeleccionado.getId(), equipoSeleccionado.getPresupuesto());
+            JOptionPane.showMessageDialog(this, "Presupuesto actualizado");
+            campoCantidad.setText("");
+            tablaResultados.setModel(GestorTablaResultados.modeloParaEquipos(frame.getLiga().getEquipos()));
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Introduce una cantidad numérica válida");
+        }
+    }//GEN-LAST:event_botonRestarActionPerformed
+
+    private void botonTraspasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTraspasarActionPerformed
+        // TODO add your handling code here:
+        if (comboEquiposOrigen.getSelectedItem() == null ||
+            comboEquiposDestino.getSelectedItem() == null ||
+            comboJugadores.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar equipo origen, destino y jugador");
+            return;
+        }
+
+        String nombreEquipoOrigen = comboEquiposOrigen.getSelectedItem().toString();
+        String nombreEquipoDestino = comboEquiposDestino.getSelectedItem().toString();
+        String nombreJugador = comboJugadores.getSelectedItem().toString();
+        GestorBD gestor = new GestorBD();
+        
+        Equipo equipoOrigen = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipoOrigen);
+        Equipo equipoDestino = this.frame.getLiga().buscarEquipoPorNombre(nombreEquipoDestino);
+        Jugador jugadorSeleccionado = equipoOrigen.obtenerJugadorPorNombre(nombreJugador);
+        int idEquipoDestino = equipoDestino.getId();
+        int idJugador = jugadorSeleccionado.getId();
+        
+        if (nombreEquipoOrigen.equalsIgnoreCase(nombreEquipoDestino)) {
+                JOptionPane.showMessageDialog(this, "No puede ser el mismo equipo el de origen y el de destino");
+                return;
+            }
+        
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Estás seguro de que deseas traspasar a " + nombreJugador + " al equipo " + nombreEquipoDestino + "?",
+            "Confirmar traspaso",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        
+        equipoOrigen.getPlantilla().remove(jugadorSeleccionado);
+        equipoDestino.agregarJugador(jugadorSeleccionado);
+        gestor.actualizarIdJugador(idJugador, idEquipoDestino);
+        JOptionPane.showMessageDialog(this, "Traspaso realizado correctamente");
+        
+        comboJugadores.removeAllItems();
+            for (Jugador j : equipoOrigen.getPlantilla()) {
+                comboJugadores.addItem(j.getNombre());
+        }
+        tablaResultados.setModel(GestorTablaResultados.modeloParaPlantillas(equipoDestino));
+        
+    }//GEN-LAST:event_botonTraspasarActionPerformed
+
+    private void comboEquiposOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEquiposOrigenActionPerformed
+        // TODO add your handling code here
+
+    }//GEN-LAST:event_comboEquiposOrigenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAnadir;
     private javax.swing.JButton botonClasificacion;
     private javax.swing.JButton botonEquipos;
     private javax.swing.JButton botonPartidos;
     private javax.swing.JButton botonPlantilla;
+    private javax.swing.JButton botonRestar;
     private javax.swing.JButton botonSimular;
+    private javax.swing.JButton botonTraspasar;
     private javax.swing.JButton botonVolver;
+    private javax.swing.JTextField campoCantidad;
     private javax.swing.JLabel clasificacionLabel;
+    private javax.swing.JComboBox<String> comboEquiposDestino;
+    private javax.swing.JComboBox<String> comboEquiposOrigen;
+    private javax.swing.JComboBox<String> comboEquiposPresupuesto;
     private javax.swing.JComboBox<String> comboJornadas;
+    private javax.swing.JComboBox<String> comboJugadores;
     private javax.swing.JComboBox<String> comboNumJornada;
     private javax.swing.JComboBox<String> comboPlantillas;
     private javax.swing.JLabel equiposLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jugadorTraspasoLabel;
     private javax.swing.JLabel nombreLigaLabel;
+    private javax.swing.JLabel origenLabel;
     private javax.swing.JLabel partidosLabel;
     private javax.swing.JLabel plantillaLabel;
+    private javax.swing.JLabel presupuestoLabel;
     private javax.swing.JLabel simularLabel;
     private javax.swing.JTable tablaResultados;
     // End of variables declaration//GEN-END:variables

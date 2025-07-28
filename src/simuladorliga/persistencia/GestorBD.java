@@ -656,6 +656,7 @@ public class GestorBD {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Jugador jugador = new Jugador(rs.getString("nombre"), rs.getInt("dorsal"), Posicion.valueOf(rs.getString("posicion")), rs.getInt("media"));
+                jugador.setId(rs.getInt("id_jugador"));
                 plantilla.add(jugador);
             }
         } catch (SQLException e) {
@@ -823,6 +824,23 @@ public class GestorBD {
             e.printStackTrace();
         }
     }
+    
+        public void actualizarIdJugador(int idJugador, int idEquipo) {
+        String sql = "UPDATE JUGADOR SET id_equipo = ? WHERE id_jugador = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEquipo);
+            ps.setInt(2, idJugador);
+            int filasModificadas = ps.executeUpdate();
+            if (filasModificadas > 0) {
+                System.out.println("El jugador con id " + idJugador + " fue modificado correctamente");
+            } else {
+                System.out.println("No existe ningún jugador con id: " + idJugador);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la modificación del jugador");
+            e.printStackTrace();
+        }
+    }
 
     // Actualiza PARTIDO (goles, simulado, jornada, equipos)
     public void updatePartido(int idPartido, int golesLocal, int golesVisitante, boolean simulado, int jornada, int idEquipoLocal, int idEquipoVisitante) {
@@ -926,6 +944,19 @@ public class GestorBD {
             e.printStackTrace();
         }
     }
-
+    
+    public boolean updatePresupuestoEquipo(int idEquipo, double nuevoPresupuesto) {
+        String sql = "UPDATE equipo SET presupuesto = ? WHERE id_equipo = ?";
+        try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setDouble(1, nuevoPresupuesto);
+            ps.setInt(2, idEquipo);
+            int filas = ps.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el presupuesto del equipo con ID: " + idEquipo);
+            e.printStackTrace();
+            return false;
+        }
+}
 
 }

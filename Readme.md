@@ -7,37 +7,64 @@ Este proyecto es una simulación realista de una liga de fútbol, desarrollada c
 ## Funcionalidades principales
 
 - **Persistencia total en MariaDB/MySQL**  
-  Clase `GestorBD` con todos los métodos CRUD (insert, update, delete, select) para cada entidad (`Liga`, `Equipo`, `Entrenador`, `Jugador`, `Partido`).
-- **Reconstrucción y continuidad:**  
-  Permite crear una liga, simular jornadas, cerrar el programa y continuar desde el mismo punto recuperando todos los datos de la base de datos.
-- **Interfaz gráfica básica (Swing):**  
+  Clase `GestorBD` con todos los métodos CRUD (`insert`, `update`, `delete`, `select`) para cada entidad (`Liga`, `Equipo`, `Entrenador`, `Jugador`, `Partido`).
+
+- **Reconstrucción y continuidad**  
+  Permite crear una liga, simular jornadas, cerrar el programa y continuar desde el mismo punto, recuperando todos los datos (incluyendo alineaciones, entrenadores y resultados) desde la base de datos.
+
+- **Interfaz gráfica con Swing (versión 0.8 mejorada)**  
   - Pantalla principal de bienvenida.  
-  - Gestión de equipos y selección de jornadas a simular desde interfaz gráfica.  
-  - Selección dinámica de jornadas disponibles (comboBox) y simulación directa desde la GUI.
-- **Simulación y actualización de resultados desde la interfaz:**  
-  Ahora la simulación de jornadas y la actualización de resultados se hace de forma visual y amigable para el usuario.
-- **Reconstrucción visual del estado de la liga:**  
-  Puedes cerrar el programa y reabrirlo; los partidos/jornadas se mantienen y pueden visualizarse y simularse por la interfaz.
+  - Panel de gestión (`GestionPanel`) con múltiples opciones:  
+    - Simular jornadas  
+    - Mostrar clasificación  
+    - Consultar plantilla de cada equipo  
+    - Visualizar partidos por jornada  
+    - Consultar información general de los equipos  
+  - `JTable` para mostrar resultados, plantillas y clasificación con formato mejorado.
+  - Estética básica aplicada (colores alternos, alineación de columnas, fuentes legibles).
+
+- **Gestión de presupuestos desde la GUI**  
+  - Selección de equipo y campo numérico para añadir o restar presupuesto.  
+  - Validación para evitar entradas no numéricas o negativas.  
+  - Actualización automática en la tabla visual y en la base de datos.
+
+- **Traspasos entre equipos (interfaz gráfica)**  
+  - Selección del equipo de origen, jugador y equipo de destino.  
+  - Actualización tanto en memoria como en base de datos (`id_equipo`).  
+  - ComboBox dinámico que actualiza automáticamente los jugadores disponibles.  
+  - Confirmación visual del traspaso y recarga en tabla.
+
 - **Importación masiva desde archivo CSV**  
-  Método `importarEquiposDesdeCSV()` en `GestorFicheros`, para crear equipos completos desde `.csv` (incluyendo entrenador, presupuesto y plantilla).
-    - Formato esperado:  
-      `Equipo,Presupuesto,Entrenador,EstiloEntrenador,NombreJugador,Dorsal,Posicion,Media`
+  Método `importarEquiposDesdeCSV()` en `GestorFicheros`, que permite cargar equipos completos (entrenador, plantilla, presupuesto) desde archivos `.csv`.
+
+  - Formato esperado:  
+    ```
+    Equipo,Presupuesto,Entrenador,EstiloEntrenador,NombreJugador,Dorsal,Posicion,Media
+    ```
+
 - **Creación de equipos y entrenadores personalizados**  
-  Clase `Entrenador` con atributo `EstiloEntrenador` (Defensivo, Ofensivo, Posesión, Contraataque).
-- **Alineaciones realistas y validadas**  
-  Restricciones por posición y táctica (mínimo/máximo por línea).
+  La clase `Entrenador` incluye un atributo `EstiloEntrenador` que afecta directamente a la simulación táctica (Defensivo, Ofensivo, Posesión, Contraataque).
+
+- **Alineaciones automáticas realistas y validadas**  
+  Selección automática de 11 titulares válidos según posición, media y estilo táctico.
+
 - **Bonificaciones y penalizaciones en la simulación**  
-  La táctica utilizada y la compatibilidad con el estilo del entrenador afectan al resultado del partido.
-- **Gestión de presupuestos por equipo**
+  Según alineación, estilo del entrenador, y diferencias de media en cada línea (defensa, medio, delantera...).
+
 - **Cálculo automático del número de jornadas**  
-  Según equipos y si hay ida/vuelta.
-- **Generación automática del calendario**  
-  Liga de ida o ida y vuelta.
-- **Simulación avanzada de partidos**
+  Se adapta dinámicamente al número de equipos y a si la liga es de ida o ida/vuelta.
+
+- **Generación completa del calendario**  
+  Algoritmo de emparejamientos que garantiza un calendario realista y justo, sin repeticiones indebidas.
+
+- **Simulación avanzada de partidos (`Simulador.java`)**  
+  Tácticas, estilos y valores medios se traducen en probabilidades, ocasiones y goles simulados.
+
 - **Clasificación y estadísticas automáticas**  
-  Resultados, goles, diferencia de goles, puntos.
-- **Exportación y carga de resultados desde fichero**  
-  Alternativa a la BD: persistencia usando archivos `.txt`.
+  Incluye: puntos, goles a favor, goles en contra y diferencia de goles, todo visible en tabla.
+
+- **Exportación y carga de resultados desde fichero (`GestorFicheros`)**  
+  Como alternativa a la base de datos, se puede usar persistencia en archivos `.txt` (modo offline o backup).
 
 
 ---
@@ -96,25 +123,26 @@ Cada partido simulado tiene en cuenta los siguientes factores:
 - `/modelo` — Clases del dominio: `Equipo`, `Jugador`, `Entrenador`, etc.
 - `/servicio` — Lógica principal: `Simulador.java`
 - `/persistencia` — Persistencia en ficheros y base de datos: `GestorFicheros`, `GestorBD`
-- `/vista` — Interfaz gráfica Swing (pantallas principales, gestión de equipos, simulación de jornadas)
+- `/vista` — Interfaz Swing: `MainFrame`, `GestionPanel`, `MenuPanel`, `CrearPanel`.
 - `Main.java` — Entrada principal para pruebas o demo
 
 ---
 
 ## Próximas funcionalidades
 
-- Mejorar la interfaz de gestión y consulta de ligas y jornadas simuladas.
-- Añadir edición/eliminación de ligas y equipos desde la GUI.
-- Documentar la arquitectura de persistencia y la lógica de simulación en un archivo aparte (`ARQUITECTURA.md`).
+- **Botón para reiniciar la liga** completamente (reset de partidos, jornadas y puntos).
+- **Aplicación del estilo visual `FlatLaf`** para modernizar la interfaz Swing.
+- **Validaciones extra**: evitar plantillas inválidas, evitar presupuestos negativos, etc.
+- **Paneles separados para gestión de equipos, traspasos y partidos**.
+- **Reubicar la lógica del controlador para una estructura MVC total.
 
 ---
 
 ## Estado del proyecto
 
-Versión **0.7.0** —  
-**Novedad:** Primeras pantallas funcionales en Swing.  
-Ya se puede gestionar equipos, seleccionar jornadas y simular partidos desde la interfaz gráfica.  
-La reconstrucción de partidos, equipos y clasificación desde la base de datos es completamente funcional.
+**Versión 0.8.0** —  
+**Novedades:** Versión funcional. Gestión de presupuesto y traspasos desde la GUI, integración visual de plantillas con `JTable`.  
+Todo el ciclo de simulación, visualización y modificación de datos puede hacerse desde la GUI sin necesidad de reiniciar.
 
 ### Novedades / Logros recientes
 

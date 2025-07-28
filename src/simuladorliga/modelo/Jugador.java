@@ -11,6 +11,7 @@ public class Jugador {
     private int dorsal;
     private Posicion posicion;
     private int media;
+    private int id;
 
     public Jugador(String nombre,int dorsal, Posicion posicion, int media) {
         this.nombre = nombre;
@@ -55,6 +56,13 @@ public class Jugador {
         if(media<1 || media>100){
             throw new IllegalArgumentException("la media debe ser entre 1 y 100."); 
         } else this.media = media;       
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

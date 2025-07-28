@@ -223,5 +223,23 @@ public class Equipo {
     public int valorAleatorio(int min, int max) {
         return (int)(Math.random() * (max - min + 1)) + min;
     }
+    
+    public List<String> obtenerNombreJugadores(){
+        List<String> nombresJugadores = new ArrayList<>();
+        
+        for (Jugador jugador : this.getPlantilla()) {
+            nombresJugadores.add(jugador.getNombre());
+        }
+        return nombresJugadores;
+    }
+    
+    public Jugador obtenerJugadorPorNombre(String nombre) {
+        for (Jugador jugador : this.getPlantilla()) {
+            if (jugador.getNombre().equalsIgnoreCase(nombre)) {
+                return jugador;
+            }
+        }
+        return null; // o puedes lanzar una excepción si prefieres
+    }
  
 }

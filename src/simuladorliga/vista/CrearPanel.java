@@ -73,6 +73,11 @@ public class CrearPanel extends javax.swing.JPanel {
         });
 
         botonVolver1.setText("VOLVER");
+        botonVolver1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolver1ActionPerformed(evt);
+            }
+        });
 
         nombreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreLabel.setText("Introduce el nombre de la liga:");
@@ -261,6 +266,11 @@ public class CrearPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(frame, "Error al crear la liga. Revisa los datos o intenta de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonCrearActionPerformed
+
+    private void botonVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolver1ActionPerformed
+        // TODO add your handling code here:
+        frame.irAMenuPanel();
+    }//GEN-LAST:event_botonVolver1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
