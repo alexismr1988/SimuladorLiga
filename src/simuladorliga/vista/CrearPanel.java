@@ -5,14 +5,22 @@ import javax.swing.*;
 import simuladorliga.modelo.*;
 import simuladorliga.persistencia.*;
 
-
+/**
+ * Panel de interfaz gráfica que permite crear una nueva liga.
+ * El usuario puede introducir el nombre, seleccionar si es de ida/vuelta 
+ * y elegir los equipos desde una lista importada.
+ */
 public class CrearPanel extends javax.swing.JPanel {
     private MainFrame frame;
     private DefaultListModel<Equipo> modeloTodos;
     private DefaultListModel<Equipo> modeloSeleccionados;
 
-
-
+    /**
+     * Constructor del panel de creación de liga.
+     * Inicializa listas de equipos y componentes gráficos.
+     * 
+     * @param frame Referencia al frame principal para navegación entre pantallas.
+     */
     public CrearPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
@@ -214,16 +222,24 @@ public class CrearPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNombreActionPerformed
 
+    /**
+    * Acción al pulsar "+ Añadir". 
+    * Mueve el equipo seleccionado desde la lista de disponibles 
+    * a la lista de equipos seleccionados para la liga.
+    */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
         Equipo seleccionado = equiposListTodos.getSelectedValue();
         if (seleccionado != null && !modeloSeleccionados.contains(seleccionado)) {
             modeloSeleccionados.addElement(seleccionado);
             modeloTodos.removeElement(seleccionado);
-        }
-        
+        }       
     }//GEN-LAST:event_botonAgregarActionPerformed
-
+    
+    /**
+     * Acción al pulsar "- Quitar". 
+     * Mueve el equipo seleccionado de vuelta a la lista de disponibles.
+     */
     private void botonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonQuitarActionPerformed
         // TODO add your handling code here:
         Equipo seleccionado = equiposListSeleccionados.getSelectedValue();
@@ -233,6 +249,11 @@ public class CrearPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonQuitarActionPerformed
 
+    /**
+    * Acción al pulsar "CREAR LIGA". 
+    * Valida los datos introducidos, crea el objeto Liga, 
+    * genera el calendario y guarda los datos en la base de datos.
+    */
     private void botonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearActionPerformed
         // TODO add your handling code here:
         GestorBD gestor = new GestorBD();
@@ -267,6 +288,10 @@ public class CrearPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonCrearActionPerformed
 
+    /**
+    * Acción al pulsar "VOLVER". 
+    * Regresa al panel principal de menú.
+    */
     private void botonVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolver1ActionPerformed
         // TODO add your handling code here:
         frame.irAMenuPanel();

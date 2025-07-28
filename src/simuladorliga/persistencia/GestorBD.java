@@ -4,7 +4,10 @@ import java.sql.*;
 import java.util.*;
 import simuladorliga.modelo.*;
 
-
+/**
+ * Clase encargada de gestionar la conexión y operaciones de persistencia con la base de datos MariaDB.
+ * Contiene métodos CRUD para las entidades principales: Liga, Equipo, Jugador, Entrenador y Partido.
+ */
 public class GestorBD {
     private static final String SERVIDOR = "localhost";
     private static final String PUERTO = "3306";
@@ -14,15 +17,26 @@ public class GestorBD {
     
     public static final String URL_CONEXION="jdbc:mariadb://" + SERVIDOR + ":" + PUERTO + "/" + NOMBRE_BD + "?user=" + USUARIO + "&password=" + PASSWORD;
     
-    //método estático establecer y devolver la conexión con la base de datos "SimuladorLigas"
+    /**
+     * Establece una conexión con la base de datos.
+     * 
+     * @return Conexión activa con la base de datos
+     * @throws SQLException si ocurre un error al conectar
+     */
     public static Connection conectar() throws SQLException {
         return DriverManager.getConnection(URL_CONEXION);
     }
     
+    /**
+     * Constructor por defecto. No realiza ninguna acción al instanciarse.
+     */
     public GestorBD() {
         
     }
     
+    /**
+     * Crea las tablas necesarias en la base de datos si no existen.
+     */
     public void inicializaBD() {
         String tablaLiga="CREATE TABLE IF NOT EXISTS LIGA (id_liga INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, ida_vuelta BOOLEAN NOT NULL);";
         String tablaEntrenador = "CREATE TABLE IF NOT EXISTS ENTRENADOR (id_entrenador INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, estilo VARCHAR(50) NOT NULL);";
@@ -79,6 +93,13 @@ public class GestorBD {
         }
     }
     
+    /**
+     * Inserta una liga completa en la base de datos, incluyendo equipos, jugadores, entrenador y partidos.
+     * Se ejecuta dentro de una transacción.
+     *
+     * @param liga Liga a insertar
+     * @return true si la inserción fue exitosa, false en caso de error
+     */
     public boolean insertarLigaCompleta(Liga liga) {
         String nombre = liga.getNombre();
         boolean ida_vuelta = liga.isIda_vuelta();
@@ -180,7 +201,14 @@ public class GestorBD {
         }
     }
     
-        public void insertarEntrenador(Entrenador entrenador, Connection conn) throws SQLException {
+    /**
+     * Inserta un entrenador reutilizando una conexión activa para transacciones
+     *
+     * @param entrenador Entrenador a insertar
+     * @param conn Conexión activa con la base de datos
+     * @throws SQLException si ocurre un error durante la inserción
+     */
+    public void insertarEntrenador(Entrenador entrenador, Connection conn) throws SQLException {
         String nombre = entrenador.getNombre();
         String estilo = entrenador.getEstilo().name();
         
@@ -244,6 +272,15 @@ public class GestorBD {
         return -1; // Si algo falla, devuelve -1
     }
     
+    /**
+    * Inserta un equipo reutilizando una conexión activa para transacciones.
+    *
+    * @param equipo Equipo a insertar
+    * @param idLiga ID de la liga
+    * @param idEntrenador ID del entrenador
+    * @param conn Conexión activa
+    * @return ID del equipo insertado o -1 si falló
+    */
     public int insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador, Connection conn) throws SQLException{
         String nombre = equipo.getNombre();
         double presupuesto = equipo.getPresupuesto();
@@ -307,6 +344,14 @@ public class GestorBD {
         }
     }
     
+    /**
+    * Inserta un jugador reutilizando una conexión activa para transacciones.
+    *
+    * @param jugador Jugador a insertar
+    * @param idEquipo ID del equipo
+    * @param conn Conexión activa
+    * @throws SQLException si ocurre un error
+    */
     public void insertarJugador(Jugador jugador, int idEquipo, Connection conn) throws SQLException {
         String nombre = jugador.getNombre();
         int dorsal = jugador.getDorsal();
@@ -365,6 +410,15 @@ public class GestorBD {
         }
     }
     
+    /**
+    * Inserta un partido reutilizando una conexión activa para transacciones.
+    *
+    * @param partido Partido a insertar
+    * @param idLiga ID de la liga
+    * @param idEquipoLocal ID del equipo local
+    * @param idEquipoVisitante ID del equipo visitante
+    * @param conn Conexión activa
+    */
     public void insertarPartido(Partido partido, int idLiga, int idEquipoLocal, int idEquipoVisitante, Connection conn) throws SQLException {
         int jornada = partido.getJornada();
         int golesLocal = partido.getGolesLocal();
@@ -395,6 +449,12 @@ public class GestorBD {
         }
     }
     
+    /**
+    * Obtiene el ID de una liga por su nombre.
+    *
+    * @param nombre Nombre de la liga
+    * @return ID correspondiente o null si no se encuentra
+    */
     public  Integer obtenerIdLigaPorNombre(String nombre) {
         String sql = "SELECT id_liga FROM LIGA WHERE nombre = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -410,6 +470,12 @@ public class GestorBD {
         return null;
     }
     
+    /**
+    * Obtiene el ID de un equipo por su nombre.
+    *
+    * @param nombre Nombre del equipo
+    * @return ID correspondiente o null si no se encuentra
+    */
     public Integer obtenerIdEquipoPorNombre(String nombre) {
         String sql = "SELECT id_equipo FROM EQUIPO WHERE nombre = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -425,6 +491,12 @@ public class GestorBD {
         return null;
     }
     
+    /**
+    * Obtiene todas las jornadas distintas asociadas a una liga.
+    *
+    * @param idLiga ID de la liga
+    * @return Lista de jornadas ordenadas
+    */
     public List<Integer> obtenerJornadasDeLiga(int idLiga) {
         List<Integer> jornadas = new ArrayList<>();
         String sql = "SELECT DISTINCT jornada FROM PARTIDO WHERE id_liga = ? ORDER BY jornada";
@@ -442,6 +514,13 @@ public class GestorBD {
         return jornadas;
     }
     
+    /**
+    * Recupera los partidos de una jornada concreta.
+    *
+    * @param idLiga ID de la liga
+    * @param jornada Número de la jornada
+    * @return Lista de partidos
+    */
     public List<Partido> obtenerPartidosDeJornada(int idLiga, int jornada) {
         List<Partido> partidos = new ArrayList<>();
         String sql = "SELECT * FROM PARTIDO WHERE id_liga = ? AND jornada = ?";
@@ -499,6 +578,12 @@ public class GestorBD {
         return null;
     }
     
+    /**
+    * Recupera todos los equipos asociados a una liga específica.
+    *
+    * @param idLiga ID de la liga
+    * @return Lista de equipos con plantilla y entrenador asociados
+    */
     public List<Equipo> recuperarEquiposPorLiga(int idLiga){
         List<Equipo> equipos=new ArrayList();
         String consultaEquipo = "SELECT * FROM EQUIPO WHERE id_liga = ?";
@@ -571,6 +656,12 @@ public class GestorBD {
         return equipo;
     }
     
+    /**
+     * Recupera una liga completa desde la base de datos, con equipos, entrenadores, jugadores y partidos ya asociados.
+     * 
+     * @param idLiga ID de la liga a recuperar
+     * @return Objeto Liga reconstruido completamente, o null si no se encuentra
+     */
     public Liga recuperarLigaCompleta(int idLiga) {
         Liga ligaRecuperada = recuperarLigaPorId(idLiga);
         if (ligaRecuperada == null) return null;
@@ -648,6 +739,12 @@ public class GestorBD {
         return equipos;
     }
     
+    /**
+    * Recupera los jugadores asociados a un equipo.
+    *
+    * @param idEquipo ID del equipo
+    * @return Lista de jugadores
+    */
     public List<Jugador> recuperarJugadoresPorEquipo(int idEquipo){
         List<Jugador> plantilla = new ArrayList<>();
         String sql = "SELECT * FROM JUGADOR WHERE id_equipo = ?";
@@ -703,6 +800,13 @@ public class GestorBD {
         return partidos; 
     }
     
+    /**
+    * Recupera todos los partidos de una liga utilizando los objetos equipo ya reconstruidos (importante para mantener referencias).
+    *
+    * @param idLiga ID de la liga
+    * @param equipos Lista de equipos ya reconstruidos
+    * @return Lista de partidos con instancias coherentes de equipo
+    */
     public List<Partido> recuperarPartidosPorLiga(int idLiga, List<Equipo> equipos) {
         List<Partido> partidos = new ArrayList<>();
         String consultaLiga = "SELECT * FROM PARTIDO WHERE id_liga = ?";
@@ -945,6 +1049,13 @@ public class GestorBD {
         }
     }
     
+    /**
+     * Actualiza el presupuesto de un equipo específico.
+     * 
+     * @param idEquipo ID del equipo a actualizar
+     * @param nuevoPresupuesto Nuevo valor del presupuesto
+     * @return true si la operación fue exitosa, false si no se modificó nada o falló
+     */
     public boolean updatePresupuestoEquipo(int idEquipo, double nuevoPresupuesto) {
         String sql = "UPDATE equipo SET presupuesto = ? WHERE id_equipo = ?";
         try (Connection conn = GestorBD.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {

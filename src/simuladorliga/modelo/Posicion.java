@@ -1,5 +1,9 @@
 package simuladorliga.modelo;
 
+/**
+ * Enum que representa las posibles posiciones de un jugador en el campo.
+ * Cada posición incluye una descripción textual para mostrar en interfaces.
+ */
 public enum Posicion {
     PORTERO("Portero"),
     DEFENSA("Defensa"),
@@ -12,6 +16,10 @@ public enum Posicion {
 
     private final String descripcion;
 
+    /**
+     * Devuelve la descripción legible de la posición.
+     * @return descripción textual
+     */
     Posicion(String descripcion) {
         this.descripcion = descripcion;
     }

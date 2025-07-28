@@ -5,6 +5,14 @@ import java.util.*;
 import javax.swing.table.*;
 import simuladorliga.modelo.*;
 
+
+/**
+ * Clase de utilidad encargada de generar modelos de tabla (DefaultTableModel)
+ * para representar visualmente datos de equipos, jugadores, clasificación y jornadas
+ * en la interfaz Swing del simulador.
+ * 
+ * Todos los métodos son estáticos y están pensados para integrarse directamente en JTables.
+ */
 public class GestorTablaResultados {
     // Constantes para nombres de columnas (opcional, pero recomendable)
     public static final String COL_NOMBRE = "Nombre";
@@ -28,7 +36,7 @@ public class GestorTablaResultados {
     
 
     /**
-     * Genera un modelo de tabla para mostrar equipos.
+     * Genera un modelo de tabla para mostrar equipos de la liga ordenados por la media del equipo.
      * @param equipos Lista de equipos a mostrar
      * @return DefaultTableModel listo para usar en un JTable
      */
@@ -60,6 +68,12 @@ public class GestorTablaResultados {
         return modelo;
     }
     
+    /**
+     * Genera un modelo de tabla para mostrar la plantilla de un equipo concreto ordenada por el número de dorsal.
+     *
+     * @param equipo Equipo del cual se mostrarán los jugadores
+     * @return DefaultTableModel con nombre, posición, media y dorsal de los jugadores
+     */
     public static DefaultTableModel modeloParaPlantillas(Equipo equipo) {
         DefaultTableModel modelo = new DefaultTableModel();
         List<Jugador> jugadores = equipo.getPlantilla();
@@ -82,6 +96,12 @@ public class GestorTablaResultados {
         return modelo;
     }
     
+    /**
+     * Genera un modelo de tabla con la clasificación ordenada por puntos.
+     *
+     * @param equipos Lista de equipos a clasificar
+     * @return DefaultTableModel con posición, nombre, goles y puntos
+     */
     public static DefaultTableModel modeloClasificacion(List<Equipo> equipos) {
         DefaultTableModel modelo = new DefaultTableModel();
         equipos.sort((e1, e2) -> Integer.compare(e2.getPuntos(), e1.getPuntos()));
@@ -108,6 +128,12 @@ public class GestorTablaResultados {
         return modelo;
     }
     
+    /**
+     * Genera un modelo de tabla con los partidos de la jornada elegida.
+     *
+     * @param partidos Lista de partidos a mostrar
+     * @return DefaultTableModel con equipos, resultado, jornada y estado de simulación
+     */
     public static DefaultTableModel modeloJornadas(List<Partido> partidos) {
         DefaultTableModel modelo = new DefaultTableModel();
         

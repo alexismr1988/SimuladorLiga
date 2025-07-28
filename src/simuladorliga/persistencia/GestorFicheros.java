@@ -5,12 +5,20 @@ import java.util.*;
 import simuladorliga.modelo.*;
 import com.opencsv.CSVReader;
 
-
+/**
+ * Clase utilitaria para la gestión de archivos de texto y CSV
+ * relacionados con equipos, resultados y clasificaciones de la liga.
+ */
 public class GestorFicheros {
     
     public static final String RUTA_PLANTILLAS_CSV = "plantillas/plantillas2025.csv";
 
-
+    /**
+    * Guarda los datos de los equipos y sus jugadores en un archivo de texto plano.
+    * 
+    * @param equipos Lista de equipos a guardar
+    * @param nombreLiga Nombre de la liga (usado para construir la ruta)
+    */
     public static void guardarEquipos(List<Equipo> equipos, String nombreLiga) {
         File f = new File("ligas/" + nombreLiga + "/plantillas.txt");
 
@@ -30,7 +38,13 @@ public class GestorFicheros {
             System.out.println("Error intentando exportar los datos: " + ex.getMessage());
         }
     }
-
+    
+    /**
+     * Carga equipos y sus jugadores desde un archivo de texto plano.
+     * 
+     * @param nombreLiga Nombre de la liga (usado para construir la ruta)
+     * @return Lista de equipos reconstruidos
+     */
     public static List<Equipo> cargarEquipos(String nombreLiga) {
         List<Equipo> equipos = new ArrayList<>();
         File f = new File("ligas/" + nombreLiga + "/plantillas.txt");
@@ -82,7 +96,13 @@ public class GestorFicheros {
 
         return equipos;
     }
-
+    
+    /**
+     * Guarda la clasificación actual de los equipos en un archivo de texto.
+     * 
+     * @param equipos Lista de equipos ordenados por puntos
+     * @param nombreLiga Nombre de la liga (usado para construir la ruta)
+     */
     public static void guardarClasificacion(List<Equipo> equipos, String nombreLiga) {
         File f = new File("ligas/" + nombreLiga + "/clasificacion.txt");
 
@@ -108,7 +128,12 @@ public class GestorFicheros {
             System.out.println("Error al guardar la clasificación: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Guarda los resultados simulados de los partidos en un archivo de texto.
+     * 
+     * @param liga Liga cuyos partidos serán exportados
+     */
     public static void guardarResultados(Liga liga) {
         String nombreLiga = liga.getNombre();
         File f = new File("ligas/" + nombreLiga + "/resultados.txt");
@@ -148,7 +173,13 @@ public class GestorFicheros {
             System.out.println("Error intentando exportar los datos: " + ex.getMessage());
         }
     }
-
+    
+    /**
+     * Carga los resultados desde archivo de texto y los aplica a la liga.
+     * Marca como simulados los partidos correspondientes y actualiza clasificación.
+     * 
+     * @param liga Liga a la que se aplicarán los resultados cargados
+     */
     public static void cargarResultados(Liga liga) {
         String nombreLiga = liga.getNombre();
         File f = new File("ligas/" + nombreLiga + "/resultados.txt");
@@ -190,7 +221,14 @@ public class GestorFicheros {
             System.out.println("Error al cargar resultados: " + e.getMessage());
         }
     }
-    
+   
+    /**
+    * Importa equipos, entrenadores y jugadores desde un archivo CSV.
+    * Agrupa los jugadores por equipo automáticamente.
+    * Editable por el usuario final para adaptarlo a sus preferencias.
+    * 
+    * @return Lista de equipos completos importados
+    */
     public static List<Equipo> importarEquiposDesdeCSV() {
         List<Equipo> equipos = new ArrayList<>();
         Map<String, Equipo> mapaEquipos = new HashMap<>();

@@ -3,8 +3,8 @@ package simuladorliga.modelo;
 import java.time.LocalDate;
 
 /**
- *
- * @author PC
+ * Representa un partido entre dos equipos, incluyendo goles, jornada y estado de simulación.
+ * Permite actualizar los puntos y estadísticas de los equipos tras jugarse el partido.
  */
 public class Partido {
     private int idPartido; 
@@ -18,7 +18,16 @@ public class Partido {
     private Partido(){
         
     }
-
+    
+    /**
+     * Crea un partido con equipos, goles iniciales y número de jornada.
+     *
+     * @param equipoLocal equipo que juega como local
+     * @param equipoVisitante equipo visitante
+     * @param golesLocal goles iniciales del local (0 en la mayoría de casos)
+     * @param golesVisitante goles iniciales del visitante
+     * @param jornada número de jornada en la que se juega
+     */
     public Partido(Equipo equipoLocal, Equipo equipoVisitante, int golesLocal, int golesVisitante, int jornada) {
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
@@ -29,7 +38,10 @@ public class Partido {
     }
     
     
-    
+    /**
+     * Actualiza los puntos de cada equipo según el resultado del partido.
+     * También actualiza goles a favor y en contra para ambos equipos.
+     */ 
     public void actualizarPuntos(){
         if(golesLocal>golesVisitante){
             equipoLocal.sumarPuntos(3);

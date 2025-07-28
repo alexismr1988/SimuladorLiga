@@ -7,11 +7,21 @@ import simuladorliga.persistencia.*;
 import java.util.List;
 import simuladorliga.modelo.*;
 
-
+/**
+ * Panel de menú principal de la aplicación.
+ * Permite al usuario crear una nueva liga o cargar una liga existente desde la base de datos.
+ * Muestra el logo y el título principal.
+ */
 public class MenuPanel extends javax.swing.JPanel {
 
     private MainFrame frame;
 
+    /**
+    * Constructor del panel de menú.
+    * Inicializa los componentes visuales y carga las ligas disponibles desde la base de datos.
+    * 
+    * @param frame Referencia al frame principal.
+    */
     public MenuPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
@@ -118,11 +128,20 @@ public class MenuPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Acción del botón "NUEVA LIGA".
+    * Cambia al panel CrearPanel para iniciar la creación de una nueva liga.
+    */
     private void botonNuevaLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaLigaActionPerformed
         // TODO add your handling code here:
         frame.irACrearPanel();
     }//GEN-LAST:event_botonNuevaLigaActionPerformed
-
+    
+    /**
+     * Acción del botón "CARGAR LIGA".
+     * Recupera una liga seleccionada desde la base de datos y redirige al panel de gestión.
+     * Muestra mensaje de advertencia si no se ha seleccionado ninguna.
+     */
     private void botonCargarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarLigaActionPerformed
         GestorBD gestor = new GestorBD();
         String nombreLigaSeleccionada = (String) comboLigas.getSelectedItem();

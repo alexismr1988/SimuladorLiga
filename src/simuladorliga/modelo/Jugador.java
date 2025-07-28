@@ -3,8 +3,8 @@ package simuladorliga.modelo;
 import java.util.Objects;
 
 /**
- *
- * @author PC
+ * Representa un jugador de fútbol con nombre, dorsal, posición, media de habilidad e ID.
+ * La media debe estar entre 1 y 100, y puede afectar directamente a la simulación.
  */
 public class Jugador {
     private String nombre;
@@ -13,6 +13,14 @@ public class Jugador {
     private int media;
     private int id;
 
+    /**
+     * Crea un jugador con los atributos esenciales.
+     *
+     * @param nombre Nombre del jugador
+     * @param dorsal Número en la camiseta
+     * @param posicion Posición principal (portero, defensa, etc.)
+     * @param media Valor numérico entre 1 y 100 que representa la calidad
+     */
     public Jugador(String nombre,int dorsal, Posicion posicion, int media) {
         this.nombre = nombre;
         this.dorsal = dorsal;
@@ -51,8 +59,13 @@ public class Jugador {
         return media;
     }
 
-    public void setMedia(int media) {
-        
+    /**
+     * Establece la media del jugador, con validación de rango.
+     *
+     * @param media Valor entre 1 y 100
+     * @throws IllegalArgumentException si el valor está fuera de rango
+     */
+    public void setMedia(int media) {   
         if(media<1 || media>100){
             throw new IllegalArgumentException("la media debe ser entre 1 y 100."); 
         } else this.media = media;       
@@ -72,6 +85,12 @@ public class Jugador {
         return hash;
     }
 
+    /**
+     * Compara jugadores por nombre. Dos jugadores con el mismo nombre son considerados iguales.
+     *
+     * @param obj Otro objeto a comparar
+     * @return true si el nombre es igual
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

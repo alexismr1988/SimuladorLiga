@@ -5,20 +5,28 @@ import java.util.List;
 import simuladorliga.modelo.*;
 
 /**
- * Lógica de simulación de partidos y jornadas.
- * Utiliza medias de alineaciones, ventaja local y probabilidad de gol para generar resultados.
- * 
- * @author PC
+ * Clase encargada de la lógica de simulación de partidos y jornadas en una liga.
+ * Aplica probabilidades, medias de alineaciones, estilos tácticos y ventaja local.
  */
 public class Simulador {
 
     private Liga liga;
 
-
+    /**
+     * Constructor del simulador que asocia una liga.
+     * 
+     * @param liga Liga sobre la que se aplicarán las simulaciones
+     */
     public Simulador(Liga liga) {
         this.liga = liga;
     }
 
+    /**
+    * Simula un partido entre dos equipos, generando goles en función de probabilidades,
+    * medias de jugadores, alineaciones y estilo del entrenador.
+    * 
+    * @param partido Partido a simular (modifica sus valores directamente)
+    */
     public void simularPartido(Partido partido) {
         Equipo local = partido.getEquipoLocal();
         Equipo visitante = partido.getEquipoVisitante();
@@ -127,6 +135,13 @@ public class Simulador {
         partido.actualizarPuntos();
     }
 
+    /**
+    * Simula todos los partidos de una jornada específica y devuelve un resumen formateado.
+    * 
+    * @param numeroJornada Número de jornada a simular (1-indexado)
+    * @return Resumen de resultados simulados como cadena de texto
+    * @throws IllegalArgumentException si el número de jornada no existe en el calendario
+    */
     public String simularJornada(int numeroJornada) {
         int jornada = numeroJornada - 1;
         StringBuilder resultadoJornada = new StringBuilder("Jornada " + numeroJornada + "\n");

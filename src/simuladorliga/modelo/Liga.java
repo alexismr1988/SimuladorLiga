@@ -4,8 +4,9 @@ import java.io.File;
 import java.util.*;
 
 /**
- *
- * @author PC
+ * Representa una liga de fútbol compuesta por equipos, partidos y un calendario.
+ * Permite generar el calendario (ida y vuelta), actualizar resultados y clasificaciones,
+ * y manejar estadísticas y persistencia básica.
  */
 public class Liga {
     private String nombre;
@@ -14,6 +15,12 @@ public class Liga {
     private List<List<Partido>> calendario; // NUEVO
     private boolean ida_vuelta;
 
+    /**
+     * Crea una nueva liga con su nombre y configuración de ida/vuelta.
+     *
+     * @param nombre nombre de la liga
+     * @param ida_vuelta true si hay ida y vuelta; false si solo ida
+     */
     public Liga(String nombre, boolean ida_vuelta) {
         this.nombre = nombre;
         this.ida_vuelta = ida_vuelta;
@@ -46,6 +53,12 @@ public class Liga {
         this.partidos = partidos;
     }
 
+    /**
+     * Calcula el número total de jornadas en función del número de equipos
+     * y de si la liga es solo ida o ida y vuelta.
+     *
+     * @return número de jornadas
+     */
     public int getJornadas() {
         int equipos = this.equipos.size(); 
         if (equipos < 2) return 0; // no hay liga si solo hay 1 equipo
@@ -64,10 +77,18 @@ public class Liga {
         return calendario;
     }
 
+    /**
+     * Añade un equipo a la lista de participantes.
+     *
+     * @param equipo equipo a agregar
+     */
     public void agregarEquipo(Equipo equipo) {
         this.equipos.add(equipo);
     }
 
+    /**
+     * Ordena los equipos según puntos y diferencia de goles (descendente).
+     */
     public void calcularClasificacion() {
         equipos.sort(
             Comparator.comparing(Equipo::getPuntos)
@@ -75,7 +96,12 @@ public class Liga {
                       .reversed()
         );
     }
-
+    
+    /**
+     * Devuelve un String con la clasificación formateada como tabla.
+     *
+     * @return String con las estadísticas de todos los equipos ordenados
+     */
     public String mostrarEstadisticas() {
         this.calcularClasificacion();
         int posicion = 1;
@@ -97,7 +123,11 @@ public class Liga {
 
         return clasificacion.toString();
     }
-
+    
+    /**
+     * Genera el calendario completo de partidos (ida y vuelta) con rotación estilo round-robin.
+     * Los partidos se agrupan por jornada y se guardan tanto en calendario como en lista plana de partidos.
+     */
     public void generarCalendarioIdaVuelta() {
         List<Equipo> equiposOriginal = new ArrayList<>(equipos);
 
@@ -152,6 +182,10 @@ public class Liga {
         this.calendario = calendarioGenerado; // Guardamos jornadas completas
         this.partidos = calendarioGenerado.stream().flatMap(List::stream).toList(); // Todos los partidos juntos
     }
+    
+    /**
+     * Reinicia las estadísticas de todos los equipos (puntos y goles).
+     */
     public void reiniciarEstadisticas(){
         for (Equipo equipo : equipos) {
             equipo.setPuntos(0);
@@ -160,6 +194,10 @@ public class Liga {
         }
     }
     
+    /**
+     * Actualiza la clasificación tomando como referencia los partidos ya simulados.
+     * Llama internamente a `partido.actualizarPuntos()`.
+     */
     public void actualizarClasificacionDesdeResultados() {
         // Reiniciar estadísticas
         this.reiniciarEstadisticas();
@@ -173,12 +211,21 @@ public class Liga {
         this.calcularClasificacion(); // Ordenar la tabla
     }
     
+    /**
+     * Asigna un presupuesto inicial a todos los equipos de la liga.
+     *
+     * @param presupuesto cantidad a asignar
+     */
     public void asignarPresupuestoinicial(double presupuesto){
         for (Equipo equipo : equipos) {
             equipo.setPresupuesto(presupuesto);
         }
     }
     
+    /**
+     * Crea la carpeta en disco correspondiente a esta liga en la ruta /ligas/{nombre}.
+     * Se usa para exportación u organización de datos persistentes.
+     */
     public void crearRuta() {
         // Crear carpeta base si no existe
         File base = new File("ligas");
@@ -198,6 +245,11 @@ public class Liga {
         }
     }
     
+    /**
+     * Devuelve una lista con los nombres de todos los equipos de la liga.
+     *
+     * @return lista de nombres de equipo
+     */
     public List<String> obtenerNombreEquipos(){
         List<String> nombresEquipos = new ArrayList<>();
         for (Equipo equipo : equipos) {
@@ -206,6 +258,12 @@ public class Liga {
         return nombresEquipos;
     }
     
+    /**
+     * Busca un equipo dentro de la liga por su nombre (sin distinguir mayúsculas/minúsculas).
+     *
+     * @param nombre nombre del equipo
+     * @return el objeto Equipo, o null si no se encuentra
+     */
     public Equipo buscarEquipoPorNombre(String nombre) {
         for (Equipo eq : equipos) {
             if (eq.getNombre().equalsIgnoreCase(nombre)) {
@@ -215,6 +273,12 @@ public class Liga {
         return null; // o puedes lanzar una excepción si prefieres
     }
     
+    /**
+     * Devuelve la lista de partidos correspondiente a una jornada concreta.
+     *
+     * @param numeroJornada número de jornada (comienza en 1)
+     * @return lista de partidos de esa jornada, o vacía si el número no es válido
+     */
     public List<Partido> getPartidosDeJornada(int numeroJornada) {
         if (numeroJornada < 1 || numeroJornada > calendario.size()) {
             return new ArrayList<>(); // o lanzar excepción

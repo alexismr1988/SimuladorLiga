@@ -15,13 +15,24 @@ import simuladorliga.servicio.Simulador;
 import simuladorliga.modelo.*;
 
 /**
- *
- * @author PC
+ * Panel de gestión de una liga.
+ * Permite simular jornadas, consultar clasificación, plantillas y partidos,
+ * modificar presupuestos y realizar traspasos entre equipos.
+ * 
+ * Se conecta con la base de datos mediante GestorBD y usa el simulador para
+ * generar los resultados.
  */
 public class GestionPanel extends javax.swing.JPanel {
 
     private MainFrame frame;
     
+    
+    /**
+    * Constructor del panel de gestión.
+    * Inicializa los combos, tabla y configuración visual.
+    * 
+    * @param frame Referencia al frame principal.
+    */
     public GestionPanel(MainFrame frame) {
         initComponents();
         this.frame = frame;    
@@ -408,6 +419,10 @@ public class GestionPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Simula los partidos de la jornada seleccionada.
+    * Aplica la lógica de simulación y guarda los resultados en la base de datos.
+    */
     private void botonSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSimularActionPerformed
         // TODO add your handling code here:
         int numJornada = Integer.parseInt(comboNumJornada.getSelectedItem().toString());
@@ -450,21 +465,33 @@ public class GestionPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonSimularActionPerformed
 
+    /**
+    * Regresa al menú principal desde el panel de gestión.
+    */
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
         // TODO add your handling code here:
         frame.irAMenuPanel();
     }//GEN-LAST:event_botonVolverActionPerformed
 
+    /**
+    * Muestra la clasificación actualizada en la tabla.
+    */
     private void botonClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClasificacionActionPerformed
         // TODO add your handling code here:
         tablaResultados.setModel(GestorTablaResultados.modeloClasificacion(frame.getLiga().getEquipos()));
     }//GEN-LAST:event_botonClasificacionActionPerformed
 
+    /**
+    * Muestra información general de los equipos en la tabla.
+    */
     private void botonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEquiposActionPerformed
         // TODO add your handling code here:
         tablaResultados.setModel(GestorTablaResultados.modeloParaEquipos(frame.getLiga().getEquipos()));
     }//GEN-LAST:event_botonEquiposActionPerformed
 
+    /**
+    * Muestra la plantilla del equipo seleccionado en el combo correspondiente.
+    */
     private void botonPlantillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlantillaActionPerformed
         // TODO add your handling code here:
         String nombreEquipo = comboPlantillas.getSelectedItem().toString();
@@ -472,6 +499,9 @@ public class GestionPanel extends javax.swing.JPanel {
         tablaResultados.setModel(GestorTablaResultados.modeloParaPlantillas(equipoSeleccionado));
     }//GEN-LAST:event_botonPlantillaActionPerformed
 
+    /**
+    * Muestra los partidos correspondientes a la jornada seleccionada.
+    */
     private void botonPartidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPartidosActionPerformed
         // TODO add your handling code here:
         int numJornada = Integer.parseInt(comboJornadas.getSelectedItem().toString());
@@ -483,6 +513,9 @@ public class GestionPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonPartidosActionPerformed
 
+    /**
+    * Añade una cantidad al presupuesto del equipo seleccionado y actualiza en la base de datos.
+    */
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
         // TODO add your handling code here:
         String texto = campoCantidad.getText().trim();
@@ -514,6 +547,9 @@ public class GestionPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonAnadirActionPerformed
 
+    /**
+    * Resta una cantidad al presupuesto del equipo seleccionado y actualiza en la base de datos.
+    */
     private void botonRestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestarActionPerformed
         // TODO add your handling code here:
         String texto = campoCantidad.getText().trim();
@@ -543,6 +579,10 @@ public class GestionPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonRestarActionPerformed
 
+    /**
+    * Realiza el traspaso de un jugador desde un equipo origen a un equipo destino.
+    * Actualiza tanto en memoria como en la base de datos.
+    */
     private void botonTraspasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTraspasarActionPerformed
         // TODO add your handling code here:
         if (comboEquiposOrigen.getSelectedItem() == null ||

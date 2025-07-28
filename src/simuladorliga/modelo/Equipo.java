@@ -2,9 +2,10 @@ package simuladorliga.modelo;
 
 import java.util.*;
 
+
 /**
- *
- * @author PC
+ * Representa un equipo de fútbol con una plantilla de jugadores, entrenador, presupuesto,
+ * estadísticas de competición y métodos para generar alineaciones válidas.
  */
 public class Equipo {
     private String nombre;
@@ -16,7 +17,12 @@ public class Equipo {
     private Entrenador entrenador;
     private double presupuesto;
     private int id;
-
+    
+    /**
+     * Crea un equipo con nombre dado e inicializa su plantilla y estadísticas.
+     *
+     * @param nombre Nombre del equipo
+     */
     public Equipo(String nombre) {
         this.nombre = nombre;
         this.plantilla = new ArrayList<>();
@@ -34,6 +40,11 @@ public class Equipo {
         return entrenador;
     }
     
+    /**
+     * Añade un jugador a la plantilla del equipo.
+     *
+     * @param jugador Jugador que se añadirá
+     */
     public void agregarJugador(Jugador jugador){
         this.plantilla.add(jugador);
     }
@@ -112,6 +123,11 @@ public class Equipo {
         return nombre;
     }
     
+    /**
+     * Suma una cantidad de puntos al total del equipo.
+     *
+     * @param puntos Puntos a añadir
+     */
     public void sumarPuntos(int puntos){
         this.puntos += puntos;
     }
@@ -132,6 +148,12 @@ public class Equipo {
         this.id = id;
     }
     
+    /**
+     * Genera una alineación automática válida con 11 jugadores,
+     * respetando los límites por línea (portero, defensas, medios, delanteros).
+     *
+     * @return Objeto Alineacion con los titulares seleccionados
+     */
     public Alineacion generarAlineacionAuto() {
         Alineacion alineacion = new Alineacion();
 
@@ -226,11 +248,23 @@ public class Equipo {
 
         return alineacion;
     }
-
+    
+    
+    /**
+     * Devuelve el número de jugadores actuales en la plantilla.
+     *
+     * @return cantidad de jugadores
+     */
     public int getCantidadJugadores(){
         return this.getPlantilla().size();
     }
     
+    
+    /**
+     * Calcula la media global del equipo redondeada a dos decimales.
+     *
+     * @return media del equipo (formato 0.00)
+     */
     public double getMediaPlantilla(){
         List<Jugador> jugadores = this.plantilla;
         double mediaTotal = 0;
@@ -248,6 +282,11 @@ public class Equipo {
         return (int)(Math.random() * (max - min + 1)) + min;
     }
     
+    /**
+     * Devuelve una lista con los nombres de todos los jugadores del equipo.
+     *
+     * @return Lista de nombres de jugadores
+     */
     public List<String> obtenerNombreJugadores(){
         List<String> nombresJugadores = new ArrayList<>();
         
@@ -257,6 +296,13 @@ public class Equipo {
         return nombresJugadores;
     }
     
+    
+    /**
+     * Busca y devuelve un jugador por su nombre dentro de la plantilla.
+     *
+     * @param nombre Nombre a buscar (ignora mayúsculas/minúsculas)
+     * @return Objeto Jugador si se encuentra, o null si no existe
+     */
     public Jugador obtenerJugadorPorNombre(String nombre) {
         for (Jugador jugador : this.getPlantilla()) {
             if (jugador.getNombre().equalsIgnoreCase(nombre)) {

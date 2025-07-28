@@ -3,10 +3,16 @@ package simuladorliga.modelo;
 
 import java.util.*;
 
-
+/**
+ * Representa una alineación válida de 11 jugadores titulares para un equipo.
+ * Incluye lógica para validar la formación, contar líneas y calcular medias por posición.
+ */
 public class Alineacion {
     private Set<Jugador> titulares;
     
+    /**
+     * Crea una alineación vacía con un conjunto ordenado de titulares.
+     */
     public Alineacion(){
         this.titulares=new LinkedHashSet<>();
     }
@@ -19,6 +25,12 @@ public class Alineacion {
         this.titulares = titulares;
     }
     
+    /**
+     * Añade un jugador a la alineación, siempre que no se exceda el límite de 11.
+     *
+     * @param jugador el jugador a añadir como titular
+     * @throws IllegalStateException si ya hay 11 jugadores en la alineación
+     */
     public void agregarJugador(Jugador jugador){
         if(titulares.size()>=11){
             throw new IllegalStateException("La alineación ya tiene 11 jugadores.");
@@ -26,6 +38,12 @@ public class Alineacion {
         this.titulares.add(jugador);
     }
     
+    /**
+     * Valida que la alineación tenga exactamente 11 jugadores y que cumpla con los criterios de posiciones.
+     *
+     * @return true si la alineación es válida
+     * @throws IllegalStateException si no hay 11 jugadores o si las posiciones no respetan el esquema válido
+     */
     public boolean validarTamano(){
         if(titulares.size()!=11){
             throw new IllegalStateException("El equipo no tiene una alineación válida de 11 jugadores.");
@@ -58,6 +76,12 @@ public class Alineacion {
         return numeroDelanteros;
     }
     
+    /**
+     * Valida que haya un portero, entre 3 y 5 defensas, entre 3 y 6 centrocampistas y entre 1 y 3 delanteros.
+     *
+     * @return true si la distribución de posiciones es válida
+     * @throws IllegalStateException si alguna línea no cumple los mínimos o máximos establecidos
+     */
     public boolean validarPosiciones() {
         int porteros = 0;
         int defensas = getDefensas();
@@ -105,7 +129,11 @@ public class Alineacion {
     }
 
 
-    
+    /**
+     * Calcula la media global de la alineación (media aritmética de todos los jugadores titulares).
+     *
+     * @return media total como número decimal
+     */
     public double calcularMedia(){
         double total=0;
         for (Jugador titular : titulares) {
@@ -114,6 +142,12 @@ public class Alineacion {
         return total/11;
     }
     
+    /**
+    * Devuelve un string con la formación generada, validando antes su tamaño.
+     * Ejemplo: "443" = 4 defensas, 4 medios, 3 delanteros.
+     *
+     * @return cadena que representa la formación por líneas
+     */
     public String contarLineas(){
         
         this.validarTamano();
