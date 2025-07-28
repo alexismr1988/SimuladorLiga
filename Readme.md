@@ -1,7 +1,7 @@
-# Simulador de Liga (v0.8.5)
+# Simulador de Liga (v0.9.0)
 
 Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas, persistencia completa en base de datos y el inicio de una interfaz gráfica en Swing.
-
+Con esta entrega, el proyecto está listo para ser probado y utilizado en entornos reales con configuraciones personalizadas.
 ---
 
 ## Funcionalidades principales
@@ -243,10 +243,75 @@ Desde NetBeans:
 
 ## Estado del proyecto
 
-**Versión 0.8.5** —  
-**Novedades:** Versión funcional. Gestión de presupuesto y traspasos desde la GUI, integración visual de plantillas con `JTable`.  
-Todo el ciclo de simulación, visualización y modificación de datos puede hacerse desde la GUI sin necesidad de reiniciar.
-Implementación de estilo FlatLaf.
+## Estado del proyecto
+
+**Versión 0.9.0** —  
+**Novedades:**  
+- Solucionado problema de importación y asignación de entrenadores desde CSV y base de datos.  
+- Gestión completa de presupuesto y traspasos desde la GUI.  
+- Integración visual mejorada de plantillas y clasificación usando `JTable` con formato personalizado.  
+- Simulación avanzada de partidos con actualización automática de resultados y clasificación.  
+- Ciclo completo de simulación, visualización y modificación de datos sin necesidad de reiniciar la aplicación.  
+- Implementación del estilo moderno FlatLaf para una interfaz más atractiva y usable.
+
+---
+
+## Distribución y uso (v0.9)
+
+La carpeta `release/` contiene todo lo necesario para ejecutar el simulador fuera del entorno NetBeans.
+
+Contenido de `release/`:
+
+- `SimuladorLiga.jar`: Archivo ejecutable.
+- `conexion.properties`: Archivo de configuración para la conexión a la base de datos MariaDB/MySQL.
+- `plantillas/`: Carpeta con el CSV editable que contiene los datos de equipos, jugadores y entrenadores.
+- `lib/`: Librerías necesarias para la ejecución.
+
+
+---
+
+### Configuración de la conexión
+
+El archivo `conexion.properties` contiene estos parámetros:
+
+servidor=localhost  
+puerto=3306  
+usuario=root  
+password=  
+nombre_bd=SimuladorLigas  
+
+Puedes editarlos en función de la conexión a tu entorno.
+
+---
+
+### Cómo ejecutar
+
+1. Debes tener MariaDB/MySQL instalado y funcionando.
+2. Coloca la carpeta `release/` en cualquier ubicación, asegurándote que todos sus archivos y carpetas están juntos.
+3. Ejecuta el simulador con doble clic en `SimuladorLiga.jar` o desde consola dentro de la carpeta `release/`:
+
+   ```bash
+   java -jar SimuladorLiga.jar
+
+
+4. La primera vez que ejecutes la aplicación, la base de datos y tablas se crearán automáticamente.
+5. El simulador cargará los datos desde el CSV dentro de `plantillas`.
+
+---
+
+### Modificar equipos, jugadores y entrenadores
+
+- El archivo `plantillas2025.csv` dentro de `plantillas/` es editable.
+- Puedes añadir, modificar o eliminar líneas para cambiar la plantilla, equipos o entrenadores.
+- Mantén la estructura del CSV para que la importación funcione:
+
+---
+
+### Notas
+
+- Si modificas el CSV, reinicia el simulador para cargar los datos nuevos.
+- El archivo `conexion.properties` permite conectar a diferentes bases de datos o usuarios.
+- Revisa la consola para mensajes de error o problemas.
 
 ---
 

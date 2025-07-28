@@ -461,7 +461,9 @@ public class GestionPanel extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Jornada simulada:\n" + resultados.toString());
-        frame.getLiga().actualizarClasificacionDesdeResultados();
+        frame.setLiga(gestor.recuperarLigaCompleta(idLiga));
+        frame.getLiga().actualizarClasificacionDesdeResultados(); 
+        tablaResultados.setModel(GestorTablaResultados.modeloClasificacion(frame.getLiga().getEquipos()));
 
     }//GEN-LAST:event_botonSimularActionPerformed
 

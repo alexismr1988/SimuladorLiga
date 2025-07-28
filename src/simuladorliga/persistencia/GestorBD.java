@@ -3,19 +3,21 @@ package simuladorliga.persistencia;
 import java.sql.*;
 import java.util.*;
 import simuladorliga.modelo.*;
+import simuladorliga.util.ConfigBD;
 
 /**
  * Clase encargada de gestionar la conexión y operaciones de persistencia con la base de datos MariaDB.
  * Contiene métodos CRUD para las entidades principales: Liga, Equipo, Jugador, Entrenador y Partido.
  */
 public class GestorBD {
-    private static final String SERVIDOR = "localhost";
-    private static final String PUERTO = "3306";
-    private static final String NOMBRE_BD = "SimuladorLigas";
-    private static final String USUARIO = "root";
-    private static final String PASSWORD = "";
+    private static final String SERVIDOR = ConfigBD.get("servidor");
+    private static final String PUERTO = ConfigBD.get("puerto");
+    private static final String USUARIO = ConfigBD.get("usuario");
+    private static final String PASSWORD = ConfigBD.get("password");
+    private static final String NOMBRE_BD = ConfigBD.get("nombre_bd");
     
-    public static final String URL_CONEXION="jdbc:mariadb://" + SERVIDOR + ":" + PUERTO + "/" + NOMBRE_BD + "?user=" + USUARIO + "&password=" + PASSWORD;
+    private static final String URL_CONEXION_BASE = "jdbc:mariadb://" + SERVIDOR + ":" + PUERTO + "/";
+    public static final String URL_CONEXION = URL_CONEXION_BASE + NOMBRE_BD + "?user=" + USUARIO + "&password=" + PASSWORD;
     
     /**
      * Establece una conexión con la base de datos.
@@ -35,9 +37,32 @@ public class GestorBD {
     }
     
     /**
+    * Crea la base de datos si no existe aún.
+    */
+    public void crearBDSiNoExiste() {
+        try {
+            Connection conn = DriverManager.getConnection(
+                URL_CONEXION_BASE + "?user=" + USUARIO + "&password=" + PASSWORD
+            );
+            Statement st = conn.createStatement();
+            st.executeUpdate("CREATE DATABASE IF NOT EXISTS " + NOMBRE_BD);
+            System.out.println("Base de datos verificada o creada correctamente.");
+            st.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println("Error al crear la base de datos");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
      * Crea las tablas necesarias en la base de datos si no existen.
      */
     public void inicializaBD() {
+        
+        crearBDSiNoExiste();
+        
         String tablaLiga="CREATE TABLE IF NOT EXISTS LIGA (id_liga INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, ida_vuelta BOOLEAN NOT NULL);";
         String tablaEntrenador = "CREATE TABLE IF NOT EXISTS ENTRENADOR (id_entrenador INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, estilo VARCHAR(50) NOT NULL);";
         String tablaEquipo="CREATE TABLE IF NOT EXISTS EQUIPO (id_equipo INT PRIMARY KEY AUTO_INCREMENT,nombre VARCHAR(50) NOT NULL, id_liga INT NOT NULL, presupuesto DECIMAL(12,2) DEFAULT 0,"+
@@ -132,8 +157,7 @@ public class GestorBD {
                     for (Equipo equipo : liga.getEquipos()) {
                         Integer idEntrenador = obtenerIdEntrenadorPorNombre(equipo.getEntrenador().getNombre());
                         if (idEntrenador == null) {
-                            insertarEntrenador(equipo.getEntrenador(), conn);
-                            idEntrenador = obtenerIdEntrenadorPorNombre(equipo.getEntrenador().getNombre());
+                            idEntrenador = insertarEntrenador(equipo.getEntrenador(), conn);
                         }
                         List<Jugador> jugadores = equipo.getPlantilla();
 
@@ -208,33 +232,25 @@ public class GestorBD {
      * @param conn Conexión activa con la base de datos
      * @throws SQLException si ocurre un error durante la inserción
      */
-    public void insertarEntrenador(Entrenador entrenador, Connection conn) throws SQLException {
-        String nombre = entrenador.getNombre();
-        String estilo = entrenador.getEstilo().name();
-        
-        String sql = "INSERT INTO ENTRENADOR (nombre, estilo ) VALUES (?, ?)";
-        
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
-            
-            // Sustituye ? por el orden de los parámetros que pasamos en cada índice
-            ps.setString(1, nombre);
-            ps.setString(2, estilo);
-            
-            // Ejecuta la sentencia. Devuelve el número de filas afectadas por el INSERT
-            int filas = ps.executeUpdate(); // Devuelve cuántas filas se añadieron
-            
-            if(filas > 0) {
-                System.out.println("El entrenador " + entrenador.getNombre() + " se añadió correctamente.");
-            } else {
-              System.out.println("No se pudo añadir el entrenador.");  
+    public int insertarEntrenador(Entrenador entrenador, Connection conn) throws SQLException {
+        String sql = "INSERT INTO ENTRENADOR (nombre, estilo) VALUES (?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, entrenador.getNombre());
+            ps.setString(2, entrenador.getEstilo().name());
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
             }
-            
-              
-        } catch(SQLException e){
-            System.err.println("Error al insertar enternador");
-            e.printStackTrace();
         }
+        System.err.println("No se pudo insertar el entrenador " + entrenador.getNombre());
+        return -1;
     }
+
     
     public int insertarEquipo(Equipo equipo, int idLiga, Integer idEntrenador) {
         String nombre = equipo.getNombre();

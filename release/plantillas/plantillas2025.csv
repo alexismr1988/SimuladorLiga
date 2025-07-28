@@ -1,0 +1,523 @@
+﻿Equipo,Presupuesto,Entrenador,EstiloEntrenador,NombreJugador,Dorsal,Posicion,Media
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Courtois,1,PORTERO,89
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Lunin,13,PORTERO,82
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Kepa,25,PORTERO,81
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Carvajal,2,LATERAL,84
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Fran García,20,LATERAL,78
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Mendy,23,LATERAL,80
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Rüdiger,22,DEFENSA,86
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Nacho,6,DEFENSA,82
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Militão,3,DEFENSA,84
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Alaba,4,DEFENSA,84
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Tchouaméni,18,MCD,83
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Camavinga,12,MEDIOCENTRO,84
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Kroos,8,MEDIOCENTRO,86
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Valverde,15,MEDIOCENTRO,86
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Modrić,10,MEDIOCENTRO,86
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Bellingham,5,MCO,88
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Brahim,21,MCO,81
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Vinicius Jr,7,SD,89
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Joselu,14,DC,81
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Endrick,11,DC,77
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Rodrygo,17,SD,85
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Arda Güler,24,MCO,77
+Real Madrid,1000000000,Carlo Ancelotti,POSESION,Ceballos,19,MEDIOCENTRO,79
+Manchester City,1000000000,Pep Guardiola,POSESION,Ederson,31,PORTERO,88
+Manchester City,1000000000,Pep Guardiola,POSESION,Ortega,18,PORTERO,80
+Manchester City,1000000000,Pep Guardiola,POSESION,Carson,33,PORTERO,72
+Manchester City,1000000000,Pep Guardiola,POSESION,Walker,2,LATERAL,84
+Manchester City,1000000000,Pep Guardiola,POSESION,Gvardiol,24,LATERAL,84
+Manchester City,1000000000,Pep Guardiola,POSESION,Akanji,25,DEFENSA,84
+Manchester City,1000000000,Pep Guardiola,POSESION,Stones,5,DEFENSA,85
+Manchester City,1000000000,Pep Guardiola,POSESION,Rúben Dias,3,DEFENSA,88
+Manchester City,1000000000,Pep Guardiola,POSESION,Ake,6,DEFENSA,83
+Manchester City,1000000000,Pep Guardiola,POSESION,Lewis,82,LATERAL,76
+Manchester City,1000000000,Pep Guardiola,POSESION,Rodri,16,MCD,90
+Manchester City,1000000000,Pep Guardiola,POSESION,De Bruyne,17,MEDIOCENTRO,91
+Manchester City,1000000000,Pep Guardiola,POSESION,Bernardo Silva,20,MEDIOCENTRO,88
+Manchester City,1000000000,Pep Guardiola,POSESION,Foden,47,MEDIOCENTRO,88
+Manchester City,1000000000,Pep Guardiola,POSESION,Kovacic,8,MEDIOCENTRO,83
+Manchester City,1000000000,Pep Guardiola,POSESION,Doku,11,MCO,83
+Manchester City,1000000000,Pep Guardiola,POSESION,Grealish,10,MCO,84
+Manchester City,1000000000,Pep Guardiola,POSESION,Álvarez,19,SD,85
+Manchester City,1000000000,Pep Guardiola,POSESION,Haaland,9,DC,92
+Manchester City,1000000000,Pep Guardiola,POSESION,Bobb,52,SD,76
+Manchester City,1000000000,Pep Guardiola,POSESION,Gómez,21,LATERAL,77
+Manchester City,1000000000,Pep Guardiola,POSESION,Nunes,27,MEDIOCENTRO,82
+Manchester City,1000000000,Pep Guardiola,POSESION,Phillips,4,MCD,77
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Neuer,1,PORTERO,87
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Ulreich,26,PORTERO,77
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Peretz,18,PORTERO,74
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Mazraoui,40,LATERAL,82
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Davies,19,LATERAL,86
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,De Ligt,4,DEFENSA,86
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Kim Min-jae,3,DEFENSA,85
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Upamecano,2,DEFENSA,83
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Laimer,27,MCD,82
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Goretzka,8,MEDIOCENTRO,86
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Kimmich,6,MEDIOCENTRO,89
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Pavlović,45,MEDIOCENTRO,75
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Guerreiro,22,LATERAL,82
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Sané,10,SD,87
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Musiala,42,MCO,89
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Müller,25,MCO,84
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Kane,9,DC,91
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Choupo-Moting,13,DC,78
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Tel,39,SD,79
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Coman,11,SD,85
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Boey,23,LATERAL,80
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Buchmann,44,DEFENSA,72
+Bayern Munich,1000000000,Vincent Kompany,OFENSIVO,Zvonarek,14,MCO,73
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Donnarumma,99,PORTERO,87
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Navas,1,PORTERO,82
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Letellier,30,PORTERO,70
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Hakimi,2,LATERAL,86
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Lucas Hernández,21,DEFENSA,83
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Marquinhos,5,DEFENSA,87
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Danilo,15,DEFENSA,81
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Mukiele,26,LATERAL,78
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Beraldo,35,DEFENSA,78
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Ugarte,4,MCD,81
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Vitinha,17,MEDIOCENTRO,84
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Fabián Ruiz,8,MEDIOCENTRO,83
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Zaire-Emery,33,MEDIOCENTRO,84
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Asensio,11,MCO,82
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Lee Kang-in,19,MCO,80
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Barcola,29,SD,81
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Dembélé,10,SD,85
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Gonçalo Ramos,9,DC,82
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Kolo Muani,23,DC,83
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Mbappé,7,SD,92
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Ekitike,44,DC,77
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Kurzawa,20,LATERAL,74
+Paris Saint-Germain,1000000000,Luis Enrique,POSESION,Soler,28,MCO,79
+Arsenal,1000000000,Mikel Arteta,POSESION,Ramsdale,1,PORTERO,84
+Arsenal,1000000000,Mikel Arteta,POSESION,Raya,22,PORTERO,83
+Arsenal,1000000000,Mikel Arteta,POSESION,Hein,31,PORTERO,72
+Arsenal,1000000000,Mikel Arteta,POSESION,White,4,LATERAL,83
+Arsenal,1000000000,Mikel Arteta,POSESION,Zinchenko,35,LATERAL,80
+Arsenal,1000000000,Mikel Arteta,POSESION,Tomiyasu,18,LATERAL,80
+Arsenal,1000000000,Mikel Arteta,POSESION,Saliba,2,DEFENSA,87
+Arsenal,1000000000,Mikel Arteta,POSESION,Gabriel,6,DEFENSA,84
+Arsenal,1000000000,Mikel Arteta,POSESION,Timber,12,DEFENSA,79
+Arsenal,1000000000,Mikel Arteta,POSESION,Kiwior,15,DEFENSA,77
+Arsenal,1000000000,Mikel Arteta,POSESION,Rice,41,MCD,87
+Arsenal,1000000000,Mikel Arteta,POSESION,Partey,5,MCD,82
+Arsenal,1000000000,Mikel Arteta,POSESION,Jorginho,20,MEDIOCENTRO,82
+Arsenal,1000000000,Mikel Arteta,POSESION,Odegaard,8,MCO,88
+Arsenal,1000000000,Mikel Arteta,POSESION,Vieira,21,MCO,76
+Arsenal,1000000000,Mikel Arteta,POSESION,Smith Rowe,10,MEDIOCENTRO,77
+Arsenal,1000000000,Mikel Arteta,POSESION,Havertz,29,SD,83
+Arsenal,1000000000,Mikel Arteta,POSESION,Martinelli,11,SD,84
+Arsenal,1000000000,Mikel Arteta,POSESION,Saka,7,SD,88
+Arsenal,1000000000,Mikel Arteta,POSESION,Jesus,9,DC,83
+Arsenal,1000000000,Mikel Arteta,POSESION,Trossard,19,SD,81
+Arsenal,1000000000,Mikel Arteta,POSESION,Nketiah,14,DC,78
+Arsenal,1000000000,Mikel Arteta,POSESION,Nelson,24,SD,76
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Alisson,1,PORTERO,89
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Kelleher,62,PORTERO,77
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Adrián,13,PORTERO,73
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Alexander-Arnold,66,LATERAL,86
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Robertson,26,LATERAL,85
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Tsimikas,21,LATERAL,77
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Van Dijk,4,DEFENSA,88
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Konaté,5,DEFENSA,83
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Matip,32,DEFENSA,81
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Joe Gomez,2,DEFENSA,80
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Endo,3,MCD,81
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Mac Allister,10,MEDIOCENTRO,83
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Szoboszlai,8,MEDIOCENTRO,82
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Gravenberch,38,MEDIOCENTRO,78
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Curtis Jones,17,MEDIOCENTRO,78
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Elliott,19,MCO,79
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Gakpo,18,SD,83
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Salah,11,SD,89
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Luis Díaz,7,SD,85
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Núñez,9,DC,82
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Jota,20,SD,82
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Doak,50,SD,72
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Bajcetic,43,MCD,75
+Liverpool,1000000000,Jürgen Klopp,CONTRAATAQUE,Bradley,84,LATERAL,73
+Barcelona,1000000000,Hansi Flick,POSESION,Ter Stegen,1,PORTERO,88
+Barcelona,1000000000,Hansi Flick,POSESION,Iñaki Peña,13,PORTERO,76
+Barcelona,1000000000,Hansi Flick,POSESION,Arnau Tenas,26,PORTERO,72
+Barcelona,1000000000,Hansi Flick,POSESION,Koundé,23,DEFENSA,84
+Barcelona,1000000000,Hansi Flick,POSESION,Araújo,4,DEFENSA,86
+Barcelona,1000000000,Hansi Flick,POSESION,Christensen,15,DEFENSA,82
+Barcelona,1000000000,Hansi Flick,POSESION,Martínez,24,DEFENSA,80
+Barcelona,1000000000,Hansi Flick,POSESION,Balde,3,LATERAL,81
+Barcelona,1000000000,Hansi Flick,POSESION,Marcos Alonso,17,LATERAL,78
+Barcelona,1000000000,Hansi Flick,POSESION,Cancelo,2,LATERAL,83
+Barcelona,1000000000,Hansi Flick,POSESION,De Jong,21,MEDIOCENTRO,86
+Barcelona,1000000000,Hansi Flick,POSESION,Pedri,8,MEDIOCENTRO,86
+Barcelona,1000000000,Hansi Flick,POSESION,Gündogan,22,MEDIOCENTRO,84
+Barcelona,1000000000,Hansi Flick,POSESION,Gavi,6,MEDIOCENTRO,82
+Barcelona,1000000000,Hansi Flick,POSESION,Fermín López,16,MEDIOCENTRO,76
+Barcelona,1000000000,Hansi Flick,POSESION,Romeu,18,MCD,78
+Barcelona,1000000000,Hansi Flick,POSESION,Oriol Romeu,18,MCD,78
+Barcelona,1000000000,Hansi Flick,POSESION,Ferran Torres,7,SD,81
+Barcelona,1000000000,Hansi Flick,POSESION,Lewandowski,9,DC,87
+Barcelona,1000000000,Hansi Flick,POSESION,Raphinha,11,SD,83
+Barcelona,1000000000,Hansi Flick,POSESION,Lamine Yamal,27,SD,79
+Barcelona,1000000000,Hansi Flick,POSESION,João Félix,14,SD,83
+Barcelona,1000000000,Hansi Flick,POSESION,Vitor Roque,19,DC,77
+Barcelona,1000000000,Hansi Flick,POSESION,Marc Guiu,38,DC,71
+Barcelona,1000000000,Hansi Flick,POSESION,Sergi Roberto,20,MEDIOCENTRO,78
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Oblak,13,PORTERO,87
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Grbic,1,PORTERO,77
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Iturbe,31,PORTERO,68
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Molina,16,LATERAL,82
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Lino,12,LATERAL,78
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Azpilicueta,3,DEFENSA,80
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Savić,15,DEFENSA,80
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Witsel,20,DEFENSA,80
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Hermoso,22,DEFENSA,81
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Reinildo,23,DEFENSA,79
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Koke,6,MEDIOCENTRO,84
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,De Paul,5,MEDIOCENTRO,83
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Saúl,8,MEDIOCENTRO,80
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Barrios,24,MEDIOCENTRO,77
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Llorente,14,MCO,83
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Samuel Lino,12,SD,78
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Griezmann,7,SD,88
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Morata,19,DC,83
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Correa,10,SD,81
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Memphis,9,DC,80
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Carlos Martín,29,SD,72
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Riquelme,17,SD,75
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Mandava,24,DEFENSA,77
+Atlético de Madrid,1000000000,Diego Simeone,DEFENSIVO,Galán,17,LATERAL,77
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Sommer,1,PORTERO,85
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Audero,77,PORTERO,76
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Di Gennaro,12,PORTERO,66
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Darmian,36,LATERAL,80
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Bastoni,95,DEFENSA,85
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Acerbi,15,DEFENSA,81
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Pavard,28,DEFENSA,84
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,De Vrij,6,DEFENSA,82
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Carlos Augusto,30,LATERAL,79
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Dumfries,2,LATERAL,81
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Barella,23,MEDIOCENTRO,86
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Çalhanoğlu,20,MEDIOCENTRO,85
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Mkhitaryan,22,MEDIOCENTRO,82
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Frattesi,16,MEDIOCENTRO,80
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Asllani,21,MCD,75
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Sensi,5,MEDIOCENTRO,75
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Thuram,9,SD,82
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Lautaro Martínez,10,DC,87
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Arnautovic,8,DC,79
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Sánchez,70,SD,77
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Cuadrado,7,LATERAL,79
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Bisseck,31,DEFENSA,73
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Augusto,30,LATERAL,79
+Inter de Milán,1000000000,Simone Inzaghi,POSESION,Klaassen,14,MEDIOCENTRO,76
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Kobel,1,PORTERO,87
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Meyer,35,PORTERO,74
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Lotka,33,PORTERO,68
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Ryerson,26,LATERAL,78
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Schlotterbeck,4,DEFENSA,83
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Hummels,15,DEFENSA,82
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Süle,25,DEFENSA,82
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Maatsen,22,LATERAL,80
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Meunier,24,LATERAL,75
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Bensebaini,5,LATERAL,78
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Emre Can,23,MCD,81
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Sabitzer,20,MEDIOCENTRO,82
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Nmecha,8,MEDIOCENTRO,76
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Brandt,19,MCO,84
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Reus,11,MCO,82
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Özcan,6,MEDIOCENTRO,76
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Bynoe-Gittens,43,SD,74
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Sancho,10,SD,83
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Malen,21,SD,81
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Füllkrug,14,DC,80
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Moukoko,18,DC,75
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Adeyemi,27,SD,80
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Wolf,17,LATERAL,77
+Borussia Dortmund,1000000000,Edin Terzić,CONTRAATAQUE,Schulz,14,LATERAL,72
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Szczesny,1,PORTERO,85
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Perin,36,PORTERO,78
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Pinsoglio,23,PORTERO,70
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Danilo,6,DEFENSA,82
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Gatti,4,DEFENSA,78
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Bremer,3,DEFENSA,84
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Alex Sandro,12,LATERAL,77
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Cambiaso,27,LATERAL,77
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,De Sciglio,2,LATERAL,74
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Rugani,24,DEFENSA,78
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Locatelli,5,MCD,82
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Rabiot,25,MEDIOCENTRO,83
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Miretti,20,MEDIOCENTRO,75
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Fagioli,21,MEDIOCENTRO,76
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,McKennie,16,MEDIOCENTRO,79
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Weah,22,SD,76
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Yildiz,15,SD,75
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Chiesa,7,SD,83
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Vlahovic,9,DC,83
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Milik,14,DC,79
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Kean,18,DC,77
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Illing-Junior,17,SD,73
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Kostic,11,LATERAL,81
+Juventus,1000000000,Massimiliano Allegri,DEFENSIVO,Nicolussi Caviglia,41,MEDIOCENTRO,72
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Maignan,16,PORTERO,87
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Mirante,83,PORTERO,73
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Spiranovic,77,PORTERO,67
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Calabria,2,LATERAL,80
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Theo Hernández,19,LATERAL,85
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Tomori,23,DEFENSA,84
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Thiaw,28,DEFENSA,80
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Gabbia,46,DEFENSA,76
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Florenzi,25,LATERAL,78
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Pellegri,64,DEFENSA,71
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Bennacer,4,MCD,82
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Reijnders,14,MEDIOCENTRO,82
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Loftus-Cheek,8,MEDIOCENTRO,79
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Musah,80,MEDIOCENTRO,77
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Krunic,33,MEDIOCENTRO,76
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Pulisic,11,SD,80
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Chukwueze,21,SD,78
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Leão,10,SD,86
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Jovic,15,DC,77
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Giroud,9,DC,83
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Okafor,17,SD,79
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Romero,18,SD,74
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Adli,7,MEDIOCENTRO,74
+AC Milan,1000000000,Stefano Pioli,OFENSIVO,Bartesaghi,38,DEFENSA,68
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Gulácsi,1,PORTERO,84
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Blaswich,21,PORTERO,78
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Niklas Hedl,41,PORTERO,70
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Henrichs,39,LATERAL,78
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Simakan,2,DEFENSA,81
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Orbán,4,DEFENSA,83
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Lukeba,23,DEFENSA,80
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Raum,22,LATERAL,80
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Klostermann,16,DEFENSA,79
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Seiwald,13,MCD,77
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Schlager,24,MEDIOCENTRO,81
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Kampl,44,MEDIOCENTRO,78
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Olmo,7,MCO,84
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Xavi Simons,20,MCO,82
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Haïdara,8,MEDIOCENTRO,79
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Elmas,6,MEDIOCENTRO,79
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Seiwald,13,MCD,77
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Openda,17,DC,83
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Šeško,30,DC,78
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Werner,11,SD,80
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Baumgartner,14,SD,79
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Pendur,43,SD,70
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Forsberg,10,MCO,79
+RB Leipzig,1000000000,Marco Rose,CONTRAATAQUE,Bitshiabu,5,DEFENSA,70
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Vacario,13,PORTERO,82
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Forster,20,PORTERO,74
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Whiteman,41,PORTERO,68
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Porro,23,LATERAL,80
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Udogie,38,LATERAL,78
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Romero,17,DEFENSA,84
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Van de Ven,37,DEFENSA,81
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Emerson,12,LATERAL,76
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Dragusin,6,DEFENSA,77
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Skipp,4,MEDIOCENTRO,77
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Bissouma,8,MCD,81
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Bentancur,30,MEDIOCENTRO,80
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Lo Celso,18,MEDIOCENTRO,78
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Maddison,10,MCO,85
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Johnson,22,SD,78
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Son,7,SD,87
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Richarlison,9,DC,80
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Kulusevski,21,SD,81
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Gil,11,SD,74
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Solomon,27,SD,76
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Sarr,29,MEDIOCENTRO,77
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Højbjerg,5,MCD,80
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Davies,33,DEFENSA,76
+Tottenham,1000000000,Ange Postecoglou,OFENSIVO,Royal,12,LATERAL,76
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Hrádecky,1,PORTERO,83
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Kovar,17,PORTERO,75
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Lomb,36,PORTERO,70
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Frimpong,30,LATERAL,84
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Grimaldo,20,LATERAL,85
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Jonathan Tah,4,DEFENSA,84
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Tapsoba,12,DEFENSA,82
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Kossounou,6,DEFENSA,80
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Stanišić,2,DEFENSA,77
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Hincapié,3,DEFENSA,80
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Andrich,8,MCD,80
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Xhaka,34,MEDIOCENTRO,83
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Palacios,25,MEDIOCENTRO,81
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Hložek,23,SD,77
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Adli,21,SD,79
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Boniface,22,DC,82
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Schick,14,DC,81
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Stanley Nsoki,24,DEFENSA,76
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Puerta,27,SD,70
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Tella,19,SD,76
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Arthur,13,LATERAL,74
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Amiri,11,MEDIOCENTRO,76
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Schick,14,DC,81
+Bayer Leverkusen,1000000000,Xabi Alonso,POSESION,Bravo,30,PORTERO,66
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Meret,1,PORTERO,83
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Gollini,95,PORTERO,77
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Contini,16,PORTERO,70
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Di Lorenzo,22,LATERAL,84
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Olivera,17,LATERAL,79
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Mário Rui,6,LATERAL,80
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Rrahmani,13,DEFENSA,82
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Juan Jesus,5,DEFENSA,77
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Ostigard,55,DEFENSA,77
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Natan,3,DEFENSA,75
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Lobotka,68,MCD,84
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Anguissa,99,MEDIOCENTRO,82
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Zambo,99,MEDIOCENTRO,82
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Cajuste,24,MEDIOCENTRO,75
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Demme,4,MEDIOCENTRO,74
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Elmas,7,MCO,78
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Zielinski,20,MEDIOCENTRO,83
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Kvaratskhelia,77,SD,86
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Politano,21,SD,81
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Osimhen,9,DC,87
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Simeone,18,DC,78
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Raspadori,81,SD,80
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Gaetano,70,MEDIOCENTRO,73
+Napoli,1000000000,Antonio Conte,DEFENSIVO,Lindström,29,SD,79
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Petrovic,28,PORTERO,77
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Sánchez,1,PORTERO,78
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Bettinelli,13,PORTERO,70
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,James,24,LATERAL,82
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Chilwell,21,LATERAL,81
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Cucurella,3,LATERAL,78
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Thiago Silva,6,DEFENSA,83
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Disasi,2,DEFENSA,79
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Badiashile,5,DEFENSA,80
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Colwill,26,DEFENSA,78
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Enzo Fernández,8,MEDIOCENTRO,83
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Caicedo,25,MCD,82
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Chukwuemeka,17,MEDIOCENTRO,75
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Palmer,20,SD,82
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Mudryk,10,SD,77
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Madueke,11,SD,76
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Gallagher,23,MEDIOCENTRO,80
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Ugochukwu,16,MCD,73
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Jackson,15,DC,79
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Broja,19,DC,76
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Nkunku,18,SD,83
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Sterling,7,SD,82
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Washington,36,SD,70
+Chelsea,1000000000,Mauricio Pochettino,OFENSIVO,Santos,38,MEDIOCENTRO,72
+Manchester United,1000000000,Erik ten Hag,POSESION,Onana,24,PORTERO,83
+Manchester United,1000000000,Erik ten Hag,POSESION,Altay Bayindir,1,PORTERO,77
+Manchester United,1000000000,Erik ten Hag,POSESION,Tom Heaton,22,PORTERO,71
+Manchester United,1000000000,Erik ten Hag,POSESION,Diogo Dalot,20,LATERAL,80
+Manchester United,1000000000,Erik ten Hag,POSESION,Shaw,23,LATERAL,81
+Manchester United,1000000000,Erik ten Hag,POSESION,Varane,19,DEFENSA,82
+Manchester United,1000000000,Erik ten Hag,POSESION,Martínez,6,DEFENSA,82
+Manchester United,1000000000,Erik ten Hag,POSESION,Lindelöf,2,DEFENSA,79
+Manchester United,1000000000,Erik ten Hag,POSESION,Harry Maguire,5,DEFENSA,78
+Manchester United,1000000000,Erik ten Hag,POSESION,Malacia,12,LATERAL,75
+Manchester United,1000000000,Erik ten Hag,POSESION,Wan-Bissaka,29,LATERAL,78
+Manchester United,1000000000,Erik ten Hag,POSESION,Casemiro,18,MCD,84
+Manchester United,1000000000,Erik ten Hag,POSESION,Eriksen,14,MEDIOCENTRO,80
+Manchester United,1000000000,Erik ten Hag,POSESION,McTominay,39,MEDIOCENTRO,80
+Manchester United,1000000000,Erik ten Hag,POSESION,Mainoo,37,MEDIOCENTRO,75
+Manchester United,1000000000,Erik ten Hag,POSESION,Mount,7,MEDIOCENTRO,79
+Manchester United,1000000000,Erik ten Hag,POSESION,Bruno Fernandes,8,MCO,86
+Manchester United,1000000000,Erik ten Hag,POSESION,Antony,21,SD,79
+Manchester United,1000000000,Erik ten Hag,POSESION,Rashford,10,SD,85
+Manchester United,1000000000,Erik ten Hag,POSESION,Garnacho,17,SD,78
+Manchester United,1000000000,Erik ten Hag,POSESION,Højlund,11,DC,80
+Manchester United,1000000000,Erik ten Hag,POSESION,Martial,9,DC,77
+Manchester United,1000000000,Erik ten Hag,POSESION,Amad Diallo,16,SD,73
+Manchester United,1000000000,Erik ten Hag,POSESION,Pellistri,28,SD,72
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Pope,22,PORTERO,84
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Dubravka,1,PORTERO,78
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Karius,18,PORTERO,74
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Trippier,2,LATERAL,84
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Burn,33,DEFENSA,78
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Botman,4,DEFENSA,82
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Schar,5,DEFENSA,81
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Tino Livramento,21,LATERAL,77
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Targett,13,LATERAL,76
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Hall,20,LATERAL,74
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Guimarães,39,MEDIOCENTRO,83
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Longstaff,36,MEDIOCENTRO,76
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Willock,28,MEDIOCENTRO,77
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Joelinton,7,MEDIOCENTRO,80
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Tonali,8,MEDIOCENTRO,82
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Almirón,24,SD,79
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Gordon,10,SD,80
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Barnes,15,SD,79
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Isak,14,DC,82
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Wilson,9,DC,80
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Murphy,23,SD,76
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Miley,67,MEDIOCENTRO,72
+Newcastle United,1000000000,Eddie Howe,CONTRAATAQUE,Krafth,17,DEFENSA,74
+Roma,1000000000,Daniele De Rossi,POSESION,Patricio,1,PORTERO,82
+Roma,1000000000,Daniele De Rossi,POSESION,Christensen,2,LATERAL,77
+Roma,1000000000,Daniele De Rossi,POSESION,Karsdorp,19,LATERAL,77
+Roma,1000000000,Daniele De Rossi,POSESION,Spinazzola,37,LATERAL,80
+Roma,1000000000,Daniele De Rossi,POSESION,Llorente,14,DEFENSA,78
+Roma,1000000000,Daniele De Rossi,POSESION,Mancini,23,DEFENSA,81
+Roma,1000000000,Daniele De Rossi,POSESION,Smalling,6,DEFENSA,81
+Roma,1000000000,Daniele De Rossi,POSESION,Ndicka,5,DEFENSA,77
+Roma,1000000000,Daniele De Rossi,POSESION,Celik,19,LATERAL,76
+Roma,1000000000,Daniele De Rossi,POSESION,Bove,52,MEDIOCENTRO,75
+Roma,1000000000,Daniele De Rossi,POSESION,Renato Sanches,20,MEDIOCENTRO,77
+Roma,1000000000,Daniele De Rossi,POSESION,Paredes,16,MEDIOCENTRO,80
+Roma,1000000000,Daniele De Rossi,POSESION,Pellegrini,7,MCO,82
+Roma,1000000000,Daniele De Rossi,POSESION,Aouar,22,MEDIOCENTRO,78
+Roma,1000000000,Daniele De Rossi,POSESION,Cristante,4,MEDIOCENTRO,80
+Roma,1000000000,Daniele De Rossi,POSESION,El Shaarawy,92,SD,78
+Roma,1000000000,Daniele De Rossi,POSESION,Dybala,21,SD,85
+Roma,1000000000,Daniele De Rossi,POSESION,Lukaku,90,DC,83
+Roma,1000000000,Daniele De Rossi,POSESION,Azmoun,17,DC,75
+Roma,1000000000,Daniele De Rossi,POSESION,Belotti,11,DC,76
+Roma,1000000000,Daniele De Rossi,POSESION,Zalewski,59,SD,76
+Roma,1000000000,Daniele De Rossi,POSESION,Cherubini,61,MEDIOCENTRO,70
+Roma,1000000000,Daniele De Rossi,POSESION,Huijsen,3,DEFENSA,73
+Roma,1000000000,Daniele De Rossi,POSESION,Boer,63,PORTERO,67
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Unai Simón,1,PORTERO,84
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Agirrezabala,13,PORTERO,75
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Ezkieta,26,PORTERO,69
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,De Marcos,18,LATERAL,79
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Yuri,17,LATERAL,80
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Lekue,15,LATERAL,76
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Íñigo Lekue,15,LATERAL,76
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Paredes,4,DEFENSA,78
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Vivian,3,DEFENSA,81
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Yeray,5,DEFENSA,80
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Dani García,14,MCD,77
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Vesga,6,MEDIOCENTRO,78
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Prados,24,MEDIOCENTRO,72
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Sancet,8,MCO,81
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Herrera,16,MEDIOCENTRO,75
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Raúl García,22,SD,76
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Muniain,10,SD,80
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Unai Gómez,30,SD,74
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Álex Berenguer,7,SD,79
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Inaki Williams,9,SD,81
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Nico Williams,11,SD,83
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Guruzeta,12,DC,78
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Villalibre,20,DC,75
+Athletic Bilbao,1000000000,Ernesto Valverde,POSESION,Balenziaga,24,DEFENSA,72
+Villarreal,1000000000,Marcelino,POSESION,Pepe Reina,1,PORTERO,79
+Villarreal,1000000000,Marcelino,POSESION,Jorgensen,13,PORTERO,75
+Villarreal,1000000000,Marcelino,POSESION,Femenía,2,LATERAL,77
+Villarreal,1000000000,Marcelino,POSESION,Alberto Moreno,18,LATERAL,76
+Villarreal,1000000000,Marcelino,POSESION,Pedraza,24,LATERAL,80
+Villarreal,1000000000,Marcelino,POSESION,Albiol,3,DEFENSA,79
+Villarreal,1000000000,Marcelino,POSESION,Pau Torres,4,DEFENSA,82
+Villarreal,1000000000,Marcelino,POSESION,Mandi,23,DEFENSA,78
+Villarreal,1000000000,Marcelino,POSESION,Cuenca,5,DEFENSA,76
+Villarreal,1000000000,Marcelino,POSESION,Comesaña,4,MCD,76
+Villarreal,1000000000,Marcelino,POSESION,Capoue,6,MEDIOCENTRO,77
+Villarreal,1000000000,Marcelino,POSESION,Trigueros,14,MEDIOCENTRO,78
+Villarreal,1000000000,Marcelino,POSESION,Coquelin,19,MEDIOCENTRO,75
+Villarreal,1000000000,Marcelino,POSESION,Terrats,8,MEDIOCENTRO,75
+Villarreal,1000000000,Marcelino,POSESION,Baena,16,MCO,80
+Villarreal,1000000000,Marcelino,POSESION,Gerard Moreno,7,SD,84
+Villarreal,1000000000,Marcelino,POSESION,Sorloth,9,DC,81
+Villarreal,1000000000,Marcelino,POSESION,Guedes,11,SD,80
+Villarreal,1000000000,Marcelino,POSESION,Brereton Díaz,10,SD,77
+Villarreal,1000000000,Marcelino,POSESION,Chukwueze,21,SD,80
+Villarreal,1000000000,Marcelino,POSESION,Morales,15,SD,75
+Villarreal,1000000000,Marcelino,POSESION,Jorge Pascual,22,DC,72
+Villarreal,1000000000,Marcelino,POSESION,Foyth,8,DEFENSA,79

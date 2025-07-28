@@ -6,6 +6,7 @@ import simuladorliga.vista.*;
 import com.formdev.flatlaf.FlatDarkLaf; 
 import java.awt.Font;
 import javax.swing.UIManager;
+import simuladorliga.util.ConfigBD;
 
 /**
  * Clase principal del simulador de liga.
