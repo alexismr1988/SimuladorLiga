@@ -1084,6 +1084,45 @@ public class GestorBD {
             e.printStackTrace();
             return false;
         }
-}
+    }
+    
+    public void actualizarEstadoLiga(Liga liga) {
+        int idLiga = obtenerIdLigaPorNombre(liga.getNombre());
+        
+        //Actualiza estadísticas de equipos
+        for (Equipo equipo : liga.getEquipos()) {
+            Integer idEntrenador = null;
+            if (equipo.getEntrenador() != null) {
+                idEntrenador = obtenerIdEntrenadorPorNombre(equipo.getEntrenador().getNombre());
+            }
+
+            updateEquipo(
+                equipo.getId(),
+                equipo.getNombre(),
+                equipo.getPresupuesto(),
+                idEntrenador,
+                idLiga
+            );
+        }
+        
+        //Actualiza las esstadísiticas de los partidos
+        if (liga.getCalendario() != null) {
+            for (List<Partido> jornada : liga.getCalendario()) {
+                for (Partido partido : jornada) {
+                    updatePartido(
+                        partido.getIdPartido(),
+                        partido.getGolesLocal(),
+                        partido.getGolesVisitante(),
+                        partido.isSimulado(),
+                        partido.getJornada(),
+                        partido.getEquipoLocal().getId(),
+                        partido.getEquipoVisitante().getId()
+                    );
+                }
+            }
+        }
+    }
+
+
 
 }

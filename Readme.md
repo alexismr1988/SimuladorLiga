@@ -1,4 +1,4 @@
-# Simulador de Liga (v0.9.0)
+# Simulador de Liga (v0.9.1)
 
 Este proyecto es una simulación realista de una liga de fútbol, desarrollada como ejercicio de aprendizaje en Java. Incorpora principios de programación orientada a objetos, modelado de entidades futbolísticas, persistencia completa en base de datos y el inicio de una interfaz gráfica en Swing.
 Con esta entrega, el proyecto está listo para ser probado y utilizado en entornos reales con configuraciones personalizadas.
@@ -65,6 +65,12 @@ Con esta entrega, el proyecto está listo para ser probado y utilizado en entorn
 
 - **Exportación y carga de resultados desde fichero (`GestorFicheros`)**  
   Como alternativa a la base de datos, se puede usar persistencia en archivos `.txt` (modo offline o backup).
+
+- ** Reinicio completo de liga desde la interfaz**
+- El botón "Resetear liga" borra todos los resultados y estadísticas (goles, puntos, clasificación...).
+- Los cambios se sincronizan automáticamente con la base de datos.
+- Requiere confirmación antes de ejecutarse (diálogo de seguridad).
+
 
 
 ---
@@ -149,6 +155,14 @@ JTable con formato visual mejorado. Muestra puntos, goles y diferencia.
 
 ![Clasificación](imagenes/clasificacion.png)
 
+---
+
+### 10. Reseteo de la liga
+Restablece goles, jornadas, estadísticas y estado de partidos, sincronizando los cambios con la base de datos.
+
+![Reseteo de la liga](imagenes/reseteo.png)
+
+
 
 ---
 
@@ -232,7 +246,6 @@ Desde NetBeans:
 
 ## Próximas funcionalidades
 
-- **Botón para reiniciar la liga** completamente (reset de partidos, jornadas y puntos).
 - **Validaciones extra**: evitar plantillas inválidas, evitar presupuestos negativos, etc.
 - **Paneles separados para gestión de equipos, traspasos y partidos**.
 - **Reubicar la lógica del controlador para una estructura MVC total.**
@@ -240,8 +253,6 @@ Desde NetBeans:
 
 
 ---
-
-## Estado del proyecto
 
 ## Estado del proyecto
 
@@ -256,7 +267,7 @@ Desde NetBeans:
 
 ---
 
-## Distribución y uso (v0.9)
+## Distribución y uso (v0.9.1)
 
 La carpeta `release/` contiene todo lo necesario para ejecutar el simulador fuera del entorno NetBeans.
 

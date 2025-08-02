@@ -296,13 +296,9 @@ public class Liga {
             equipo.resetearEstadisticas();
         }
         
-        // Recorre todas las jornadas y sus partidos para resetearlos
-        if (calendario != null) {
-            for (List<Partido> jornada : calendario) {
-                for (Partido partido : jornada) {
-                    partido.resetearPartido();
-                }
-            }
+        // Recorre directamente la lista de partidos (la real)
+        for (Partido partido : partidos) {
+            partido.resetearPartido(); // ← pone goles a 0 y simulado = false
         }
     }
 
