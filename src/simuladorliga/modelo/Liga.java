@@ -12,7 +12,7 @@ public class Liga {
     private String nombre;
     private List<Equipo> equipos;
     private List<Partido> partidos;
-    private List<List<Partido>> calendario; // NUEVO
+    private List<List<Partido>> calendario; 
     private boolean ida_vuelta;
 
     /**
@@ -285,7 +285,25 @@ public class Liga {
         }
         return calendario.get(numeroJornada - 1);
     }
-
-
+    
+    /**
+     * Método para resetear las estadísticas completas de la liga.
+     */
+    public void resetearLiga(){
+        
+        //Recorre los equipos de la liga y resetea sus estadísticas
+        for (Equipo equipo : equipos) {
+            equipo.resetearEstadisticas();
+        }
+        
+        // Recorre todas las jornadas y sus partidos para resetearlos
+        if (calendario != null) {
+            for (List<Partido> jornada : calendario) {
+                for (Partido partido : jornada) {
+                    partido.resetearPartido();
+                }
+            }
+        }
+    }
 
 }

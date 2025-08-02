@@ -117,4 +117,13 @@ public class Partido {
         equipoVisitante.sumarGolesFavor(golesVisitante);
         equipoVisitante.sumarGolesContra(golesLocal);
     }
+    
+    /**
+     * Restablece los goles del partido a 0 y lo marca simulado como false.
+     */ 
+    public void resetearPartido(){
+        this.setGolesLocal(0);
+        this.setGolesVisitante(0);
+        this.setSimulado(false);
+    }
 }

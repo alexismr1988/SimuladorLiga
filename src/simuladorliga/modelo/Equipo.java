@@ -160,7 +160,7 @@ public class Equipo {
         int[] formacion = new int[3];
         boolean esValida = false;
 
-        // Paso 1: Generar formación aleatoria válida
+        // Generar formación aleatoria válida
         while (!esValida) {
             int defensas = valorAleatorio(3, 5);
             int medios = valorAleatorio(3, 6);
@@ -178,11 +178,11 @@ public class Equipo {
         int numMedios = formacion[1];
         int numDelanteros = formacion[2];
 
-        // Paso 2: Ordenar plantilla por media de mayor a menor
+        // Ordenar plantilla por media de mayor a menor
         List<Jugador> plantilla = new ArrayList<>(this.getPlantilla());
         plantilla.sort(Comparator.comparingInt(Jugador::getMedia).reversed());
 
-        // Paso 3: Seleccionar mejores jugadores por posición
+        // Seleccionar mejores jugadores por posición
         List<Jugador> porteros = new ArrayList<>();
         List<Jugador> defensas = new ArrayList<>();
         List<Jugador> medios = new ArrayList<>();
@@ -200,13 +200,13 @@ public class Equipo {
             }
         }
 
-        // Paso 4: Agregar los seleccionados a la alineación
+        // Agregar los seleccionados a la alineación
         for (Jugador j : porteros) alineacion.agregarJugador(j);
         for (Jugador j : defensas) alineacion.agregarJugador(j);
         for (Jugador j : medios) alineacion.agregarJugador(j);
         for (Jugador j : delanteros) alineacion.agregarJugador(j);
 
-        // Paso 5: Rellenar hasta 11 sin romper límites ni posiciones incoherentes
+        // Rellenar hasta 11 sin romper límites ni posiciones incoherentes
         if (alineacion.getTitulares().size() < 11) {
             int actualesDelanteros = (int) alineacion.getTitulares().stream()
                 .filter(j -> j.getPosicion() == Posicion.DC || j.getPosicion() == Posicion.SD)
@@ -309,7 +309,17 @@ public class Equipo {
                 return jugador;
             }
         }
-        return null; // o puedes lanzar una excepción si prefieres
+        return null; 
     }
+    
+    /**
+     * Restablece los goles a favor, en contra y los puntos a 0.
+     */ 
+    public void resetearEstadisticas(){
+        this.setGolesContra(0);
+        this.setGolesFavor(0);
+        this.setPuntos(0);
+    }
+    
  
 }
